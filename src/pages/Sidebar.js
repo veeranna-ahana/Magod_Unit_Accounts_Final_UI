@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { NavLink} from "react-router-dom";
-import {adminSidebar} from "../components/SidebarData";
+import { NavLink } from "react-router-dom";
+import { adminSidebar } from "../components/SidebarData";
 import { FaAngleRight, FaAngleLeft, FaAngleDown } from "react-icons/fa";
 
 const Sidebar = ({ children }) => {
@@ -14,9 +14,7 @@ const Sidebar = ({ children }) => {
     <div className="main-container">
       <div className={`${isSidebarOpen ? "sidebar sidebar_open" : "sidebar"}`}>
         <div className="top_section">
-          {isSidebarOpen && (
-            <h5 className="title_name">M A G O D</h5>
-          )}
+          {isSidebarOpen && <h5 className="title_name">M A G O D</h5>}
 
           <div className="toggle-icon">
             {isSidebarOpen ? (
@@ -26,7 +24,6 @@ const Sidebar = ({ children }) => {
             )}
           </div>
         </div>
-
 
         <div>
           <div className="routes">
