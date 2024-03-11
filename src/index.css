@@ -105,9 +105,7 @@ code {
 }
 
 .link-default {
-  /* background-color: #707075 !important; */
   background: rgba(111, 115, 126, 0.3);
-
   text-decoration: none;
   color: white;
 }
@@ -118,10 +116,7 @@ code {
   align-items: center;
   text-decoration: none;
   font-size: 12px;
-  /* background-color: #707075; */
-  /* background-color: #6b69ca !important; */
   background-color: #5956f3 !important;
-  /* #5956f3  */
   cursor: pointer;
   color: #ffffff;
 }
@@ -165,28 +160,11 @@ code {
 }
 
 .dashboard-link {
-  /* font-family: cursive; */
   text-decoration: none;
   color: black;
   font-size: 22px;
   font-weight: 600;
 }
-
-.selcted-row-clr {
-  background-color: #98A8F8 !important;
-
-  
-}
-
-.form-label {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-/* .form-label {
-  font-size: 12px;
-  font-weight: 700;
-} */
 
 .rbt-input-main .form-control .rbt-input {
   padding: 0px !important;
@@ -224,39 +202,19 @@ code {
 
 .in-fields {
   height: 35px;
-
   margin-top: 10px;
-
   border-radius: 6px;
-
   text-indent: 5px;
 }
+
 .dropdown-field {
   height: 35px;
-
   margin-top: 10px;
-
   border-radius: 6px !important;
-
   text-indent: 5px;
 }
 
-.in-field {
-  height: 35px;
-
-  margin-top: 10px;
-
-  /* border-radius: 6px; */
-
-  text-indent: 5px;
-}
 .form-bg {
   background-color: #555353;
   padding: 6px 1px 2px 15px;
-  /* border-radius: 10px; */
 }
-/* .dropdown-field {
-  height: 40px;
-
-  border-radius: 6px;
-} */

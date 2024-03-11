@@ -4,16 +4,6 @@ body {
   box-sizing: border-box;
   font-family: sans-serif;
   font-size: 11px;
-
-  /* background-color: red; */
-}
-
-.title {
-  text-align: center;
-  height: 34px;
-  color: white;
-  background-color: #2b3a55;
-  border-radius: 10px 10px 0px 0px;
 }
 
 a {
@@ -138,7 +128,7 @@ a {
   color: #000000;
   font-size: 14px;
 }
-.button-style {
+/* .button-style {
   width: 155px;
   height: 38px;
   border: none;
@@ -149,7 +139,7 @@ a {
   padding: 3px;
   margin-top: 10px;
   font-size: 18px;
-}
+} */
 
 /* width for buttons  */
 
@@ -262,7 +252,7 @@ input:focus {
   padding: 0px !important;
 }
 
-.ip-select {
+/* .ip-select {
   font-size: 14px;
   padding: -3px 10px 10px 5px;
   display: block;
@@ -270,11 +260,11 @@ input:focus {
   border: none;
   border-radius: 0px;
   border-bottom: 1px solid #757575;
-}
-.ip-select:focus {
+} */
+/* .ip-select:focus {
   outline: none;
   border-bottom: 1px solid #3932be;
-}
+} */
 
 label {
   color: #2b3a55;
@@ -355,15 +345,6 @@ label {
   font-size: 1.2rem;
   background-color: #ffffff;
   opacity: 1;
-  /* padding-bottom: -10px; */
-}
-
-.table-header {
-  font-size: 14px;
-}
-/* table items font size */
-td {
-  font-size: 14px;
 }
 
 .title_name {
@@ -371,29 +352,15 @@ td {
   font-size: 1rem;
 }
 
-/* .table-data {
-  margin-top: 5px;
-} */
-
-.tab_font {
-  font-weight: 600;
-}
-
 .tableHeaderBGColor {
-  /* background-color: rgb(43, 43, 43); */
   font-size: 17px;
   background-color: gray;
   color: white;
   position: sticky;
   top: -1px;
   text-transform: capitalize;
-  /* z-index: 100; */
 }
 
-td {
-  font-size: 14px !important;
-}
-/* checkbox style */
 .checkBoxStyle {
   top: 0px;
 }
@@ -409,19 +376,6 @@ td {
   }
 }
 
-.nav-tabs .nav-link {
-  background-color: rgb(107, 162, 207) !important;
-  color: white !important;
-}
-.nav-tabs .nav-link.active {
-  background-color: whitesmoke !important;
-  color: black !important;
-}
-
-li.nav-item {
-  margin-left: 5px !important;
-}
-
 .table-striped tbody tr:nth-of-type(even) {
   background-color: #e2e0e0;
 }
@@ -431,9 +385,9 @@ li.nav-item {
 }
 
 /* rbt-input-main form-control rbt-input */
-.tbody {
+/* .tbody {
   font-size: 14px !important;
-}
+} */
 
 .ip-box {
   width: 100%;
@@ -447,9 +401,6 @@ li.nav-item {
   /* border-radius: 10px; */
 }
 
-
-
-
 .disabled-button {
   background-color: #ccc;
   color: #999;
@@ -458,7 +409,7 @@ li.nav-item {
   height: 38px;
   border: none;
   margin-right: 10px;
-  
+
   border-radius: 5px;
   padding: 3px;
   margin-top: 10px;
@@ -466,11 +417,11 @@ li.nav-item {
 }
 
 .custom-checkbox {
-  width: 12px;  /* Adjust the width as needed */
+  width: 12px; /* Adjust the width as needed */
   height: 12px; /* Adjust the height as needed */
 }
 
-.defdrop{
+.defdrop {
   border-radius: 0px !important;
   outline: none !important;
   box-shadow: none !important;
@@ -487,14 +438,13 @@ li.nav-item {
 }
 
 .custom-typeahead::after {
-  content: ''; /* Unicode character for a down arrow (▼) */
+  content: ""; /* Unicode character for a down arrow (▼) */
   position: absolute;
   top: 50%;
   right: 10px; /* Adjust the right value to control the arrow's position */
   transform: translateY(-50%);
   pointer-events: none; /* Prevent the arrow from intercepting mouse events */
 }
-
 
 /* Custom toast notification style */
 
@@ -592,4 +542,110 @@ li.nav-item {
   cursor: wait;
 }
 
+/*------------------------------------------NEW CSS 11-03-2024------------------------------------ */
 
+.input-field {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.button-style {
+  width: 60px;
+  height: 25px;
+  border: none;
+  margin-right: 10px;
+  background-color: #2b3a55;
+  color: #ffffff;
+  border-radius: 5px;
+  /* padding: 1px; */
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+th {
+  font-size: 12px !important;
+  padding: 3px !important;
+}
+
+td {
+  font-size: 12px !important;
+  padding: 3px !important;
+}
+
+.in-field {
+  font-size: 12px;
+  height: 22px;
+  border-radius: 5px;
+}
+
+.ip-select {
+  font-size: 12px;
+  padding: -3px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  height: 22px;
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid #757575;
+}
+
+.ip-select:focus {
+  outline: none;
+  border-bottom: 1px solid #3932be;
+}
+
+.selectedRowClr,
+.selcted-row-clr {
+  background-color: #98a8f8 !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.erp_title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.title {
+  text-align: center;
+  height: 22px;
+  color: white;
+  background-color: #2b3a55;
+  border-radius: 10px 10px 0px 0px;
+  font-size: 14px;
+  padding: 2px;
+}
+
+.nav-link {
+  padding: 3px;
+}
+
+.tab_font {
+  /* font-weight: 600; */
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.nav-tabs .nav-link {
+  background-color: rgb(107, 162, 207) !important;
+  color: white !important;
+  padding: 3px;
+}
+.nav-tabs .nav-link.active {
+  background-color: whitesmoke !important;
+  color: black !important;
+  padding: 3px;
+}
+
+li.nav-item {
+  margin-left: 5px !important;
+}
