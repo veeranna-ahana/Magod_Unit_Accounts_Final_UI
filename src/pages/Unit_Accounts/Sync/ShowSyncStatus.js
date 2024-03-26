@@ -203,7 +203,6 @@ export default function ShowSyncStatus() {
       console.error("Error saving file:", error);
     }
   };
-  
 
   const selectedRowFun = (item, index, color) => {
     let list = { ...item, index };
@@ -402,13 +401,7 @@ export default function ShowSyncStatus() {
       .catch((err) => {
         console.log("err in table", err);
       });
-
-
-
-      
   };
-
-
 
   useEffect(() => {
     if (getUnitInvoice.length === 1) {
@@ -544,20 +537,75 @@ export default function ShowSyncStatus() {
   // console.log('color', selectedRowColor);
 
   return (
-    <div>
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">HO Unit Sync Review</h4>
-        </div>
+    <>
+      <div className="row">
+        <h4 className="title">HO Unit Sync Review</h4>
       </div>
-      <div className="col-md-12">
+
+      <div className="row">
         <label className="form-label">Magod Laser Machining Pvt Ltd</label>
       </div>
-      <div className="row mb-3">
-        <div className="col-md-12 col-sm-12" style={{ marginLeft: "0px" }}>
-          <div className="ip-box  mt-2">
+
+      <div className="row mb-1">
+        <div className="col-md-2">
+          <label className="form-label">Syncronise Account Details </label>
+        </div>
+        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+          <Typeahead
+            id="basic-example"
+            labelKey={(option) =>
+              option && option.UnitName ? option.UnitName.toString() : ""
+            }
+            options={unitdata}
+            placeholder="Select Unit"
+            onChange={handleUnitSelect}
+            selected={selectedOption}
+          />
+
+          <button
+            className="button-style  group-button"
+            onClick={handleButtonClick}
+          >
+            Load Data
+          </button>
+          <input
+            type="file"
+            accept=".xml"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileSelect}
+          />
+        </div>
+        <div className="col-md-4">
+          <button
+            className="button-style  group-button"
+            onClick={handleDownload}
+          >
+            Export Report
+          </button>
+          <button
+            className="button-style  group-button"
+            onClick={handleResetInvoice}
+          >
+            Reset Invoice
+          </button>
+        </div>
+        <div className="col-md-3">
+          <button
+            className="button-style  group-button"
+            style={{ float: "right" }}
+            onClick={(e) => navigate("/UnitAccounts")}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+
+      {/* <div className="row mb-3">
+        <div className="">
+          <div className="mt-2">
             <div className="row">
-              <div className=" row col-md-12">
+              <div className=" row">
                 <label
                   className="form-label col-md-3"
                   style={{ whiteSpace: "nowrap" }}
@@ -618,8 +666,8 @@ export default function ShowSyncStatus() {
             </div>
           </div>
         </div>
-      </div>
-      <hr className="horizontal-line" />
+      </div> */}
+
       <div>
         <div className="row">
           <Tabs
@@ -952,6 +1000,6 @@ export default function ShowSyncStatus() {
           </Tabs>
         </div>
       </div>
-    </div>
+    </>
   );
 }

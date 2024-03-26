@@ -89,7 +89,7 @@ function Create_New() {
   // const [selectedOption, setSelectedOption] = useState([
   //   { Cust_name: "MAGOD LASER MACHINING PVT LTD" },
   // ]);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
 
   const PaymentReceipts = useCallback((e) => {
     const { name, value } = e.target;
@@ -104,11 +104,7 @@ function Create_New() {
     }));
   }, []);
 
-  
-
   const handleSave = async (e) => {
-
-
     const isAnyEmptyReceiveNow = rvData.firstTableArray.some(
       (row) => row.Receive_Now === ""
     );
@@ -118,13 +114,9 @@ function Create_New() {
       return;
     }
 
-
-    if (rvData.postData.CustName === '' || rvData.postData.TxnType === '') {
-
-      toast.error("Customer Name and Transaction type can not be empty")
-    }
-
-    else {
+    if (rvData.postData.CustName === "" || rvData.postData.TxnType === "") {
+      toast.error("Customer Name and Transaction type can not be empty");
+    } else {
       try {
         const response = await axios.post(
           baseURL + "/Payment_Receipts/saveReceipt",
@@ -137,11 +129,9 @@ function Create_New() {
           toast.error(
             "Threading Error: Column Unit_Name is constrained to be Unique value unit_Name is already present"
           );
-        } 
-        else if (response.data.ReceiptStatus === "query") {
+        } else if (response.data.ReceiptStatus === "query") {
           toast.error("SQL error");
-        } 
-        else {
+        } else {
           let receipt_id = "";
 
           if (response.data.result.id) {
@@ -155,9 +145,7 @@ function Create_New() {
                 RecdPVID: response.data.result.id,
               },
             }));
-          } 
-          
-          else {
+          } else {
             receipt_id = response.data.result.insertId;
             setRvData((prevRvData) => ({
               ...prevRvData,
@@ -201,8 +189,8 @@ function Create_New() {
         try {
           const res = await axios.put(
             baseURL +
-            "/Payment_Receipts/saveVoucherReceipt/" +
-            rvData.data.receipt_id,
+              "/Payment_Receipts/saveVoucherReceipt/" +
+              rvData.data.receipt_id,
             rvData.data.receipt_details
           );
 
@@ -220,15 +208,11 @@ function Create_New() {
         }
       }
 
-
-
       setRvData((prevRvData) => ({
         ...prevRvData,
         secondTableArray: [],
       }));
     }
-
-
   };
 
   const openReceipt = async (cust_code, receipt_id) => {
@@ -251,7 +235,6 @@ function Create_New() {
   };
 
   const handlePost = async (e) => {
-
     const isAnyEmptyReceiveNow = rvData.firstTableArray.some(
       (row) => row.Receive_Now === ""
     );
@@ -275,9 +258,7 @@ function Create_New() {
         if (amtReceived + receiveNow > invAmount) {
           toast.error("Cannot Receive More than Invoice Amount");
           return false;
-        }
-
-        else {
+        } else {
           setOpen(true);
           getDCNo();
           setRvData((prevRvData) => ({
@@ -294,7 +275,6 @@ function Create_New() {
     e.preventDefault();
   };
 
-
   const getDCNo = async () => {
     const srlType = "PaymentReceipt";
     const ResetPeriod = "FinanceYear";
@@ -309,8 +289,8 @@ function Create_New() {
         ResetValue: ResetValue,
         VoucherNoLength: VoucherNoLength,
       });
-  
-       console.log("getDCNo Responseeeeeeeeeeeeee", response.data);
+
+      console.log("getDCNo Responseeeeeeeeeeeeee", response.data);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -344,17 +324,13 @@ function Create_New() {
   //   //  e.preventDefault();
   // };
 
-
   //post data for runnning no table
   const postDetails = async (e) => {
-
     const requestBody = {
       srlType: "PaymentReceipt", // Replace srlTypeValue with the actual value you want to send
       unit: "Jigani", // Replace unitValue with the actual value you want to send
-      data: rvData.data // Assuming rvData.data is the main data payload
+      data: rvData.data, // Assuming rvData.data is the main data payload
     };
-    
-   
 
     try {
       console.log("insert id", rvData.insertId);
@@ -400,7 +376,7 @@ function Create_New() {
       try {
         const response = await axios.get(
           baseURL +
-          `/Payment_Receipts/getreceipt?receipt_id=${rvData.data.receipt_id}`
+            `/Payment_Receipts/getreceipt?receipt_id=${rvData.data.receipt_id}`
         );
         setRvData((prevRvData) => ({
           ...prevRvData,
@@ -423,7 +399,6 @@ function Create_New() {
     try {
       //left table data
       const resp = await axios.get(
-
         baseURL + `/Payment_Receipts/getrvdata?receipt_id=${rowData}`
       );
 
@@ -442,9 +417,7 @@ function Create_New() {
             receipt_data: prevRvData.postData,
             receipt_id: rowData,
           },
-
         }));
-
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -462,8 +435,6 @@ function Create_New() {
     }
   }, [rvData.postData]);
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       if (rowData !== "") {
@@ -472,7 +443,7 @@ function Create_New() {
           const response = await axios.get(
             baseURL + `/Payment_Receipts/getreceipt?receipt_id=${rowData}`
           );
-          console.log("res",response.data.Result[0]);
+          console.log("res", response.data.Result[0]);
           getReceipts(
             response.data.Result[0].Cust_code,
             response.data.Result[0]
@@ -528,7 +499,6 @@ function Create_New() {
           baseURL + `/Payment_Receipts/getinvlist?customercode=${cust_code}`
         ),
       ]);
-      
 
       const updatedPostData = {
         ...rvData.postData, // Copy existing state
@@ -553,17 +523,11 @@ function Create_New() {
         },
       }));
 
-
-
-
-
-
       if (receipt_data.data.Result.length > 0) {
         const response = await axios.get(
           baseURL +
-          `/Payment_Receipts/getrvdata?receipt_id=${receipt_data.data.Result[0].RecdPVID}`
+            `/Payment_Receipts/getrvdata?receipt_id=${receipt_data.data.Result[0].RecdPVID}`
         );
-
 
         setRvData((prevRvData) => ({
           ...prevRvData,
@@ -623,12 +587,10 @@ function Create_New() {
         secondTableArray: selectedRow
           ? [...prevRvData.secondTableArray, selectedRow]
           : prevRvData.secondTableArray.filter(
-            (item) => item.DC_Inv_No !== rowData.DC_Inv_No
-          ),
+              (item) => item.DC_Inv_No !== rowData.DC_Inv_No
+            ),
       };
     });
-
-
   };
 
   useEffect(() => {
@@ -652,10 +614,7 @@ function Create_New() {
       ...rvData,
       firstTableArray: selectedRow ? [] : [data],
     });
-
-
   };
-
 
   //  const handleRowSelect = (data) => {
   //   console.log("hiiiiiiiiiiiiiiiiiiiiiii", data);
@@ -675,21 +634,11 @@ function Create_New() {
 
   // return updatedRvData.firstTableArray;
 
-
   // };
 
   console.log("post data onaccount", rvData.postData.On_account);
 
   console.log("RECEIPT DETAILS", rvData.data.receipt_details);
-
-
-
-
-
-
-  
-
-
 
   const handleInputChange = async (e, invNo, data) => {
     //handleRowSelect(data);
@@ -702,7 +651,8 @@ function Create_New() {
       );
 
       // Calculate the difference between the new and old Receive_Now values
-      const receiveNowDifference = parseFloat(value) - parseFloat(currentReceiptDetail.Receive_Now || 0);
+      const receiveNowDifference =
+        parseFloat(value) - parseFloat(currentReceiptDetail.Receive_Now || 0);
 
       const updatedReceiptDetails = rvData.data.receipt_details.map((row) =>
         row.Inv_No === invNo ? { ...row, [name]: value } : row
@@ -747,23 +697,16 @@ function Create_New() {
         }
 
         rvData.firstTableArray = [];
-      }
-      else {
-
+      } else {
         toast.error("Cannot Receive more than Invoice Amount");
       }
     } catch (error) {
       console.error("Error in handleInputChange:", error);
       // Handle error if needed
     }
-
-
   };
 
-
   const addToVoucher = async () => {
-
-
     const isAnyEmptyReceiveNow = rvData.firstTableArray.some(
       (row) => row.Receive_Now === ""
     );
@@ -776,14 +719,11 @@ function Create_New() {
     try {
       const selectedRows = rvData.secondTableArray;
       const RecdPVID = rvData.postData.RecdPVID;
-      console.log("first table arry", rvData.firstTableArray, rvData.data.receipt_details);
-
-      
-
-
-
-
-
+      console.log(
+        "first table arry",
+        rvData.firstTableArray,
+        rvData.data.receipt_details
+      );
 
       if (selectedRows.length === 0) {
         toast.error("No rows selected for addition to voucher.");
@@ -799,8 +739,6 @@ function Create_New() {
       }
 
       console.log("selected rows", selectedRows);
-
-
 
       const rowsToAdd = [];
 
@@ -890,9 +828,6 @@ function Create_New() {
     }
   };
 
-
- 
-
   const removeVoucher = async () => {
     try {
       const isAnyEmptyReceiveNow = rvData.firstTableArray.some(
@@ -918,7 +853,7 @@ function Create_New() {
 
       if (
         parseFloat(selectedRow.Receive_Now) +
-        parseFloat(selectedRow.Amt_received) >
+          parseFloat(selectedRow.Amt_received) >
         parseFloat(selectedRow.Inv_Amount)
       ) {
         toast.error("Cannot Receive More than Invoice Amount");
@@ -965,7 +900,7 @@ function Create_New() {
           RecdPVID: rvData.postData.RecdPVID,
         }
       );
-      toast.success("Deleted Successfully")
+      toast.success("Deleted Successfully");
 
       // Update On_account in rvData.postData with the result from the updateOnAccount API
       setRvData((prevRvData) => ({
@@ -981,18 +916,11 @@ function Create_New() {
     }
   };
 
-
-
-
-
-
-
-
   const onBlurr = async () => {
     const res = axios.put(
       baseURL +
-      "/Payment_Receipts/saveVoucherReceipt/" +
-      rvData.data.receipt_id,
+        "/Payment_Receipts/saveVoucherReceipt/" +
+        rvData.data.receipt_id,
       rvData.data.receipt_details
     );
 
@@ -1052,8 +980,6 @@ function Create_New() {
           const amtReceived = parseFloat(row.Amt_received) || 0;
           const invAmount = parseFloat(row.Inv_Amount) || 0;
 
-          
-
           return true;
         });
 
@@ -1065,8 +991,8 @@ function Create_New() {
         try {
           const res = await axios.put(
             baseURL +
-            "/Payment_Receipts/saveVoucherReceipt/" +
-            rvData.postData.RecdPVID,
+              "/Payment_Receipts/saveVoucherReceipt/" +
+              rvData.postData.RecdPVID,
             rvData.data.receipt_details
           );
 
@@ -1088,7 +1014,6 @@ function Create_New() {
   };
 
   const handleDelete = (e) => {
-
     const isAnyEmptyReceiveNow = rvData.firstTableArray.some(
       (row) => row.Receive_Now === ""
     );
@@ -1114,36 +1039,23 @@ function Create_New() {
         if (amtReceived + receiveNow > invAmount) {
           toast.error("Cannot Receive More than Invoice Amount");
           return false;
-        }
-
-        else {
-
-
+        } else {
           setDeleteDraft(true);
           e.preventDefault();
         }
 
         return true;
       });
-    }
-
-
-    else {
-
-      if (rvData.postData.CustName === '' || rvData.postData.TxnType === '') {
-
-        toast.error("Customer Name and Transaction type can not be empty")
-      }
-      else {
-
+    } else {
+      if (rvData.postData.CustName === "" || rvData.postData.TxnType === "") {
+        toast.error("Customer Name and Transaction type can not be empty");
+      } else {
         setDeleteDraft(true);
         e.preventDefault();
       }
     }
 
-
     e.preventDefault();
-
   };
 
   const deleteDrftSubmit = () => {
@@ -1153,7 +1065,6 @@ function Create_New() {
       )
       .then((res) => {
         if (res.data.Status === "Success") {
-
           setRvData((prevData) => ({
             ...prevData,
 
@@ -1180,12 +1091,10 @@ function Create_New() {
               InvUpdated: 0,
               Sync_Hold: 0,
             },
-
           }));
 
           toast.success("Deleted Successfully");
           window.location.reload();
-
         } else {
           alert("error");
         }
@@ -1193,10 +1102,7 @@ function Create_New() {
       .catch((err) => console.log("select unit"));
   };
 
-
   const [pdfVoucher, setPdfVoucher] = useState(false);
-
-  
 
   const pdfSubmit = (e) => {
     if (rvData.data.receipt_details.length === 0) {
@@ -1210,7 +1116,6 @@ function Create_New() {
       toast.error("Receive Now cannot be empty");
       return;
     }
-
 
     if (rvData.data.receipt_details.length > 0) {
       const isReceiveNowValid = rvData.data.receipt_details.every((row) => {
@@ -1226,9 +1131,7 @@ function Create_New() {
         if (amtReceived + receiveNow > invAmount) {
           toast.error("Cannot Receive More than Invoice Amount");
           return false;
-        }
-
-        else {
+        } else {
           setPdfVoucher(true);
           e.preventDefault();
         }
@@ -1236,17 +1139,13 @@ function Create_New() {
         return true;
       });
     }
+  };
 
-
-
-  }
-
-  const nav = useNavigate()
-
+  const nav = useNavigate();
 
   function formatAmount(amount) {
     // Assuming amount is a number
-    const formattedAmount = new Intl.NumberFormat('en-IN', {
+    const formattedAmount = new Intl.NumberFormat("en-IN", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(amount);
@@ -1254,25 +1153,31 @@ function Create_New() {
     return formattedAmount;
   }
 
-  console.log('out nooo', selectedOption);
+  console.log("out nooo", selectedOption);
 
   return (
-    <div>
-      {
-        pdfVoucher && (<PdfVoucherModal setPdfVoucher={setPdfVoucher} pdfVoucher={pdfVoucher} data={rvData.data} />)
-      }
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">Unit Payment Receipt </h4>
-        </div>
-      </div>
-      <div className="row  col-md-12">
+    <>
+      {pdfVoucher && (
+        <PdfVoucherModal
+          setPdfVoucher={setPdfVoucher}
+          pdfVoucher={pdfVoucher}
+          data={rvData.data}
+        />
+      )}
 
-        <div className="col-md-3 ">
-          <label className="form-label" style={{ zIndex: '1' }}>Select Customer</label>
+      <div className="row">
+        <h4 className="title">Unit Payment Receipt </h4>
+      </div>
+
+      <div className="row mt-1">
+        <div className="d-flex col-md-4" style={{ gap: "15px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Select Customer
+          </label>
 
           <Typeahead
-            className="" style={{ marginTop: '-13px' }}
+            className="ip-select"
+            style={{ marginTop: "-9px" }}
             id="basic-example"
             valueKey="Cust_Code"
             options={rvData.custData}
@@ -1281,15 +1186,16 @@ function Create_New() {
               option && option.Cust_name ? option.Cust_name.toString() : ""
             }
             onChange={handleTypeaheadChange}
-           disabled={rvData.postData.ReceiptStatus!=='Draft'}
+            disabled={rvData.postData.ReceiptStatus !== "Draft"}
           />
         </div>
 
-        <div className="col-md-3">
-          <label className="form-label">Vr No</label>
+        <div className="d-flex col-md-3 mt-1" style={{ gap: "10px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Vr No
+          </label>
           <input
             className="in-field"
-            style={{ marginTop: "-10px" }}
             name="Recd_PVNo"
             id="Recd_PVNo"
             disabled
@@ -1298,46 +1204,35 @@ function Create_New() {
           />
         </div>
 
-        <div className="col-md-3">
+        <div className="d-flex col-md-3 mt-1" style={{ gap: "10px" }}>
           <label className="form-label">Date</label>
           <input
             className="in-field"
             type="text"
-            style={{ marginTop: "-10px" }}
             name="Recd_PV_Date"
-            // value={rvData.postData.Recd_PV_Date}
-            value={new Date()
-              .toLocaleDateString("en-GB")
-              .split("/")
-              .join("-")}
+            value={new Date().toLocaleDateString("en-GB").split("/").join("-")}
             id="date"
             disabled
             onChange={PaymentReceipts}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-2">
           <button
             className="button-style group-button "
-            style={{ width: "115px", marginTop: '20px', marginLeft: '140px' }}
+            style={{ float: "right" }}
             onClick={(e) => nav("/UnitAccounts")}
           >
             Close
           </button>
         </div>
-
-
       </div>
 
-
-      <div className="row col-md-12" >
-
-
-        <div className="col-md-3">
+      <div className="row mt-1">
+        <div className="d-flex col-md-3" style={{ gap: "30px" }}>
           <label className="form-label">ReceiptStatus</label>
           <input
-            className="in-field"
+            className="in-field mt-1"
             type="text"
-            style={{ marginTop: "-10px" }}
             name="ReceiptStatus"
             id="ReceiptStatus"
             value={rvData.postData.ReceiptStatus}
@@ -1346,12 +1241,13 @@ function Create_New() {
           />
         </div>
 
-        <div className="col-md-3">
-          <label className="form-label">Customer Name</label>
+        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Customer Name
+          </label>
           <input
-            className="in-field"
+            className="in-field mt-1"
             type="text"
-            style={{ marginTop: "-10px" }}
             name="CustName"
             id="CustName"
             disabled
@@ -1361,12 +1257,10 @@ function Create_New() {
           />
         </div>
 
-
-        <div className="col-md-3">
+        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
           <label className="form-label">Amount</label>
           <input
-            className="in-field"
-            style={{ marginTop: "-11px" }}
+            className="in-field mt-1"
             name="Amount"
             id="amount"
             value={rvData.postData.Amount}
@@ -1386,25 +1280,26 @@ function Create_New() {
           />
         </div>
 
-        <div className="col-md-3">
-          <label className="form-label">On Account</label>
+        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            On Account
+          </label>
           <input
-            className="in-field"
-            style={{ marginTop: "-11px" }}
+            className="in-field mt-1"
             name="On_account"
             id="On_account"
             disabled
             onChange={PaymentReceipts}
             value={rvData.postData.On_account}
           />
-
         </div>
       </div>
 
-      <div className="row col-md-12 ">
-
-        <div className="col-md-3 mt-5" >
-          <label className="form-label">Transaction Type</label>
+      <div className="row mt-2">
+        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Transaction Type
+          </label>
           <select
             className="ip-select"
             name="TxnType"
@@ -1434,16 +1329,14 @@ function Create_New() {
           </select>
         </div>
 
-        <div className="  mt-1 col-md-3">
-
-
+        <div className="d-flex mt-1 col-md-3" style={{ gap: "35px" }}>
           <label className="form-label"> Description </label>
           <textarea
-            className="form-control"
+            className="in-field"
             rows="2"
             name="Description"
             id="Description"
-            style={{ height: "70px", resize: "none" }}
+            style={{ height: "70px", resize: "none", width: "200px" }}
             onChange={PaymentReceipts}
             value={rvData.postData.Description}
             disabled={
@@ -1452,13 +1345,9 @@ function Create_New() {
                 : ""
             }
           ></textarea>
-
-
         </div>
 
         <div className="col-md-6">
-
-
           <button
             className={
               rvData.postData.ReceiptStatus != "Draft"
@@ -1466,17 +1355,15 @@ function Create_New() {
                 : "button-style  group-button"
             }
             onClick={handleSave}
-            style={{ width: "80px" }}
             disabled={
               rvData.postData.ReceiptStatus != "Draft"
                 ? rvData.postData.ReceiptStatus
                 : ""
             }
+            style={{ marginLeft: "55px" }}
           >
             Save
           </button>
-
-
 
           <button
             className={
@@ -1484,7 +1371,6 @@ function Create_New() {
                 ? "disabled-button"
                 : "button-style  group-button"
             }
-            style={{ width: "80px", marginLeft: '60px' }}
             onClick={handleDelete}
             disabled={
               rvData.postData.ReceiptStatus != "Draft"
@@ -1500,7 +1386,6 @@ function Create_New() {
                 ? "disabled-button"
                 : "button-style  group-button"
             }
-            style={{ width: "80px", marginLeft: '50px' }}
             onClick={handlePost}
             disabled={
               rvData.postData.ReceiptStatus != "Draft"
@@ -1511,25 +1396,14 @@ function Create_New() {
             Post
           </button>
 
-
-
           <button
             className="button-style mt-2 group-button"
-            style={{ width: "80px", marginLeft: '30px' }}
-            // onClick={handlePrint}
             onClick={pdfSubmit}
           >
             Print
           </button>
-
         </div>
-
-
-
-
-
       </div>
-
 
       <div className="row">
         <div className="col-md-6">
@@ -1540,7 +1414,7 @@ function Create_New() {
                   ? "disabled-button"
                   : "button-style  group-button"
               }
-              style={{ width: "250px", marginLeft: "0px" }}
+              style={{ width: "150px", marginLeft: "2px" }}
               onClick={removeVoucher}
               disabled={
                 rvData.postData.ReceiptStatus != "Draft"
@@ -1582,74 +1456,72 @@ function Create_New() {
               <tbody className="tablebody">
                 {rvData.data.receipt_details
                   ? rvData.data.receipt_details.map((data, index) => (
-                    <>
-                      <tr
-                        style={{ whiteSpace: "nowrap" }}
-                        onClick={() => handleRowSelect(data)}
-                        key={data.PVSrlID}
-                        className={
-                          rvData.firstTableArray.some(
-                            (row) => row.Dc_inv_no === data.Dc_inv_no
-                          )
-                            ? "selectedRow"
-                            : ""
-                        }
-                      >
-                        {/* <td>{data.RecdPvSrl}</td> */}
-                        <td>{index + 1}</td>
+                      <>
+                        <tr
+                          style={{ whiteSpace: "nowrap" }}
+                          onClick={() => handleRowSelect(data)}
+                          key={data.PVSrlID}
+                          className={
+                            rvData.firstTableArray.some(
+                              (row) => row.Dc_inv_no === data.Dc_inv_no
+                            )
+                              ? "selectedRow"
+                              : ""
+                          }
+                        >
+                          {/* <td>{data.RecdPvSrl}</td> */}
+                          <td>{index + 1}</td>
 
-                        <td>{data.Inv_No}</td>
+                          <td>{data.Inv_No}</td>
 
-                        <td>
-                          {new Date(data.Inv_date)
-                            .toLocaleDateString("en-GB")
-                            .replace(/\//g, "-")}
-                        </td>
+                          <td>
+                            {new Date(data.Inv_date)
+                              .toLocaleDateString("en-GB")
+                              .replace(/\//g, "-")}
+                          </td>
 
-                        <td>{data.Inv_Type}</td>
-                        <td>{formatAmount(data.Inv_Amount)}</td>
-                        <td>{formatAmount(data.Amt_received)}</td>
-                        <td>
-                          <input
-                            //type="number"
-                            // onBlur={onBlurr}
-                            name="Receive_Now"
-                            value={(data.Receive_Now)}
-                            onChange={(e) =>
-                              handleInputChange(
-                                e,
-                                data.Inv_No,
-                                data
-                              )
-                            }
-                            disabled={rvData && rvData.postData.ReceiptStatus !== "Draft"
-                              ? rvData.postData.ReceiptStatus
-                              : ""}
-
-                            onKeyPress={(e) => {
-                              // Allow only numbers (0-9) and backspace
-                              const isNumber = /^[0-9\b]+$/;
-                              if (!isNumber.test(e.key)) {
-                                e.preventDefault();
+                          <td>{data.Inv_Type}</td>
+                          <td>{formatAmount(data.Inv_Amount)}</td>
+                          <td>{formatAmount(data.Amt_received)}</td>
+                          <td>
+                            <input
+                              //type="number"
+                              // onBlur={onBlurr}
+                              name="Receive_Now"
+                              value={data.Receive_Now}
+                              onChange={(e) =>
+                                handleInputChange(e, data.Inv_No, data)
                               }
-                            }}
-                          />
-                        </td>
-                        <td>{data.RefNo}</td>
-                        <td>
-                          <input
-                            type="checkbox"
-                            checked={
-                              rvData.postData.InvUpdated === 1
-                                ? rvData.postData.InvUpdated
-                                : ""
-                            }
-                          // onChange={(e) => handlesaveChange(rv.Inv_No)}
-                          />
-                        </td>
-                      </tr>
-                    </>
-                  ))
+                              disabled={
+                                rvData &&
+                                rvData.postData.ReceiptStatus !== "Draft"
+                                  ? rvData.postData.ReceiptStatus
+                                  : ""
+                              }
+                              onKeyPress={(e) => {
+                                // Allow only numbers (0-9) and backspace
+                                const isNumber = /^[0-9\b]+$/;
+                                if (!isNumber.test(e.key)) {
+                                  e.preventDefault();
+                                }
+                              }}
+                            />
+                          </td>
+                          <td>{data.RefNo}</td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              checked={
+                                rvData.postData.InvUpdated === 1
+                                  ? rvData.postData.InvUpdated
+                                  : ""
+                              }
+                              // onChange={(e) => handlesaveChange(rv.Inv_No)}
+                            />
+                          </td>
+                        </tr>
+                      </>
+                    ))
                   : ""}
               </tbody>
             </Table>
@@ -1663,7 +1535,7 @@ function Create_New() {
                   ? "disabled-button"
                   : "button-style  group-button"
               }
-              style={{ width: "200px", marginLeft: "0px" }}
+              style={{ width: "150px", marginLeft: "0px" }}
               onClick={addToVoucher}
               disabled={
                 rvData.postData.ReceiptStatus != "Draft"
@@ -1676,7 +1548,6 @@ function Create_New() {
           </div>
 
           <div className="mt-3">
-
             <div
               style={{
                 height: "200px",
@@ -1705,19 +1576,24 @@ function Create_New() {
 
                 <tbody className="tablebody">
                   {rvData.data.inv_data?.map((row, index) => (
-                    <tr key={index}
-                      style={{ backgroundColor: row.isSelected ? '#3498db' : 'inherit', whiteSpace: 'nowrap' }}
+                    <tr
+                      key={index}
+                      style={{
+                        backgroundColor: row.isSelected ? "#3498db" : "inherit",
+                        whiteSpace: "nowrap",
+                      }}
                       // onDoubleClick={addToVoucher}
                       onDoubleClick={() => {
                         // Set the doubleClickSignal to true when a double click occurs
                         setDoubleClickSignal(true);
 
                         // Call handleCheckboxChange
-                        handleCheckboxChange({ target: { checked: !row.isSelected } }, row);
+                        handleCheckboxChange(
+                          { target: { checked: !row.isSelected } },
+                          row
+                        );
                       }}
-
                     >
-
                       <td>
                         <input
                           type="checkbox"
@@ -1742,7 +1618,6 @@ function Create_New() {
                 </tbody>
               </Table>
             </div>
-
           </div>
         </div>
       </div>
@@ -1758,7 +1633,7 @@ function Create_New() {
       {open && (
         <SaveAlert open={open} setOpen={setOpen} onYesClick={handleYesClick} />
       )}
-    </div>
+    </>
   );
 }
 

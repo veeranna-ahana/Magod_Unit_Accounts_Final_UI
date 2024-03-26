@@ -439,21 +439,20 @@ export default function AccountSyncXMLFile() {
 
   return (
     <>
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">From Accounts Sync File</h4>
-        </div>
+      <div className="row">
+        <h4 className="title">From Accounts Sync File</h4>
       </div>
-      <div className="d-flex col-md-12">
+
+      <div className="d-flex">
         <div className="">
-        <button
-          className="button-style mt-2 group-button"
-          onClick={handleDownload}
-        >
-          Account Sync File
-        </button>
+          <button
+            className="button-style mt-2 group-button"
+            onClick={handleDownload}
+          >
+            Account Sync File
+          </button>
         </div>
-        <div className="" style={{marginLeft:'70%'}}>
+        <div className="" style={{ marginLeft: "82%" }}>
           <button
             className="button-style mt-2 group-button"
             type="button"

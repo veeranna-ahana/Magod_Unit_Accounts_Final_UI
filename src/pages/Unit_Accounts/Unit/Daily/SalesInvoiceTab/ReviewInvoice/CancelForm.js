@@ -54,51 +54,52 @@ export default function CancelForm({ OpenForm, setOpenForm, selectValues }) {
     <div>
       <Modal size="lg" show={OpenForm} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Magod Laser: Invoice Cancellation Form</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>
+            Magod Laser: Invoice Cancellation Form
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="col-md-12">
+          <>
             <div className="">
               <div className="row">
-                <div className="col-md-2">
+                <div className="col-md-1" style={{ whiteSpace: "nowrap" }}>
                   <div className="">
-                    <label className="form-label">
-                      {" "}
-                      Invoice no<span> :</span>
-                    </label>
+                    <label className="form-label"> Invoice no</label>
                   </div>
 
                   <div className="">
-                    <label className="form-label">
-                      Date<span className="ms-5"> :</span>
-                    </label>
+                    <label className="form-label">Date</label>
                   </div>
 
                   <div className="">
-                    <label className="form-label">
-                      Customer<span className="ms-1"> :</span>
-                    </label>
+                    <label className="form-label">Customer</label>
                   </div>
 
                   <div className="">
-                    <label className="form-label">
-                      Value<span style={{ marginLeft: "38px" }}> :</span>
-                    </label>
+                    <label className="form-label">Value</label>
                   </div>
                 </div>
 
                 <div className="col-md-4">
                   <div className="mt-1">
-                    <input className="" value={selectValues.Inv_No} disabled />
-                  </div>
-
-                  <div className="mt-2">
-                    <input className="" value={selectValues.date} disabled />
+                    <input
+                      className="in-field"
+                      value={selectValues.Inv_No}
+                      disabled
+                    />
                   </div>
 
                   <div className="mt-2">
                     <input
-                      className=""
+                      className="in-field"
+                      value={selectValues.date}
+                      disabled
+                    />
+                  </div>
+
+                  <div className="mt-2">
+                    <input
+                      className="in-field"
                       value={selectValues.Cust_Name}
                       disabled
                     />
@@ -106,14 +107,14 @@ export default function CancelForm({ OpenForm, setOpenForm, selectValues }) {
 
                   <div className="mt-2">
                     <input
-                      className=""
+                      className="in-field"
                       value={selectValues.GrandTotal}
                       disabled
                     />
                   </div>
                 </div>
               </div>
-              <div className="col-md-4 mt-2 ms-2">
+              <div className="col-md-4">
                 <label className="form-label">Reason for Cancellation </label>
                 <textarea
                   className="in-field"
@@ -124,13 +125,17 @@ export default function CancelForm({ OpenForm, setOpenForm, selectValues }) {
                 />
               </div>
 
-              <div className="col-md-4 mt-2 mb-3 ms-2">
-                <Button variant="primary" type="submit" onClick={handleSubmit}>
+              <div className="col-md-4 mb-3">
+                <button
+                  className="button-style group-button"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
                   Cancel
-                </Button>
+                </button>
               </div>
             </div>
-          </div>
+          </>
         </Modal.Body>
       </Modal>
       {

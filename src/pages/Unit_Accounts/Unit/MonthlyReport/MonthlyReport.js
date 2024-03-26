@@ -266,14 +266,76 @@ export default function MonthlyReport() {
 
   const navigate = useNavigate();
   return (
-    <div>
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">Unit Accounts Monthly Report</h4>
+    <>
+      <div className="row">
+        <h4 className="title">Unit Accounts Monthly Report</h4>
+      </div>
+
+      <div className="row">
+        <div className="col-md-3">
+          <label
+            className="form-label mt-2 col-md-4"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            Unit Monthly Report for {wordMonth} {year}
+          </label>
+        </div>
+        <div className="d-flex col-md-2" style={{ gap: "10px" }}>
+          <div>
+            <label className="form-label">Month</label>
+          </div>
+          <div className="mt-1">
+            <select
+              className="defdrop"
+              onChange={(e) => handleMonth(e)}
+              placeholder="MM"
+            >
+              <option value="">Select Month</option>
+              {monthNumbers.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.value}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="d-flex col-md-2" style={{ gap: "10px" }}>
+          <div>
+            <label className="form-label">Year</label>
+          </div>
+          <div>
+            <input
+              onChange={(e) => handleYear(e)}
+              className="mt-2"
+              style={{ fontSize: "12px" }}
+              type="number"
+              value={year}
+              max={getCurrentYear()}
+            />
+          </div>
+        </div>
+
+        <div className="col-md-5">
+          <button
+            className="button-style  group-button"
+            onClick={handleButtonClick}
+          >
+            Load Data
+          </button>
+
+          <button
+            className="button-style  group-button"
+            type="button"
+            onClick={(e) => navigate("/UnitAccounts")}
+            style={{ marginLeft: "300px" }}
+          >
+            Close
+          </button>
         </div>
       </div>
-      <div className=" row col-md-12">
-        <div className=" row col-md-12">
+
+      {/* <div className="row">
+        <div className="row">
           <div className="col-md-4">
             <label
               className="form-label mt-2 col-md-4"
@@ -284,42 +346,14 @@ export default function MonthlyReport() {
           </div>
 
           <div className="row col-md-6">
-            {/* <div className="col-md-6" style={{ marginLeft: "40px" }}>
-              <label
-                className="form-label"
-                style={{ whiteSpace: "nowrap", zIndex: "2" }}
-              >
-                Select List
-              </label>
-              <Typeahead
-                id="basic-example"
-                labelKey={(option) =>
-                  option && option.Cust_Name ? option.Cust_Name.toString() : ""
-                }
-                options={getMonthInvReportNames}
-                placeholder="Select Customer"
-                onChange={handleNames}
-                selected={selectedOption}
-                style={{ marginTop: "-12px" }}
-              />
-            </div> */}
-
             <div
               className="d-flex col-md-4"
               style={{ gap: "30px", marginLeft: "100px" }}
             >
-              <div className="col-md-6">
+              <div className=" col-md-6">
                 <label className="form-label" style={{ marginBottom: "10px" }}>
                   Month
                 </label>
-                {/* <input
-                  className="no-spinner"
-                  onChange={(e) => handleMonth(e)}
-                  type="text"
-                  id="quantity"
-                  name="quantity"
-                  placeholder="MM"
-                /> */}
                 <select
                   className="defdrop"
                   onChange={(e) => handleMonth(e)}
@@ -370,15 +404,9 @@ export default function MonthlyReport() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <hr
-        style={{
-          backgroundColor: "black",
-          height: "3px",
-        }}
-      />
-      <div>
+      <div className="mt-3">
         <Tabs style={{ display: "flex", fontSize: "10.7px" }}>
           <Tab eventKey="invoiceSummary" title="Invoice Summary">
             <InvoiceSummary getMonthInvReport={getMonthInvReport} />
@@ -409,6 +437,6 @@ export default function MonthlyReport() {
           </Tab>
         </Tabs>
       </div>
-    </div>
+    </>
   );
 }

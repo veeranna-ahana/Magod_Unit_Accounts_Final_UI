@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 
-export default function HoRvListTable({getValuesHo, getValuesHoDe}) {
-
+export default function HoRvListTable({ getValuesHo, getValuesHoDe }) {
   const [selectRowDe, setSelectRowDe] = useState([]);
   const [selectRow, setSelectRow] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-  const [sortConfigDetails, setSortConfigDetails] = useState({ key: null, direction: null });
+  const [sortConfigDetails, setSortConfigDetails] = useState({
+    key: null,
+    direction: null,
+  });
 
   // sorting function for table headings of the table first
   const requestSort = (key) => {
@@ -51,7 +53,10 @@ export default function HoRvListTable({getValuesHo, getValuesHoDe}) {
   // sorting function for table headings of the table second
   const requestSortDetails = (key) => {
     let direction = "asc";
-    if (sortConfigDetails.key === key && sortConfigDetails.direction === "asc") {
+    if (
+      sortConfigDetails.key === key &&
+      sortConfigDetails.direction === "asc"
+    ) {
       direction = "desc";
     }
     setSortConfigDetails({ key, direction });
@@ -89,10 +94,10 @@ export default function HoRvListTable({getValuesHo, getValuesHoDe}) {
   };
 
   useEffect(() => {
-    if (getValuesHoDe.length>0) {
+    if (getValuesHoDe.length > 0) {
       selectedRowFunDe(getValuesHoDe[0], 0);
     } else {
-      setSelectRowDe([])
+      setSelectRowDe([]);
     }
   }, [getValuesHoDe]);
 
@@ -102,10 +107,10 @@ export default function HoRvListTable({getValuesHo, getValuesHoDe}) {
   };
 
   useEffect(() => {
-    if (getValuesHo.length>0) {
+    if (getValuesHo.length > 0) {
       selectedRowFun(getValuesHo[0], 0);
     } else {
-      setSelectRow([])
+      setSelectRow([]);
     }
   }, [getValuesHo]);
 
@@ -130,47 +135,61 @@ export default function HoRvListTable({getValuesHo, getValuesHoDe}) {
     <div>
       <div className="row col-md-12">
         <div className="col-md-6">
-        <div>
-          <label className="form-label">HO Receipt Voucher List</label>
-        </div>
-        <div
-          className=""
-          style={{ overflowY: "scroll", overflowX: "scroll", height: "400px" }}
-        >
-          <Table striped className="table-data border">
-            <thead className="tableHeaderBGColor">
-              <tr style={{ whiteSpace: "nowrap" }}>
-                <th onClick={() => requestSort("CustName")}>Cust Name</th>
-                <th onClick={() => requestSort("TxnType")}>Txn Type</th>
-                <th onClick={() => requestSort("Amount")}>Amount</th>
-                <th onClick={() => requestSort("Description")}>Description</th>
-                <th onClick={() => requestSort("On_account")}>On_account</th>
-                <th>HORef</th>
-                <th>HORef Date</th>
-                <th onClick={() => requestSort("ReceiptStatus")}>Status</th>
-              </tr>
-            </thead>
-
-            <tbody className="tablebody">
-              {sortedData()?.map((item,key)=>{
-                return(
-                <tr style={{ whiteSpace: "nowrap" }}
-                onClick={() => selectedRowFun(item, key)} 
-                className={key === selectRow?.index ? "selcted-row-clr" : ""}>
-                <td>{item.CustName}</td>
-                <td>{item.TxnType}</td>
-                <td style={{textAlign:'right'}}>{formatAmount(item.Amount)}</td>
-                <td>{item.Description}</td>
-                <td style={{textAlign:'right'}}>{formatAmount(item.On_account)}</td>
-                <td>{item.HORef}</td>
-                <td>{item.HO_RefDate}</td>
-                <td>{item.ReceiptStatus}</td>
+          <div>
+            <label className="form-label">HO Receipt Voucher List</label>
+          </div>
+          <div
+            className=""
+            style={{
+              overflowY: "scroll",
+              overflowX: "scroll",
+              height: "350px",
+            }}
+          >
+            <Table striped className="table-data border">
+              <thead className="tableHeaderBGColor">
+                <tr style={{ whiteSpace: "nowrap" }}>
+                  <th onClick={() => requestSort("CustName")}>Cust Name</th>
+                  <th onClick={() => requestSort("TxnType")}>Txn Type</th>
+                  <th onClick={() => requestSort("Amount")}>Amount</th>
+                  <th onClick={() => requestSort("Description")}>
+                    Description
+                  </th>
+                  <th onClick={() => requestSort("On_account")}>On_account</th>
+                  <th>HORef</th>
+                  <th>HORef Date</th>
+                  <th onClick={() => requestSort("ReceiptStatus")}>Status</th>
                 </tr>
-                )
-              })}
-            </tbody>
-          </Table>
-        </div>
+              </thead>
+
+              <tbody className="tablebody">
+                {sortedData()?.map((item, key) => {
+                  return (
+                    <tr
+                      style={{ whiteSpace: "nowrap" }}
+                      onClick={() => selectedRowFun(item, key)}
+                      className={
+                        key === selectRow?.index ? "selcted-row-clr" : ""
+                      }
+                    >
+                      <td>{item.CustName}</td>
+                      <td>{item.TxnType}</td>
+                      <td style={{ textAlign: "right" }}>
+                        {formatAmount(item.Amount)}
+                      </td>
+                      <td>{item.Description}</td>
+                      <td style={{ textAlign: "right" }}>
+                        {formatAmount(item.On_account)}
+                      </td>
+                      <td>{item.HORef}</td>
+                      <td>{item.HO_RefDate}</td>
+                      <td>{item.ReceiptStatus}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
         </div>
 
         <div className="col-md-6">
@@ -182,35 +201,53 @@ export default function HoRvListTable({getValuesHo, getValuesHoDe}) {
             style={{
               overflowY: "scroll",
               overflowX: "scroll",
-              height: "400px",
+              height: "350px",
             }}
           >
             <Table striped className="table-data border">
               <thead className="tableHeaderBGColor">
                 <tr style={{ whiteSpace: "nowrap" }}>
-                  <th onClick={() => requestSortDetails("Inv_No")}>Invoice No</th>
+                  <th onClick={() => requestSortDetails("Inv_No")}>
+                    Invoice No
+                  </th>
                   <th onClick={() => requestSortDetails("Inv_date")}>Date</th>
                   <th onClick={() => requestSortDetails("Inv_Type")}> Type</th>
-                  <th onClick={() => requestSortDetails("Inv_Amount")}>Invoice Amount</th>
-                  <th onClick={() => requestSortDetails("Amt_received")}>Received</th>
-                  <th onClick={() => requestSortDetails("Receive_Now")}>Receive Now</th>
+                  <th onClick={() => requestSortDetails("Inv_Amount")}>
+                    Invoice Amount
+                  </th>
+                  <th onClick={() => requestSortDetails("Amt_received")}>
+                    Received
+                  </th>
+                  <th onClick={() => requestSortDetails("Receive_Now")}>
+                    Receive Now
+                  </th>
                   <th>Updated</th>
                   <th onClick={() => requestSortDetails("RefNo")}>Ref No</th>
                 </tr>
               </thead>
 
               <tbody className="tablebody">
-                {sortedDataDetails()?.map((item, key)=>{
-                  return(
-                    <tr style={{ whiteSpace: "nowrap" }} 
-                     onClick={() => selectedRowFunDe(item, key)} 
-                    className={key === selectRowDe?.index ? "selcted-row-clr" : ""}>
+                {sortedDataDetails()?.map((item, key) => {
+                  return (
+                    <tr
+                      style={{ whiteSpace: "nowrap" }}
+                      onClick={() => selectedRowFunDe(item, key)}
+                      className={
+                        key === selectRowDe?.index ? "selcted-row-clr" : ""
+                      }
+                    >
                       <td>{item.Inv_No}</td>
                       <td>{item.Inv_date}</td>
                       <td>{item.Inv_Type}</td>
-                      <td style={{textAlign:'right'}}>{formatAmount(item.Inv_Amount)}</td>
-                      <td style={{textAlign:'right'}}>{formatAmount(item.Amt_received)}</td>
-                      <td style={{textAlign:'right'}}>{formatAmount(item.Receive_Now)}</td>
+                      <td style={{ textAlign: "right" }}>
+                        {formatAmount(item.Inv_Amount)}
+                      </td>
+                      <td style={{ textAlign: "right" }}>
+                        {formatAmount(item.Amt_received)}
+                      </td>
+                      <td style={{ textAlign: "right" }}>
+                        {formatAmount(item.Receive_Now)}
+                      </td>
                       <td></td>
                       <td>{item.RefNo}</td>
                     </tr>

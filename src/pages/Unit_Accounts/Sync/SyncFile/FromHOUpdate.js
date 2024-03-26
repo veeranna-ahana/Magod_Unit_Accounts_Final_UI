@@ -154,31 +154,31 @@ export default function FromHOUpdate() {
 
   return (
     <>
-      <div className={`col-md-12 ${isLoading ? "loading" : ""}`}>
+      <div className={`${isLoading ? "loading" : ""}`}>
         <div className="row">
           <h4 className="title">From HO Update</h4>
         </div>
       </div>
-      <div className="d-flex col-md-12">
+      <div className="d-flex">
         <div>
-        <button
-          className={`button-style mt-2 group-button ${
-            isLoading ? "loading" : ""
-          }`}
-          onClick={handleButtonClick}
-          disabled={isLoading}
-        >
-          {isLoading ? "Loading..." : "From HO Update"}
-        </button>
-        <input
-          type="file"
-          accept=".xml"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleFileSelect}
-        />
+          <button
+            className={`button-style mt-2 group-button ${
+              isLoading ? "loading" : ""
+            }`}
+            onClick={handleButtonClick}
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "From HO Update"}
+          </button>
+          <input
+            type="file"
+            // accept=".xml"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileSelect}
+          />
         </div>
-        <div className="" style={{marginLeft:'70%'}}>
+        <div className="" style={{ marginLeft: "82%" }}>
           <button
             className="button-style mt-2 group-button"
             type="button"

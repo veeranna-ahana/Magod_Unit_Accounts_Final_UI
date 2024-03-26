@@ -45,7 +45,6 @@ export default function TaxSummaryTable({ getValuesTax }) {
     return dataCopy;
   };
 
-
   useEffect(() => {
     if (getValuesTax.length > 0) {
       selectedRowFun(getValuesTax[0], 0);
@@ -72,19 +71,34 @@ export default function TaxSummaryTable({ getValuesTax }) {
   return (
     <div>
       <div
-        className="col-md-12"
-        style={{ overflowY: "scroll", overflowX: "scroll", height: "250px" }}
+        className=""
+        style={{ overflowY: "scroll", overflowX: "scroll", height: "370px" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
             <tr>
               <th onClick={() => requestSort("InvoiceType")}>Invoice type</th>
               <th>with Tax</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("InvoiceValue")}>Invoice Value</th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("InvoiceValue")}
+              >
+                Invoice Value
+              </th>
               <th onClick={() => requestSort("TaxName")}>Tax Name</th>
               <th onClick={() => requestSort("TaxPercent")}>Tax %</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("TaxableAmount")}>Taxable Amount</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("TaxAmount")}>TaxAmount</th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("TaxableAmount")}
+              >
+                Taxable Amount
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("TaxAmount")}
+              >
+                TaxAmount
+              </th>
               <th>TaxGp</th>
             </tr>
           </thead>

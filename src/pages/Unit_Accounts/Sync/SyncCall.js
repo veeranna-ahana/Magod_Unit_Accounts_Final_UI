@@ -3,7 +3,7 @@ import ShowSyncStatus from './ShowSyncStatus';
 
 export default function SyncCall() {
   return (
-    <div>
+    <div style={{ overflowY: "scroll", height: "85vh", padding: "10px" }}>
       <ShowSyncStatus/>
     </div>
   );

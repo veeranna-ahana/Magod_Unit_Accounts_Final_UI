@@ -201,9 +201,9 @@ export const customerSidebar = [
             path: "/UnitAccounts/Sync/AccountSyncFile",
           },
           // {
-          //   title: "From Ho Sync",
-          //   icon: <FontAwesomeIcon icon={faCloudMeatball} />,
-          //   path: "/UnitAccounts/Sync/fromHoSync",
+          //   title: "From HO Sync",
+          //   icon: <FontAwesomeIcon icon={faCloudBolt} />,
+          //   path: "/UnitAccounts/Sync/FromHOSYNC",
           // },
           {
             title: "From HO Update",
@@ -230,13 +230,11 @@ export const customerSidebar = [
     ],
   },
 
-
   {
     title: "Send mail",
     icon: <FontAwesomeIcon icon={faBoltLightning} />,
     path: "/UnitAccounts/Sync/send",
   },
-
 ];
 
 export const adminSidebar = [

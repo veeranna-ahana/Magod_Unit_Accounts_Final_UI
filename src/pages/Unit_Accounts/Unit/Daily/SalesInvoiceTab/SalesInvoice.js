@@ -16,13 +16,15 @@ export default function SalesInvoice({ getValuesSales, date }) {
   const [selectValues, setSelectValues] = useState([]);
   const [Keys123, setKeys123123] = React.useState(false);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-  const [sortConfigDetails, setSortConfigDetails] = useState({ key: null, direction: null });
+  const [sortConfigDetails, setSortConfigDetails] = useState({
+    key: null,
+    direction: null,
+  });
 
   const [lastToastTimestamp, setLastToastTimestamp] = useState(0);
   const cooldownDuration = 6000;
 
-
-// sorting function for table headings of the table first
+  // sorting function for table headings of the table first
   const requestSort = (key) => {
     let direction = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
@@ -38,13 +40,17 @@ export default function SalesInvoice({ getValuesSales, date }) {
       dataCopy.sort((a, b) => {
         let valueA = a[sortConfig.key];
         let valueB = b[sortConfig.key];
-   
+
         // Convert only for the "intiger" columns
-        if (sortConfig.key === "Net_Total" || sortConfig.key === "TaxAmount" || sortConfig.key === "GrandTotal") {
+        if (
+          sortConfig.key === "Net_Total" ||
+          sortConfig.key === "TaxAmount" ||
+          sortConfig.key === "GrandTotal"
+        ) {
           valueA = parseFloat(valueA);
           valueB = parseFloat(valueB);
         }
-   
+
         if (valueA < valueB) {
           return sortConfig.direction === "asc" ? -1 : 1;
         }
@@ -57,48 +63,51 @@ export default function SalesInvoice({ getValuesSales, date }) {
     return dataCopy;
   };
 
-// sorting function for table headings of the table second
-const requestSortDetails = (key) => {
-  let direction = "asc";
-  if (sortConfigDetails.key === key && sortConfigDetails.direction === "asc") {
-    direction = "desc";
-  }
-  setSortConfigDetails({ key, direction });
-};
+  // sorting function for table headings of the table second
+  const requestSortDetails = (key) => {
+    let direction = "asc";
+    if (
+      sortConfigDetails.key === key &&
+      sortConfigDetails.direction === "asc"
+    ) {
+      direction = "desc";
+    }
+    setSortConfigDetails({ key, direction });
+  };
 
-const sortedDataDetails = () => {
-  const dataCopy = [...getValuesSalesDe];
+  const sortedDataDetails = () => {
+    const dataCopy = [...getValuesSalesDe];
 
-  if (sortConfigDetails.key) {
-    dataCopy.sort((a, b) => {
-      let valueA = a[sortConfigDetails.key];
-      let valueB = b[sortConfigDetails.key];
- 
-      // Convert only for the "integer" columns
-      if (
-       sortConfigDetails.key === "TaxAmt" || 
-       sortConfigDetails.key === "TaxPercent" || 
-       sortConfigDetails.key === "TaxableAmount" ||
-       sortConfigDetails.key === "dc_invTaxId" ||
-       sortConfigDetails.key === "Dc_inv_No" ||
-       sortConfigDetails.key === "DcTaxID" ||
-       sortConfigDetails.key === "Unit_UId") {
-        valueA = parseFloat(valueA);
-        valueB = parseFloat(valueB);
-      }
- 
-      if (valueA < valueB) {
-        return sortConfigDetails.direction === "asc" ? -1 : 1;
-      }
-      if (valueA > valueB) {
-        return sortConfigDetails.direction === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
-  }
-  return dataCopy;
-};
+    if (sortConfigDetails.key) {
+      dataCopy.sort((a, b) => {
+        let valueA = a[sortConfigDetails.key];
+        let valueB = b[sortConfigDetails.key];
 
+        // Convert only for the "integer" columns
+        if (
+          sortConfigDetails.key === "TaxAmt" ||
+          sortConfigDetails.key === "TaxPercent" ||
+          sortConfigDetails.key === "TaxableAmount" ||
+          sortConfigDetails.key === "dc_invTaxId" ||
+          sortConfigDetails.key === "Dc_inv_No" ||
+          sortConfigDetails.key === "DcTaxID" ||
+          sortConfigDetails.key === "Unit_UId"
+        ) {
+          valueA = parseFloat(valueA);
+          valueB = parseFloat(valueB);
+        }
+
+        if (valueA < valueB) {
+          return sortConfigDetails.direction === "asc" ? -1 : 1;
+        }
+        if (valueA > valueB) {
+          return sortConfigDetails.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   useEffect(() => {
     if (getValuesSales.length > 0) {
@@ -174,12 +183,8 @@ const sortedDataDetails = () => {
 
   return (
     <>
-      <div className="mb-3  ms-2">
-        <button
-          className="button-style mt-2 group-button"
-          onClick={openBox}
-          style={{ width: "150px" }}
-        >
+      <div className="mb-1">
+        <button className="button-style group-button" onClick={openBox}>
           Review Invoice
         </button>
       </div>
@@ -194,8 +199,8 @@ const sortedDataDetails = () => {
       }
 
       <div
-        className="col-md-12 mb-2"
-        style={{ overflowY: "scroll", overflowX: "scroll", height: "200px" }}
+        className=""
+        style={{ overflowY: "scroll", overflowX: "scroll", height: "160px" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
@@ -203,9 +208,24 @@ const sortedDataDetails = () => {
               <th onClick={() => requestSort("DC_InvType")}>Type</th>
               <th onClick={() => requestSort("Inv_No")}>Invoice no</th>
               <th onClick={() => requestSort("Cust_Name")}>Name</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("Net_Total")}>Net Total</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("TaxAmount")}>Tax amount</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("GrandTotal")}>Grand Total</th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("Net_Total")}
+              >
+                Net Total
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("TaxAmount")}
+              >
+                Tax amount
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("GrandTotal")}
+              >
+                Grand Total
+              </th>
               <th onClick={() => requestSort("DCStatus")}>DC Status</th>
             </tr>
           </thead>
@@ -250,14 +270,16 @@ const sortedDataDetails = () => {
       </div>
 
       <div
-        className="col-md-12"
-        style={{ overflowY: "scroll", overflowX: "scroll", height: "200px" }}
+        className=""
+        style={{ overflowY: "scroll", overflowX: "scroll", height: "160px" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
             <tr style={{ whiteSpace: "nowrap" }}>
               <th onClick={() => requestSortDetails("Tax_Name")}>Tax Name</th>
-              <th onClick={() => requestSortDetails("TaxableAmount")}>Taxable amount</th>
+              <th onClick={() => requestSortDetails("TaxableAmount")}>
+                Taxable amount
+              </th>
               <th onClick={() => requestSortDetails("TaxPercent")}>Tax %</th>
               <th onClick={() => requestSortDetails("TaxAmt")}>Tax amount</th>
               <th onClick={() => requestSortDetails("AcctHead")}>AcctHead</th>
@@ -266,7 +288,9 @@ const sortedDataDetails = () => {
               <th onClick={() => requestSortDetails("Unit_UId")}>Unit_Uid</th>
               <th>Updated</th>
               <th onClick={() => requestSortDetails("UnitName")}>UnitName</th>
-              <th onClick={() => requestSortDetails("dc_invTaxId")}>dc_nv_Taxid</th>
+              <th onClick={() => requestSortDetails("dc_invTaxId")}>
+                dc_nv_Taxid
+              </th>
               <th onClick={() => requestSortDetails("Dc_inv_No")}>Dc_inv_No</th>
               <th onClick={() => requestSortDetails("DcTaxID")}>DcTaxId</th>
               <th>TaxId</th>

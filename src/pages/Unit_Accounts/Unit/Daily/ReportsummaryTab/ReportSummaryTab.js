@@ -109,7 +109,7 @@ export default function ReportSummaryTab({
       <div className="row">
         <div
           className="col-md-5"
-          style={{ overflowY: "scroll", overflowX: "scroll", height: "550px" }}
+          style={{ overflowY: "scroll", overflowX: "scroll", height: "370px" }}
         >
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
@@ -195,8 +195,8 @@ export default function ReportSummaryTab({
         </div>
 
         <div
-          className="col-md-7"
-          style={{ overflowY: "scroll", overflowX: "scroll", height: "550px" }}
+          className="col-md-7 mb-5"
+          style={{ overflowY: "scroll", overflowX: "scroll", height: "370px" }}
         >
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
