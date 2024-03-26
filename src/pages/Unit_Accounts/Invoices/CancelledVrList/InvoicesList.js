@@ -9,8 +9,8 @@ export default function InvoicesList() {
   const [getCancelInvoices, setGetCancelInvoices] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
-   // sorting function for table headings of the table
-   const requestSort = (key) => {
+  // sorting function for table headings of the table
+  const requestSort = (key) => {
     let direction = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
       direction = "desc";
@@ -102,18 +102,16 @@ export default function InvoicesList() {
 
   return (
     <>
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">Cancelled Voucher List</h4>
-        </div>
+      <div className="row">
+        <h4 className="title">Cancelled Voucher List</h4>
       </div>
-      <div className="row col-md-12 mt-4">
+
+      <div className="row">
         <div
-          className="col-md-6"
+          className="col-md-7"
           style={{
             overflowY: "scroll",
-            overflowX: "scroll",
-            height: "400px",
+            height: "350px",
           }}
         >
           <Table striped className="table-data border">
@@ -122,7 +120,9 @@ export default function InvoicesList() {
                 <th onClick={() => requestSort("CancelVrNo")}>CancelVrNo</th>
                 <th onClick={() => requestSort("VrDate")}>VrDate</th>
                 <th onClick={() => requestSort("VrAmount")}>VrAmount</th>
-                <th onClick={() => requestSort("CancelReason")}>CancelReason</th>
+                <th onClick={() => requestSort("CancelReason")}>
+                  CancelReason
+                </th>
                 <th onClick={() => requestSort("RefVrNo")}>RefVrNo</th>
                 <th onClick={() => requestSort("RefVrDate")}>RefVrDate</th>
                 <th onClick={() => requestSort("Cust_Code")}>Cust_Code</th>
@@ -142,7 +142,9 @@ export default function InvoicesList() {
                   >
                     <td>{item.CancelVrNo}</td>
                     <td>{formatDate(item.VrDate)}</td>
-                    <td style={{ textAlign: "right" }}>{formatAmount(item.VrAmount)}</td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.VrAmount)}
+                    </td>
                     <td>{item.CancelReason}</td>
                     <td>{item.RefVrNo}</td>
                     <td>{formatDate(item.RefVrDate)}</td>
@@ -154,12 +156,167 @@ export default function InvoicesList() {
             </tbody>
           </Table>
         </div>
+        <div className="col-md-5">
+          <button
+            className="button-style group-button"
+            type="button"
+            style={{ float: "right" }}
+            onClick={(e) => navigate("/UnitAccounts")}
+          >
+            Close
+          </button>
+
+          <div className="d-flex mt-5" style={{ gap: "10px" }}>
+            <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+              Voucher No
+            </label>
+            <input
+              className="in-field"
+              name="VoucherNo"
+              value={selectRow.CancelVrNo}
+              disabled
+            />
+          </div>
+
+          <div className="d-flex mt-1" style={{ gap: "50px" }}>
+            <label className="form-label">Date</label>
+            <input
+              className="in-field"
+              name="refVrNo"
+              value={formatDate(selectRow.VrDate)}
+              disabled
+            />
+          </div>
+          <div className="d-flex mt-1" style={{ gap: "30px" }}>
+            <label className="form-label">Amount</label>
+            <input
+              className="in-field"
+              name="date"
+              value={selectRow.VrAmount}
+              disabled
+            />
+          </div>
+          <div className="d-flex mt-1" style={{ gap: "42px" }}>
+            <label className="form-label">Name</label>
+            <input
+              className="in-field"
+              name="type"
+              value={selectRow.Cust_Name}
+              disabled
+            />
+          </div>
+          <div className="d-flex  mt-1" style={{ gap: "22px" }}>
+            <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+              Ref Vr No
+            </label>
+            <input
+              className="in-field"
+              name="date"
+              value={selectRow.RefVrNo}
+              disabled
+            />
+          </div>
+          <div className="d-flex mt-1" style={{ gap: "50px" }}>
+            <label className="form-label">Date</label>
+            <input
+              className="in-field"
+              name="Amount"
+              value={formatDate(selectRow.RefVrDate)}
+              disabled
+            />
+          </div>
+          <div className="d-flex mt-1" style={{ gap: "50px" }}>
+            <label className="form-label">Type</label>
+            <input
+              className="in-field"
+              name="type"
+              value={selectRow.RefVrType}
+              disabled
+            />
+          </div>
+          <div className="d-flex mt-1" style={{ gap: "35px" }}>
+            <label className="form-label">Reason</label>
+            {/* <input
+              className="in-field"
+              name="textarea"
+              value={selectRow.CancelReason}
+              disabled
+            /> */}
+
+            <textarea
+              className="in-field"
+              value={selectRow.CancelReason}
+              disabled
+              style={{
+                height: "80px",
+                resize: "none",
+                width: "420px",
+              }}
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      {/* ----------------------------------- */}
+
+      {/* <div className="row">
+        <div
+          className="col-md-6"
+          style={{
+            overflowY: "scroll",
+            overflowX: "scroll",
+            height: "400px",
+          }}
+        >
+          <Table striped className="table-data border">
+            <thead className="tableHeaderBGColor">
+              <tr style={{ whiteSpace: "nowrap" }}>
+                <th onClick={() => requestSort("CancelVrNo")}>CancelVrNo</th>
+                <th onClick={() => requestSort("VrDate")}>VrDate</th>
+                <th onClick={() => requestSort("VrAmount")}>VrAmount</th>
+                <th onClick={() => requestSort("CancelReason")}>
+                  CancelReason
+                </th>
+                <th onClick={() => requestSort("RefVrNo")}>RefVrNo</th>
+                <th onClick={() => requestSort("RefVrDate")}>RefVrDate</th>
+                <th onClick={() => requestSort("Cust_Code")}>Cust_Code</th>
+                <th onClick={() => requestSort("Cust_Name")}>Cust_Name</th>
+              </tr>
+            </thead>
+
+            <tbody className="tablebody">
+              {sortedData()?.map((item, key) => {
+                return (
+                  <tr
+                    style={{ whiteSpace: "nowrap" }}
+                    onClick={() => selectedRowFun(item, key)}
+                    className={
+                      key === selectRow?.index ? "selcted-row-clr" : ""
+                    }
+                  >
+                    <td>{item.CancelVrNo}</td>
+                    <td>{formatDate(item.VrDate)}</td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.VrAmount)}
+                    </td>
+                    <td>{item.CancelReason}</td>
+                    <td>{item.RefVrNo}</td>
+                    <td>{formatDate(item.RefVrDate)}</td>
+                    <td>{item.Cust_Code}</td>
+                    <td>{item.Cust_Name}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+        </div>
+
         <div className="row col-md-6">
-          <div className="mb-5" style={{marginTop:'-10px'}}>
+          <div className="mb-5">
             <button
               className="button-style group-button"
               type="button"
-              style={{ marginLeft: "355px" }}
+              style={{ float: "right" }}
               onClick={(e) => navigate("/UnitAccounts")}
             >
               Close
@@ -242,7 +399,7 @@ export default function InvoicesList() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

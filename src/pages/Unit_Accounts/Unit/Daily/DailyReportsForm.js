@@ -292,76 +292,82 @@ export default function DailyReportsForm() {
 
   return (
     <>
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">Unit Accounts Daily Reports Reviewer</h4>
+      <div className="row">
+        <h4 className="title">Unit Accounts Daily Reports Reviewer</h4>
+      </div>
+
+      <div className="row">
+        <div className="col-md-2">
+          <label className="form-label">Unit Accounts Daily Reports</label>
         </div>
-      </div>
+        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+          <div className="">
+            <label className="form-label mt-2" style={{ whiteSpace: "nowrap" }}>
+              Select Report Date
+            </label>
+          </div>
 
-      <div className="">
-        <label className="form-label ms-4">Unit Accounts Daily Reports</label>
-      </div>
-      <div className="row mb-3">
-        <div className="col-md-12 col-sm-12" style={{ marginLeft: "0px" }}>
-          <div className="ip-box  mt-2">
-            <div className="row">
-              <div className=" d-flex col-md-4">
-                <label
-                  className="form-label mt-2"
-                  style={{ whiteSpace: "nowrap" }}
-                >
-                  Select Report Date
-                </label>
-                <input
-                  className="in-field "
-                  type="date"
-                  onChange={(e) => handleDate(e)}
-                />
-                <div className="">
-                  <button
-                    className="button-style mt-2 ms-2 group-button"
-                    style={{ width: "140px" }}
-                    onClick={getDataOfDate}
-                  >
-                    Load Data
-                  </button>
-                </div>
-              </div>
-
-              {/* <button
-                className="button-style mt-2 group-button"
-                style={{ width: "150px" }}
-                onClick={handleButtonClick}
-              >
-                Prepare Report
-              </button>
-              <input
-                type="file"
-                accept=".xml"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleFileSelect}
-              /> */}
-
-              {/* <button
-                className="button-style mt-2 group-button"
-                style={{ width: "200px" }}
-              >
-                Update HO Sync
-              </button> */}
-
-              <button
-                className="button-style mt-2 group-button"
-                style={{ width: "100px", marginLeft: "600px" }}
-                onClick={(e) => navigate("/UnitAccounts")}
-              >
-                Close
-              </button>
-            </div>
+          <div className="mt-2 col-md-7">
+            <input
+              className="in-field"
+              type="date"
+              onChange={(e) => handleDate(e)}
+            />
           </div>
         </div>
+        <div className="col-md-4">
+          <button className="button-style group-button" onClick={getDataOfDate}>
+            Load Data
+          </button>
+        </div>
+        <div className="col-md-3">
+          <button
+            className="button-style group-button"
+            style={{ float: "right" }}
+            onClick={(e) => navigate("/UnitAccounts")}
+          >
+            Close
+          </button>
+        </div>
       </div>
-      {/* <hr className="horizontal-line" /> */}
+
+      {/* <div className="row">
+        <div className="col-md-3">
+          <label className="form-label ms-2">Unit Accounts Daily Reports</label>
+        </div>
+        <div className="col-md-3">
+          <div className="">
+            <label className="form-label mt-2" style={{ whiteSpace: "nowrap" }}>
+              Select Report Date
+            </label>
+          </div>
+          <div className="">
+            <input
+              className="in-field "
+              type="date"
+              onChange={(e) => handleDate(e)}
+            />
+          </div>
+        </div>
+        <div className="col-md-3">
+          <button
+            className="button-style mt-4 ms-2 group-button"
+            onClick={getDataOfDate}
+          >
+            Load Data
+          </button>
+        </div>
+        <div className="col-md-3">
+          <button
+            className="button-style mt-4 group-button"
+            style={{ marginLeft: "200px" }}
+            onClick={(e) => navigate("/UnitAccounts")}
+          >
+            Close
+          </button>
+        </div>
+      </div> */}
+
       <TabsSeven
         getValues={getValues}
         getValuesHo={getValuesHo}

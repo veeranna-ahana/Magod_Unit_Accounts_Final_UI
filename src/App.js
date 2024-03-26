@@ -76,11 +76,11 @@ function App() {
 
             <Route path="Sync">
               <Route path="AccountSyncFile" element={<AccountSyncXMLFile />} />
-              <Route path="fromHoSync" element={<FromHoSync />} />
+              <Route path="FromHOSYNC" element={<FromHoSync />} />
               <Route path="HOupdateSync" element={<FromHOUpdate />} />
               <Route path="SyncExport" element={<Sync />} />
               {/* <Route path="ShowSyncStatus" element={<SyncCall />} /> */}
-              <Route path="ShowSyncStatus" element={<SendMail />} />
+              <Route path="ShowSyncStatus" element={<SyncCall />} />
               {/* <Route path="send" element={<SendMail/>} /> */}
             </Route>
           </Route>

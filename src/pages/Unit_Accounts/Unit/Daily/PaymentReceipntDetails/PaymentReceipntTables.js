@@ -8,7 +8,10 @@ export default function PaymentReceipntTables({ getValues, date }) {
   const [selectRowVo, setSelectRowVo] = useState([]);
   const [getVoucherData, setGetVoucherData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-  const [sortConfigDetails, setSortConfigDetails] = useState({ key: null, direction: null });
+  const [sortConfigDetails, setSortConfigDetails] = useState({
+    key: null,
+    direction: null,
+  });
 
   // sorting function for table headings of the table first
   const requestSort = (key) => {
@@ -56,7 +59,10 @@ export default function PaymentReceipntTables({ getValues, date }) {
   // sorting function for table headings of the table second
   const requestSortDetails = (key) => {
     let direction = "asc";
-    if (sortConfigDetails.key === key && sortConfigDetails.direction === "asc") {
+    if (
+      sortConfigDetails.key === key &&
+      sortConfigDetails.direction === "asc"
+    ) {
       direction = "desc";
     }
     setSortConfigDetails({ key, direction });
@@ -142,14 +148,14 @@ export default function PaymentReceipntTables({ getValues, date }) {
   // console.log('payment', getVoucherData);
 
   return (
-    <div>
+    <>
       <div>
-        <label className="form-label ms-3">Receipt Voucher List </label>
+        <label className="form-label">Receipt Voucher List </label>
       </div>
 
       <div
-        className="col-md-12 mb-2"
-        style={{ overflowY: "scroll", overflowX: "scroll", height: "300px" }}
+        className=""
+        style={{ overflowY: "scroll", overflowX: "scroll", height: "160px" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
@@ -167,7 +173,9 @@ export default function PaymentReceipntTables({ getValues, date }) {
               <th onClick={() => requestSort("Sync_HOId")}>Sync_Hold</th>
               <th onClick={() => requestSort("RecdPVID")}>Unit_Uid</th>
               <th onClick={() => requestSort("date")}>Recd_PV_Date</th>
-              <th onClick={() => requestSort("ReceiptStatus")}>Receipt Status</th>
+              <th onClick={() => requestSort("ReceiptStatus")}>
+                Receipt Status
+              </th>
               <th onClick={() => requestSort("Cust_code")}>Cust_code</th>
               <th>Adjusted</th>
               <th onClick={() => requestSort("Cust_code")}>DocuNo</th>
@@ -232,12 +240,12 @@ export default function PaymentReceipntTables({ getValues, date }) {
       </div>
 
       <div>
-        <label className="form-label ms-3">Voucher Details</label>
+        <label className="form-label">Voucher Details</label>
       </div>
 
       <div
-        className="col-md-12"
-        style={{ overflowY: "scroll", overflowX: "scroll", height: "300px" }}
+        className=""
+        style={{ overflowY: "scroll", overflowX: "scroll", height: "160px" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
@@ -245,7 +253,9 @@ export default function PaymentReceipntTables({ getValues, date }) {
               <th onClick={() => requestSortDetails("Inv_No")}>Invoice No</th>
               <th onClick={() => requestSortDetails("date")}>Date</th>
               <th onClick={() => requestSortDetails("Inv_Amount")}>Invoiced</th>
-              <th onClick={() => requestSortDetails("Receive_Now")}>Received</th>
+              <th onClick={() => requestSortDetails("Receive_Now")}>
+                Received
+              </th>
               <th onClick={() => requestSortDetails("RefNo")}>Ref No</th>
               {/* <th>Id</th> */}
               <th>PvrId</th>
@@ -259,9 +269,15 @@ export default function PaymentReceipntTables({ getValues, date }) {
               <th onClick={() => requestSortDetails("Dc_inv_no")}>Dc_inv_no</th>
               <th onClick={() => requestSortDetails("Inv_No")}>Inv_No</th>
               <th onClick={() => requestSortDetails("Inv_Type")}>Inv_Type</th>
-              <th onClick={() => requestSortDetails("Inv_Amount")}>Inv_Amount</th>
-              <th onClick={() => requestSortDetails("Amt_received")}>Amt_received</th>
-              <th onClick={() => requestSortDetails("Receive_Now")}>Receive_now</th>
+              <th onClick={() => requestSortDetails("Inv_Amount")}>
+                Inv_Amount
+              </th>
+              <th onClick={() => requestSortDetails("Amt_received")}>
+                Amt_received
+              </th>
+              <th onClick={() => requestSortDetails("Receive_Now")}>
+                Receive_now
+              </th>
               <th>InvUpdated</th>
               <th onClick={() => requestSortDetails("date")}>Inv_date</th>
               <th>Updated</th>
@@ -335,6 +351,6 @@ export default function PaymentReceipntTables({ getValues, date }) {
           </tbody>
         </Table>
       </div>
-    </div>
+    </>
   );
 }

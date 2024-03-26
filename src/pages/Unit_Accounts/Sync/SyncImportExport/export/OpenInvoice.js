@@ -88,7 +88,7 @@ export default function OpenInvoice({ data }) {
     <div>
       <div
         className="mt-4"
-        style={{ height: "400px", overflowY: "scroll", overflowX: "scroll" }}
+        style={{ height: "250px", overflowY: "scroll", overflowX: "scroll" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
@@ -129,6 +129,7 @@ export default function OpenInvoice({ data }) {
           </tbody>
         </Table>
       </div>
+
       <ReactPaginate
         previousLabel={"previous"}
         nextLabel={"next"}

@@ -88,7 +88,7 @@ export default function ImportOpenReceipt({ data }) {
     <div>
       <div
         className="mt-4"
-        style={{ height: "400px", overflowY: "scroll", overflowX: "scroll" }}
+        style={{ height: "250px", overflowY: "scroll", overflowX: "scroll" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
@@ -99,10 +99,18 @@ export default function ImportOpenReceipt({ data }) {
               <th onClick={() => requestSort("TxnType")}>Type</th>
               <th onClick={() => requestSort("HO_Amount")}>HO_Amount</th>
               <th onClick={() => requestSort("Unit_Amount")}>Unit_Amount</th>
-              <th onClick={() => requestSort("HO_On_account")}>HO_On_account</th>
-              <th onClick={() => requestSort("Unit_On_account")}>Unit_On_account</th>
-              <th onClick={() => requestSort("HO_ReceiptStatus")}>HO_Receipt_Status</th>
-              <th onClick={() => requestSort("Unit_ReceiptStatus")}>Unit_Receipt_Status</th>
+              <th onClick={() => requestSort("HO_On_account")}>
+                HO_On_account
+              </th>
+              <th onClick={() => requestSort("Unit_On_account")}>
+                Unit_On_account
+              </th>
+              <th onClick={() => requestSort("HO_ReceiptStatus")}>
+                HO_Receipt_Status
+              </th>
+              <th onClick={() => requestSort("Unit_ReceiptStatus")}>
+                Unit_Receipt_Status
+              </th>
               <th onClick={() => requestSort("Unit_UId")}>Unit_UId</th>
             </tr>
           </thead>

@@ -111,7 +111,7 @@ export default function OpenReceipt({ data }) {
     <div>
       <div
         className="mt-4"
-        style={{ height: "400px", overflowY: "scroll", overflowX: "scroll" }}
+        style={{ height: "250px", overflowY: "scroll", overflowX: "scroll" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
@@ -129,7 +129,9 @@ export default function OpenReceipt({ data }) {
               <th onClick={() => requestSort("Unit_UId")}>Unit_UId</th>
               <th onClick={() => requestSort("Recd_PVNo")}>Recd_PVNo</th>
               <th onClick={() => requestSort("Recd_PV_Date")}>Recd_PV_Date</th>
-              <th onClick={() => requestSort("ReceiptStatus")}>Receipt Status</th>
+              <th onClick={() => requestSort("ReceiptStatus")}>
+                Receipt Status
+              </th>
               <th onClick={() => requestSort("Cust_code")}>Cust_code</th>
               <th onClick={() => requestSort("CustName")}>Cust Name</th>
               <th onClick={() => requestSort("Amount")}>Amount</th>

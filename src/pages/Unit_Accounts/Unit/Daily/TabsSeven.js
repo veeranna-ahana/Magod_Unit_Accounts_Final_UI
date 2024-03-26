@@ -136,7 +136,7 @@ export default function TabsSeven({
   const groupedCustTaxArray = Object.values(groupedCustTaxData);
 
   const [key, setKey] = useState("RS");
-  
+
   return (
     <>
       <div className="row">
@@ -144,7 +144,7 @@ export default function TabsSeven({
           id="controlled-tab-example"
           activeKey={key}
           onSelect={(k) => setKey(k)}
-          className="mb-3 mt-3 tab_font "
+          className="mb-2 mt-3 tab_font "
         >
           <Tab eventKey="RS" title="Report Summary">
             <ReportSummaryTab

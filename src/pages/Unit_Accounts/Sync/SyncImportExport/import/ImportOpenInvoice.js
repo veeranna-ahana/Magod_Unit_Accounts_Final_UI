@@ -8,8 +8,8 @@ export default function ImportOpenInvoice({ data }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
-   // sorting function for table headings of the table
-   const requestSort = (key) => {
+  // sorting function for table headings of the table
+  const requestSort = (key) => {
     let direction = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
       direction = "desc";
@@ -110,7 +110,7 @@ export default function ImportOpenInvoice({ data }) {
     <div>
       <div
         className="mt-4"
-        style={{ height: "400px", overflowY: "scroll", overflowX: "scroll" }}
+        style={{ height: "250px", overflowY: "scroll", overflowX: "scroll" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
@@ -120,11 +120,19 @@ export default function ImportOpenInvoice({ data }) {
               <th onClick={() => requestSort("Cust_Name")}>Customer</th>
               <th onClick={() => requestSort("Inv_No")}>Invoice No</th>
               <th onClick={() => requestSort("Inv_Date")}>Date</th>
-              <th onClick={() => requestSort("Unit_GrandTotal")}>Invoice Value Unit</th>
-              <th onClick={() => requestSort("HO_GrandTotal")}>Invoice Value HO</th>
-              <th onClick={() => requestSort("Unit_PymtAmtRecd")}>Received Unit</th>
+              <th onClick={() => requestSort("Unit_GrandTotal")}>
+                Invoice Value Unit
+              </th>
+              <th onClick={() => requestSort("HO_GrandTotal")}>
+                Invoice Value HO
+              </th>
+              <th onClick={() => requestSort("Unit_PymtAmtRecd")}>
+                Received Unit
+              </th>
               <th onClick={() => requestSort("HO_PymtAmtRecd")}>Received HO</th>
-              <th onClick={() => requestSort("Unit_DCStatus")}>Unit_DC_Status</th>
+              <th onClick={() => requestSort("Unit_DCStatus")}>
+                Unit_DC_Status
+              </th>
               <th onClick={() => requestSort("HO_DCStatus")}>HO_DC_Status</th>
               <th onClick={() => requestSort("Remarks")}>Remarks</th>
             </tr>

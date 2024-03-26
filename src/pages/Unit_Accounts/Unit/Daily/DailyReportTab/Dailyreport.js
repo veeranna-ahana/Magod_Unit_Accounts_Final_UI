@@ -56,6 +56,7 @@ export default function Dailyreport({
             <button
               className="button-style mt-2 group-button"
               onClick={handlePrintButtonClick}
+              style={{ width: "120px" }}
             >
               Sales Report
             </button>
@@ -76,9 +77,10 @@ export default function Dailyreport({
               documentTitle="Sales Report"
             />
           </div>
-          <div className="" style={{ marginTop: "50px" }}>
+          <div className="" style={{ marginTop: "20px" }}>
             <button
               className="button-style mt-2 group-button"
+              style={{ width: "120px" }}
               onClick={handleProductionPrintClick}
             >
               Production Report
@@ -100,9 +102,10 @@ export default function Dailyreport({
             />
           </div>
 
-          <div className="" style={{ marginTop: "50px" }}>
+          <div className="" style={{ marginTop: "20px" }}>
             <button
               className="button-style mt-15 group-button"
+              style={{ width: "120px" }}
               onClick={handleReceiptPrintButtonClick}
             >
               Receipts Report

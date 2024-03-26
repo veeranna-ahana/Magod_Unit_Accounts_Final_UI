@@ -35,28 +35,24 @@ export default function CustomerRVList() {
     setCurrentPage(selected);
   };
 
-
-
   const handleSearch = (event) => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     const inputValue = event.target.value;
     setSearchInput(inputValue);
 
     // Filter the data based on Receipt Status, Receipt Vr No, and Transaction Type if there's a search input, otherwise, use the initial data
     const filtered = inputValue
-      ? data.filter((rv) =>
-          rv.ReceiptStatus.toLowerCase().includes(inputValue.toLowerCase()) ||
-          rv.Recd_PVNo.toLowerCase().includes(inputValue.toLowerCase()) ||
-          rv.TxnType.toLowerCase().includes(inputValue.toLowerCase())
+      ? data.filter(
+          (rv) =>
+            rv.ReceiptStatus.toLowerCase().includes(inputValue.toLowerCase()) ||
+            rv.Recd_PVNo.toLowerCase().includes(inputValue.toLowerCase()) ||
+            rv.TxnType.toLowerCase().includes(inputValue.toLowerCase())
         )
       : data;
 
     setFilteredData(filtered);
   };
-console.log("filterd data", filteredData);
-
-
-  
+  console.log("filterd data", filteredData);
 
   const custDetails = async () => {
     try {
@@ -86,7 +82,7 @@ console.log("filterd data", filteredData);
         baseURL + `/Payment_Receipts/getRVlist?customercode=${cust_code}`
       ); // Replace this URL with your API endpoint
       console.log("recd pv no", response.data.Result);
-      setData( response.data.Result);
+      setData(response.data.Result);
       setFilteredData(response.data.Result);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -96,7 +92,6 @@ console.log("filterd data", filteredData);
   useEffect(() => {
     // Call the API function when the component mounts
     custDetails();
-    
   }, []);
 
   const handleTypeaheadChange = (selectedOptions) => {
@@ -147,64 +142,106 @@ console.log("filterd data", filteredData);
 
   function formatAmount(amount) {
     // Assuming amount is a number
-    const formattedAmount = new Intl.NumberFormat('en-IN', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
+    const formattedAmount = new Intl.NumberFormat("en-IN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     }).format(amount);
 
     return formattedAmount;
-}
-
-
-
-const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-
-const requestSort = (key) => {
-  let direction = "asc";
-  if (sortConfig.key === key && sortConfig.direction === "asc") {
-    direction = "desc";
   }
-  setSortConfig({ key, direction });
-};
 
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
 
+  const sortedData = () => {
+    const dataCopy = [...currentPageData];
 
-const sortedData = () => {
-  const dataCopy = [...currentPageData];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        let valueA = a[sortConfig.key];
+        let valueB = b[sortConfig.key];
 
-  if (sortConfig.key) {
-    dataCopy.sort((a, b) => {
-      let valueA = a[sortConfig.key];
-      let valueB = b[sortConfig.key];
- 
-     
-      if (sortConfig.key === "Amount" || sortConfig.key === "On_account") {
-        valueA = parseFloat(valueA);
-        valueB = parseFloat(valueB);
-      }
- 
-      if (valueA < valueB) {
-        return sortConfig.direction === "asc" ? -1 : 1;
-      }
-      if (valueA > valueB) {
-        return sortConfig.direction === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
-  }
-  return dataCopy;
-};
+        if (sortConfig.key === "Amount" || sortConfig.key === "On_account") {
+          valueA = parseFloat(valueA);
+          valueB = parseFloat(valueB);
+        }
+
+        if (valueA < valueB) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (valueA > valueB) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
-    <div>
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">Payment Receipt Vouchers List</h4>
+    <>
+      <div className="row">
+        <h4 className="title">Payment Receipt Vouchers List</h4>
+      </div>
+
+      <div className="row mt-1">
+        <div className="col-md-2">
+          <label className="form-label">Payment Receipt Vouchers</label>
+        </div>
+        <div className="d-flex col-md-4 mt-1" style={{ gap: "10px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Select Customer
+          </label>
+          <Typeahead
+            className="ip-select"
+            id="basic-example"
+            labelKey={(option) =>
+              option && option.Cust_name ? option.Cust_name.toString() : ""
+            }
+            valueKey="Cust_Code"
+            options={custdata}
+            style={{ marginTop: "-8px" }}
+            placeholder="Select Customer"
+            onChange={handleTypeaheadChange}
+            selected={selectedOption}
+          />
+        </div>
+        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+          <label className="form-label">Search</label>
+          <input
+            className="ip-select"
+            type="text"
+            style={{ marginTop: "5px" }}
+            onChange={handleSearch}
+            value={searchInput}
+          />
+        </div>
+        <div className="col-md-3">
+          <button
+            className="button-style group-button"
+            onClick={openVoucherButton}
+          >
+            Open Voucher
+          </button>
+
+          <button
+            className="button-style group-button"
+            style={{ float: "right" }}
+            onClick={(e) => navigate("/UnitAccounts")}
+          >
+            Close
+          </button>
         </div>
       </div>
 
-      <div className="row col-md-12">
+      {/* <div className="row">
         <div className="col-md-3 mt-4 col-sm-12">
           <label className="form-label">Payment Receipt Vouchers</label>
         </div>
@@ -215,7 +252,7 @@ const sortedData = () => {
               <label className="form-label  ">Select Customer</label>
 
               <Typeahead
-                className=""
+                className="ip-select"
                 id="basic-example"
                 labelKey={(option) =>
                   option && option.Cust_name ? option.Cust_name.toString() : ""
@@ -231,9 +268,9 @@ const sortedData = () => {
               <label className="form-label">Search</label>
               <form>
                 <input
-                  className=""
+                  className="ip-select"
                   type="text"
-                  style={{ marginTop: "10px" }}
+                  style={{ marginTop: "5px" }}
                   onChange={handleSearch}
                   value={searchInput}
                 />
@@ -243,7 +280,6 @@ const sortedData = () => {
             <div className="col-md-3 mt-1">
               <button
                 className="button-style group-button"
-                style={{ width: "120px" }}
                 onClick={openVoucherButton}
               >
                 Open Voucher
@@ -253,7 +289,7 @@ const sortedData = () => {
             <div className="col-md-2 mt-1">
               <button
                 className="button-style group-button"
-                style={{ width: "100px" }}
+                style={{ marginLeft: "160px" }}
                 onClick={(e) => navigate("/UnitAccounts")}
               >
                 Close
@@ -261,25 +297,20 @@ const sortedData = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <hr
-        style={{
-          backgroundColor: "black",
-          height: "3px",
-          marginTop: "30px",
-        }}
-      />
-      <div style={{ height: "400px", overflowY: "scroll", marginTop: "20px" }}>
+      <div style={{ height: "280px", overflowY: "scroll", marginTop: "20px" }}>
         <Table
           striped
           className="table-data border"
           style={{ marginLeft: "5px", border: "1px" }}
         >
           <thead className="tableHeaderBGColor">
-            <tr  style={{whiteSpace:'nowrap'}}>
+            <tr style={{ whiteSpace: "nowrap" }}>
               <th onClick={() => requestSort("Recd_PVNo")}>Receipt Vr No</th>
-              <th onClick={() => requestSort("ReceiptStatus")}>Receipt Status</th>
+              <th onClick={() => requestSort("ReceiptStatus")}>
+                Receipt Status
+              </th>
               <th onClick={() => requestSort("Recd_PV_Date")}>Date</th>
               <th onClick={() => requestSort("CustName")}>Customer</th>
               <th onClick={() => requestSort("TxnType")}>Transaction Type</th>
@@ -291,27 +322,32 @@ const sortedData = () => {
           <tbody className="tablebody">
             {sortedData()
               ? sortedData().map((rv, key) => (
-                <tr 
-               
-                  onDoubleClick={() => handleNavigate(rv.RecdPVID)}
-                  className={
-                    key === selectRow?.index ? "selcted-row-clr" : ""
-                  }
-                  key={rv.RecdPVID}
-                  onClick={() => selectedRowFun(rv, key)}
+                  <tr
+                    onDoubleClick={() => handleNavigate(rv.RecdPVID)}
+                    className={
+                      key === selectRow?.index ? "selcted-row-clr" : ""
+                    }
+                    key={rv.RecdPVID}
+                    onClick={() => selectedRowFun(rv, key)}
 
-                // className={key === selectRow?.index ? 'selcted-row-clr' : ''}
-                >
-                  <td>{rv.Recd_PVNo}</td>
-                  <td>{rv.ReceiptStatus}</td>
-                  <td>{new Date(rv.Recd_PV_Date).toLocaleDateString('en-GB')}</td>
-                  <td>{rv.CustName}</td>
-                  <td>{rv.TxnType}</td>
-                  <td style={{textAlign:'right'}}>{formatAmount(rv.Amount)}</td>
-                  <td style={{textAlign:'right'}}>{formatAmount(rv.On_account)}</td>
-                  <td style={{textAlign:'center'}}>{rv.Description}</td>
-                </tr>
-              ))
+                    // className={key === selectRow?.index ? 'selcted-row-clr' : ''}
+                  >
+                    <td>{rv.Recd_PVNo}</td>
+                    <td>{rv.ReceiptStatus}</td>
+                    <td>
+                      {new Date(rv.Recd_PV_Date).toLocaleDateString("en-GB")}
+                    </td>
+                    <td>{rv.CustName}</td>
+                    <td>{rv.TxnType}</td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(rv.Amount)}
+                    </td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(rv.On_account)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>{rv.Description}</td>
+                  </tr>
+                ))
               : ""}
           </tbody>
         </Table>
@@ -328,6 +364,6 @@ const sortedData = () => {
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
       />
-    </div>
+    </>
   );
 }
