@@ -237,7 +237,7 @@ export default function SalesInvoice({ getValuesSales, date }) {
                   style={{
                     whiteSpace: "nowrap",
                     backgroundColor:
-                      item.DCStatus === "Cancelled" ? "#FF6700" : "transparent",
+                      item.DCStatus === "Cancelled" ? "#f48483" : "transparent",
                   }}
                   onClick={() => selectedRowFun(item, key)}
                   className={key === selectRow?.index ? "selcted-row-clr" : ""}

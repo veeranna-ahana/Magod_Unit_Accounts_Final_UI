@@ -172,7 +172,7 @@ export default function FromHOUpdate() {
           </button>
           <input
             type="file"
-            // accept=".xml"
+            accept=".xml"
             ref={fileInputRef}
             style={{ display: "none" }}
             onChange={handleFileSelect}

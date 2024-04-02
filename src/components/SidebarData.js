@@ -200,11 +200,11 @@ export const customerSidebar = [
             icon: <FontAwesomeIcon icon={faSmog} />,
             path: "/UnitAccounts/Sync/AccountSyncFile",
           },
-          // {
-          //   title: "From HO Sync",
-          //   icon: <FontAwesomeIcon icon={faCloudBolt} />,
-          //   path: "/UnitAccounts/Sync/FromHOSYNC",
-          // },
+          {
+            title: "From HO Sync",
+            icon: <FontAwesomeIcon icon={faCloudBolt} />,
+            path: "/UnitAccounts/Sync/FromHOSYNC",
+          },
           {
             title: "From HO Update",
             icon: <FontAwesomeIcon icon={faCloudBolt} />,
