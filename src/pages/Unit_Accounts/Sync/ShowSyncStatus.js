@@ -8,7 +8,11 @@ import Tab from "react-bootstrap/Tab";
 import { Table } from "react-bootstrap";
 import InvoiceTable1 from "./InvoiceTab/InvoiceTable1";
 import { toast } from "react-toastify";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
+
 import { xml2js, js2xml } from "xml-js";
+import MailModal from "../MailModal";
 
 export default function ShowSyncStatus() {
   const version = "Unit";
@@ -202,6 +206,7 @@ export default function ShowSyncStatus() {
     } catch (error) {
       console.error("Error saving file:", error);
     }
+    await setTimeout(callMailModal, 10000);
   };
 
   const selectedRowFun = (item, index, color) => {
@@ -699,6 +704,20 @@ export default function ShowSyncStatus() {
   console.log("Unit open Invoices for export", getUnitInvoiceForExport);
   console.log("Unit open", openVoucher, "And", unitOpenInvoices);
   // console.log('color', selectedRowColor);
+  const [mailAlert, setMailAlert] = useState(false);
+  const [mailModal, setMailModal] = useState(false);
+  const handleClose = () => {
+    setMailModal(false);
+    setMailAlert(false);
+  };
+  const yesmailSubmit = () => {
+    setMailAlert(false);
+    setMailModal(true);
+  };
+
+  const callMailModal = () => {
+    setMailAlert(true);
+  };
 
   return (
     <>
@@ -1163,6 +1182,7 @@ export default function ShowSyncStatus() {
             <Tab eventKey="HOR" title=" HO Payment Receipnts"></Tab>
           </Tabs>
         </div>
+        {<MailModal mailModal={mailModal} setMailModal={setMailModal} />}
       </div>
     </>
   );
