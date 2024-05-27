@@ -722,6 +722,36 @@ export default function ShowSyncStatus() {
   return (
     <>
       <div className="">
+        <Modal show={mailAlert} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title style={{ fontSize: "12px" }}>
+              magod_machine
+            </Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body style={{ fontSize: "12px" }}>
+            {" "}
+            Accounts Sync Report Saved as (path filename.xml) Do you wish to
+            mail it?
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={yesmailSubmit}
+              style={{ fontSize: "12px" }}
+            >
+              Yes
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={handleClose}
+              style={{ fontSize: "12px" }}
+            >
+              No
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <h4 className="title">HO Unit Sync Review</h4>
       </div>
 
