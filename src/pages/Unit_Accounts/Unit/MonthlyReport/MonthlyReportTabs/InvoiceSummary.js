@@ -21,22 +21,23 @@ export default function InvoiceSummary({ getMonthInvReport }) {
       dataCopy.sort((a, b) => {
         let valueA = a[sortConfig.key];
         let valueB = b[sortConfig.key];
-   
+
         // Convert only for the "intiger" columns
         if (
-        sortConfig.key === "GrandTotal" || 
-        sortConfig.key === "ValueAdded" || 
-        sortConfig.key === "MaterialValue" || 
-        sortConfig.key === "Discount" || 
-        sortConfig.key === "Del_Chg" || 
-        sortConfig.key === "TptCharges" || 
-        sortConfig.key === "TaxAmount" || 
-        sortConfig.key === "InvTotal" || 
-        sortConfig.key === "PymtAmtRecd") {
+          sortConfig.key === "GrandTotal" ||
+          sortConfig.key === "ValueAdded" ||
+          sortConfig.key === "MaterialValue" ||
+          sortConfig.key === "Discount" ||
+          sortConfig.key === "Del_Chg" ||
+          sortConfig.key === "TptCharges" ||
+          sortConfig.key === "TaxAmount" ||
+          sortConfig.key === "InvTotal" ||
+          sortConfig.key === "PymtAmtRecd"
+        ) {
           valueA = parseFloat(valueA);
           valueB = parseFloat(valueB);
         }
-   
+
         if (valueA < valueB) {
           return sortConfig.direction === "asc" ? -1 : 1;
         }
@@ -68,10 +69,9 @@ export default function InvoiceSummary({ getMonthInvReport }) {
     <div>
       <div
         style={{
-          height: "300px",
+          height: "380px",
           overflowY: "scroll",
           overflowX: "scroll",
-          marginTop: "20px",
         }}
       >
         <Table striped className="table-data border" style={{ border: "1px" }}>
@@ -80,20 +80,65 @@ export default function InvoiceSummary({ getMonthInvReport }) {
               <th>With Tax</th>
               <th onClick={() => requestSort("BranchSale")}>Branch Sale</th>
               <th onClick={() => requestSort("InvoiceType")}>Invoice Type</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("GrandTotal")}>Grand Total</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("PymtAmtRecd")}>Received</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("ValueAdded")}>Value Added</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("MaterialValue")}>Material Value</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("Discount")}>Discount</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("Del_Chg")}>Delivery Chg</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("TptCharges")}>Transport Charges</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("TaxAmount")}>Tax Amount</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("InvTotal")}>Inv Total</th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("GrandTotal")}
+              >
+                Grand Total
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("PymtAmtRecd")}
+              >
+                Received
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("ValueAdded")}
+              >
+                Value Added
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("MaterialValue")}
+              >
+                Material Value
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("Discount")}
+              >
+                Discount
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("Del_Chg")}
+              >
+                Delivery Chg
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("TptCharges")}
+              >
+                Transport Charges
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("TaxAmount")}
+              >
+                Tax Amount
+              </th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("InvTotal")}
+              >
+                Inv Total
+              </th>
             </tr>
           </thead>
           <tbody className="tablebody">
-            {sortedData()?.map((item, key) => {
-              return (
+            {sortedData()?.length > 0 ? (
+              sortedData()?.map((item, key) => (
                 <tr
                   style={{ whiteSpace: "nowrap" }}
                   onClick={() => selectedRowFun(item, key)}
@@ -130,8 +175,14 @@ export default function InvoiceSummary({ getMonthInvReport }) {
                     {formatAmount(item.InvTotal)}
                   </td>
                 </tr>
-              );
-            })}
+              ))
+            ) : (
+              <tr>
+                <td colSpan="12" style={{ textAlign: "center" }}>
+                  Data not found!
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>
