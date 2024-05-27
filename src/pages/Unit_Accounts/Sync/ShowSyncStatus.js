@@ -424,14 +424,50 @@ export default function ShowSyncStatus() {
   }, [getHOInvoice]);
 
   // Initialize arrays to store matched and unmatched invoices
-  const [matchedInvoices, setmatchedInvoices] = useState([]);
-  const [unmatchedInvoices, setunmatchedInvoices] = useState([]);
+  // const [matchedInvoices, setmatchedInvoices] = useState([]);
+  // const [unmatchedInvoices, setunmatchedInvoices] = useState([]);
+
+  // const compare = (report) => {
+  //   if (getUnitInvoice.length === 1) {
+  //     const unitInvoices = getUnitInvoice[0].cmdInvList;
+  //     setInvPaymentVrList(getUnitInvoice[0].cmdInvPaymentVrList);
+  //     // Identify invoices in unitInvoices that are not in report.open_inv
+  //     unitInvoices.forEach((unitInv) => {
+  //       const matchedInv = report.open_inv.find(
+  //         (importInv) =>
+  //           parseInt(importInv.DC_Inv_No) === parseInt(unitInv.DC_Inv_No) &&
+  //           importInv.PymtAmtRecd === unitInv.PymtAmtRecd
+  //       );
+
+  //       if (matchedInv) {
+  //         // Invoice is matched, add to matchedInvoices array
+  //         matchedInvoices.push({ ...unitInv, matchedInv });
+  //       } else {
+  //         // Invoice is unmatched, add to unmatchedInvoices array
+  //         unmatchedInvoices.push(unitInv);
+  //       }
+  //     });
+
+  //     // Now matchedInvoices contains the matched invoices along with their corresponding importInv
+  //     console.log("matchedInvoices", matchedInvoices);
+
+  //     // Now unmatchedInvoices contains the invoices present in unitInvoices but not in report.open_inv
+  //     console.log("unmatchedInvoices", unmatchedInvoices);
+  //   } else {
+  //     console.log("there is no length");
+  //   }
+  // };
+
+  const [allUnitInvoices, setAllUnitInvoices] = useState([]);
+  const [countUnmatched, setCountUnmatched] = useState(0);
 
   const compare = (report) => {
     if (getUnitInvoice.length === 1) {
       const unitInvoices = getUnitInvoice[0].cmdInvList;
       setInvPaymentVrList(getUnitInvoice[0].cmdInvPaymentVrList);
-      // Identify invoices in unitInvoices that are not in report.open_inv
+
+      const newInvoices = [];
+
       unitInvoices.forEach((unitInv) => {
         const matchedInv = report.open_inv.find(
           (importInv) =>
@@ -440,33 +476,74 @@ export default function ShowSyncStatus() {
         );
 
         if (matchedInv) {
-          // Invoice is matched, add to matchedInvoices array
-          matchedInvoices.push({ ...unitInv, matchedInv });
+          // Invoice is matched, add to newInvoices array with color code for matched
+          newInvoices.push({ ...unitInv, matchedInv, colorCode: "#92ec93" });
         } else {
-          // Invoice is unmatched, add to unmatchedInvoices array
-          unmatchedInvoices.push(unitInv);
+          // Invoice is unmatched, add to newInvoices array with color code for unmatched
+          newInvoices.push({ ...unitInv, colorCode: "#f48483" });
         }
       });
 
-      // Now matchedInvoices contains the matched invoices along with their corresponding importInv
-      console.log("matchedInvoices", matchedInvoices);
+      // Set the combined invoices with color codes to the state
+      setAllUnitInvoices(newInvoices);
 
-      // Now unmatchedInvoices contains the invoices present in unitInvoices but not in report.open_inv
-      console.log("unmatchedInvoices", unmatchedInvoices);
+      // Calculate the count of unmatched invoices
+      const unmatchedCount = newInvoices.filter(
+        (invoice) => invoice.colorCode === "#f48483"
+      ).length;
+      setCountUnmatched(unmatchedCount);
+
+      // Now allInvoices contains both matched and unmatched invoices with color codes
+      console.log("allInvoices", newInvoices);
     } else {
       console.log("there is no length");
     }
   };
 
   // Initialize arrays to store matched and unmatched invoices
-  const [matchedInvoicesHo, setmatchedInvoicesHo] = useState([]);
-  const [unmatchedInvoicesHO, setunmatchedInvoicesHo] = useState([]);
+  // const [matchedInvoicesHo, setmatchedInvoicesHo] = useState([]);
+  // const [unmatchedInvoicesHO, setunmatchedInvoicesHo] = useState([]);
+
+  // const HOCompare = (report) => {
+  //   if (getHOInvoice.length === 1) {
+  //     const hoInvoices = getHOInvoice[0].cmdHoInvList;
+  //     setInvPaymentVrListHO(getHOInvoice[0].cmdHoInvPaymentVrList);
+  //     // Identify invoices in unitInvoices that are not in report.open_inv
+  //     hoInvoices.forEach((unitInv) => {
+  //       const matchedInv = getUnitInvoice[0].cmdInvList.find(
+  //         (importInv) =>
+  //           parseInt(importInv.DC_Inv_No) === parseInt(unitInv.DC_Inv_No) &&
+  //           importInv.PymtAmtRecd === unitInv.PymtAmtRecd
+  //       );
+
+  //       if (matchedInv) {
+  //         // Invoice is matched, add to matchedInvoices array
+  //         matchedInvoicesHo.push({ ...unitInv, matchedInv });
+  //       } else {
+  //         // Invoice is unmatched, add to unmatchedInvoices array
+  //         unmatchedInvoicesHO.push(unitInv);
+  //       }
+  //     });
+
+  //     // Now matchedInvoices contains the matched invoices along with their corresponding importInv
+  //     console.log("matchedInvoicesHo", matchedInvoicesHo);
+
+  //     // Now unmatchedInvoices contains the invoices present in unitInvoices but not in report.open_inv
+  //     console.log("unmatchedInvoicesHO", unmatchedInvoicesHO);
+  //   } else {
+  //     console.log("there is no length");
+  //   }
+  // };
+
+  const [allInvoices, setAllInvoices] = useState([]);
 
   const HOCompare = (report) => {
     if (getHOInvoice.length === 1) {
       const hoInvoices = getHOInvoice[0].cmdHoInvList;
       setInvPaymentVrListHO(getHOInvoice[0].cmdHoInvPaymentVrList);
-      // Identify invoices in unitInvoices that are not in report.open_inv
+
+      const newInvoices = [];
+
       hoInvoices.forEach((unitInv) => {
         const matchedInv = getUnitInvoice[0].cmdInvList.find(
           (importInv) =>
@@ -475,19 +552,19 @@ export default function ShowSyncStatus() {
         );
 
         if (matchedInv) {
-          // Invoice is matched, add to matchedInvoices array
-          matchedInvoicesHo.push({ ...unitInv, matchedInv });
+          // Invoice is matched, add to newInvoices array with color code for matched
+          newInvoices.push({ ...unitInv, matchedInv, colorCode: "#92ec93" });
         } else {
-          // Invoice is unmatched, add to unmatchedInvoices array
-          unmatchedInvoicesHO.push(unitInv);
+          // Invoice is unmatched, add to newInvoices array with color code for unmatched
+          newInvoices.push({ ...unitInv, colorCode: "#f48483" });
         }
       });
 
-      // Now matchedInvoices contains the matched invoices along with their corresponding importInv
-      console.log("matchedInvoicesHo", matchedInvoicesHo);
+      // Set the combined invoices with color codes to the state
+      setAllInvoices(newInvoices);
 
-      // Now unmatchedInvoices contains the invoices present in unitInvoices but not in report.open_inv
-      console.log("unmatchedInvoicesHO", unmatchedInvoicesHO);
+      // Now allInvoices contains both matched and unmatched invoices with color codes
+      console.log("allInvoices", newInvoices);
     } else {
       console.log("there is no length");
     }
@@ -525,7 +602,94 @@ export default function ShowSyncStatus() {
     return formattedAmount;
   }
 
-  let countUnmatched = unmatchedInvoices.length;
+  //UNIT INFORMATION TABLE SORTING
+
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+
+  // sorting function for table headings of the table
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...allUnitInvoices];
+
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        let valueA = a[sortConfig.key];
+        let valueB = b[sortConfig.key];
+
+        // Convert only for the "intiger" columns
+        if (
+          sortConfig.key === "Inv_No" ||
+          sortConfig.key === "InvTotal" ||
+          sortConfig.key === "PymtAmtRecd"
+        ) {
+          valueA = parseFloat(valueA);
+          valueB = parseFloat(valueB);
+        }
+
+        if (valueA < valueB) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (valueA > valueB) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
+
+  //HO INFORMATION TABLE SORTING
+
+  const [HoSortConfig, setHoSortConfig] = useState({
+    key: null,
+    direction: null,
+  });
+
+  // sorting function for table headings of the table
+  const HoRequestSort = (key) => {
+    let direction = "asc";
+    if (HoSortConfig.key === key && HoSortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setHoSortConfig({ key, direction });
+  };
+
+  const HoSortedData = () => {
+    const dataCopy = [...allInvoices];
+
+    if (HoSortConfig.key) {
+      dataCopy.sort((a, b) => {
+        let valueA = a[sortConfig.key];
+        let valueB = b[sortConfig.key];
+
+        // Convert only for the "intiger" columns
+        if (
+          HoSortConfig.key === "Inv_No" ||
+          HoSortConfig.key === "InvTotal" ||
+          HoSortConfig.key === "PymtAmtRecd"
+        ) {
+          valueA = parseFloat(valueA);
+          valueB = parseFloat(valueB);
+        }
+
+        if (valueA < valueB) {
+          return HoSortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (valueA > valueB) {
+          return HoSortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   // console.log('outside if, unit',state);
   console.log("unit invoices", getUnitInvoice);
@@ -538,19 +702,18 @@ export default function ShowSyncStatus() {
 
   return (
     <>
-      <div className="row">
+      <div className="">
         <h4 className="title">HO Unit Sync Review</h4>
       </div>
 
       <div className="row">
-        <label className="form-label">Magod Laser Machining Pvt Ltd</label>
-      </div>
-
-      <div className="row mb-1">
+        <div className="col-md-3">
+          <label className="form-label">Magod Laser Machining Pvt Ltd</label>
+        </div>
         <div className="col-md-2">
           <label className="form-label">Syncronise Account Details </label>
         </div>
-        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+        <div className="col-md-4 d-flex" style={{ gap: "10px" }}>
           <Typeahead
             id="basic-example"
             labelKey={(option) =>
@@ -576,7 +739,7 @@ export default function ShowSyncStatus() {
             onChange={handleFileSelect}
           />
         </div>
-        <div className="col-md-4">
+        <div className="col-md-3">
           <button
             className="button-style  group-button"
             onClick={handleDownload}
@@ -589,8 +752,6 @@ export default function ShowSyncStatus() {
           >
             Reset Invoice
           </button>
-        </div>
-        <div className="col-md-3">
           <button
             className="button-style  group-button"
             style={{ float: "right" }}
@@ -601,80 +762,13 @@ export default function ShowSyncStatus() {
         </div>
       </div>
 
-      {/* <div className="row mb-3">
-        <div className="">
-          <div className="mt-2">
-            <div className="row">
-              <div className=" row">
-                <label
-                  className="form-label col-md-3"
-                  style={{ whiteSpace: "nowrap" }}
-                >
-                  Syncronise Account Details{" "}
-                </label>
-                <div className="col-md-2">
-                  <Typeahead
-                    id="basic-example"
-                    labelKey={(option) =>
-                      option && option.UnitName
-                        ? option.UnitName.toString()
-                        : ""
-                    }
-                    options={unitdata}
-                    placeholder="Select Unit"
-                    onChange={handleUnitSelect}
-                    selected={selectedOption}
-                  />
-                </div>
-                <button
-                  className="button-style  group-button  "
-                  style={{ width: "120px" }}
-                  onClick={handleButtonClick}
-                >
-                  Load Data
-                </button>
-                <input
-                  type="file"
-                  accept=".xml"
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  onChange={handleFileSelect}
-                />
-                <button
-                  className="button-style  group-button "
-                  style={{ width: "150px" }}
-                  onClick={handleDownload}
-                >
-                  Export Report
-                </button>
-                <button
-                  className="button-style  group-button "
-                  style={{ width: "150px" }}
-                  onClick={handleResetInvoice}
-                >
-                  Reset Invoice
-                </button>
-
-                <button
-                  className="button-style  group-button "
-                  style={{ width: "80px" }}
-                  onClick={(e) => navigate("/UnitAccounts")}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       <div>
         <div className="row">
           <Tabs
             id="controlled-tab-example"
             activeKey={key}
             onSelect={(k) => setKey(k)}
-            className="mb-3 mt-1 tab_font "
+            className="mt-1 tab_font "
           >
             <Tab eventKey="Inv" title="Invoices">
               <div className="">
@@ -682,15 +776,9 @@ export default function ShowSyncStatus() {
                   Missing /Mismatch Invoice Count {countUnmatched}
                 </label>
               </div>
+
               <div className="row">
-                <div
-                  className="col-md-6"
-                  style={{
-                    height: "300px",
-                    overflowX: "scroll",
-                    overflowY: "scroll",
-                  }}
-                >
+                <div className="col-md-6">
                   <div className="row">
                     <div className=" col-md-5">
                       <div>
@@ -704,48 +792,81 @@ export default function ShowSyncStatus() {
                       Filter
                     </button>
                   </div>
-                  <Table striped className="table-data border mt-1">
-                    <thead className="tableHeaderBGColor">
-                      <tr>
-                        <th>Inv Type</th>
-                        <th>Inv No</th>
-                        <th>Date</th>
-                        <th>Inv Total</th>
-                        <th>Amt Received</th>
-                        <th>Customer</th>
-                        <th>Inv Status</th>
-                      </tr>
-                    </thead>
+                  <div
+                    className="mt-1"
+                    style={{
+                      height: "300px",
+                      overflowX: "scroll",
+                      overflowY: "scroll",
+                    }}
+                  >
+                    <Table striped className="table-data border">
+                      <thead className="tableHeaderBGColor">
+                        <tr>
+                          <th onClick={() => requestSort("DC_InvType")}>
+                            Inv Type
+                          </th>
+                          <th onClick={() => requestSort("Inv_No")}>Inv No</th>
+                          <th onClick={() => requestSort("InvoiceType")}>
+                            Date
+                          </th>
+                          <th onClick={() => requestSort("InvTotal")}>
+                            Inv Total
+                          </th>
+                          <th onClick={() => requestSort("PymtAmtRecd")}>
+                            Amt Received
+                          </th>
+                          <th onClick={() => requestSort("Cust_Name")}>
+                            Customer
+                          </th>
+                          <th onClick={() => requestSort("DCStatus")}>
+                            Inv Status
+                          </th>
+                        </tr>
+                      </thead>
 
-                    <tbody className="tablebody">
-                      {/* Render rows for matchedInvoices */}
-                      {matchedInvoices?.map((item, key) => {
-                        return (
-                          <tr
-                            style={{
-                              whiteSpace: "nowrap",
-                              backgroundColor: "#92ec93",
-                            }}
-                            onClick={() => selectedRowFun(item, key)}
-                            className={
-                              key === selectRow?.index ? "selcted-row-clr" : ""
-                            }
-                          >
-                            <td>{item.DC_InvType}</td>
-                            <td>{item.Inv_No}</td>
-                            <td>{formatDate(item.Dc_inv_Date)}</td>
-                            <td style={{ textAlign: "right" }}>
-                              {formatAmount(item.InvTotal)}
+                      <tbody className="tablebody">
+                        {/* Check if there is any data */}
+                        {sortedData() && sortedData().length > 0 ? (
+                          // Render rows for matchedInvoices and unmatchedInvoices
+                          sortedData().map((item, key) => (
+                            <tr
+                              key={key}
+                              style={{
+                                whiteSpace: "nowrap",
+                                backgroundColor: item.colorCode,
+                              }}
+                              onClick={() =>
+                                selectedRowFun(item, key, item.colorCode)
+                              }
+                              className={
+                                key === selectRow?.index
+                                  ? "selcted-row-clr"
+                                  : ""
+                              }
+                            >
+                              <td>{item.DC_InvType}</td>
+                              <td>{item.Inv_No}</td>
+                              <td>{formatDate(item.Dc_inv_Date)}</td>
+                              <td style={{ textAlign: "right" }}>
+                                {formatAmount(item.InvTotal)}
+                              </td>
+                              <td style={{ textAlign: "right" }}>
+                                {formatAmount(item.PymtAmtRecd)}
+                              </td>
+                              <td>{item.Cust_Name}</td>
+                              <td>{item.DCStatus}</td>
+                            </tr>
+                          ))
+                        ) : (
+                          // Render a row indicating no data
+                          <tr>
+                            <td colSpan="7" style={{ textAlign: "center" }}>
+                              Data not found!
                             </td>
-                            <td style={{ textAlign: "right" }}>
-                              {formatAmount(item.PymtAmtRecd)}
-                            </td>
-                            <td>{item.Cust_Name}</td>
-                            <td>{item.DCStatus}</td>
                           </tr>
-                        );
-                      })}
-                      {/* {matchedInvoices.map((item, index) => {
+                        )}
+                        {/* {matchedInvoices.map((item, index) => {
                         return (
                           <tr
                             onClick={() => selectedRowFun(item, index)}
@@ -771,8 +892,8 @@ export default function ShowSyncStatus() {
                         );
                       })} */}
 
-                      {/* Render rows for unmatchedInvoices */}
-                      {unmatchedInvoices?.map((item, key) => {
+                        {/* Render rows for unmatchedInvoices */}
+                        {/* {unmatchedInvoices?.map((item, key) => {
                         return (
                           <tr
                             style={{
@@ -797,8 +918,8 @@ export default function ShowSyncStatus() {
                             <td>{item.DCStatus}</td>
                           </tr>
                         );
-                      })}
-                      {/* {unmatchedInvoices.map((item) => {
+                      })} */}
+                        {/* {unmatchedInvoices.map((item) => {
                         return (
                           <tr
                             key={`unmatched-${item.DC_Inv_No}`}
@@ -817,18 +938,12 @@ export default function ShowSyncStatus() {
                           </tr>
                         );
                       })} */}
-                    </tbody>
-                  </Table>
+                      </tbody>
+                    </Table>
+                  </div>
                 </div>
 
-                <div
-                  className="col-md-6"
-                  style={{
-                    height: "300px",
-                    overflowX: "scroll",
-                    overflowY: "scroll",
-                  }}
-                >
+                <div className="col-md-6">
                   <div className="row">
                     <div className="  col-md-5">
                       <div>
@@ -842,53 +957,82 @@ export default function ShowSyncStatus() {
                       Filter
                     </button>
                   </div>
+                  <div
+                    className="mt-1"
+                    style={{
+                      height: "300px",
+                      overflowX: "scroll",
+                      overflowY: "scroll",
+                    }}
+                  >
+                    <Table striped className="table-data border">
+                      <thead className="tableHeaderBGColor">
+                        <tr>
+                          <th onClick={() => HoRequestSort("DC_InvType")}>
+                            Inv Type
+                          </th>
+                          <th onClick={() => HoRequestSort("Inv_No")}>
+                            Inv No
+                          </th>
+                          <th onClick={() => HoRequestSort("DC_Date")}>Date</th>
+                          <th onClick={() => HoRequestSort("InvTotal")}>
+                            Inv Total
+                          </th>
+                          <th onClick={() => HoRequestSort("PymtAmtRecd")}>
+                            Amt Received
+                          </th>
+                          <th onClick={() => HoRequestSort("Cust_Name")}>
+                            Customer
+                          </th>
+                          <th onClick={() => HoRequestSort("DCStatus")}>
+                            Inv Status
+                          </th>
+                        </tr>
+                      </thead>
 
-                  <Table striped className="table-data border mt-1">
-                    <thead className="tableHeaderBGColor">
-                      <tr>
-                        <th>Inv Type</th>
-                        <th>Inv No</th>
-                        <th>Date</th>
-                        <th>Inv Total</th>
-                        <th>Amt Received</th>
-                        <th>Customer</th>
-                        <th>Inv Status</th>
-                      </tr>
-                    </thead>
-
-                    <tbody className="tablebody">
-                      {unmatchedInvoicesHO?.map((item, key) => {
-                        return (
-                          <tr
-                            style={{
-                              whiteSpace: "nowrap",
-                              backgroundColor: "#f48483",
-                            }}
-                            onClick={() =>
-                              selectedRowFunHO(item, key, "#f48483")
-                            }
-                            className={
-                              key === selectRowHO?.index
-                                ? "selcted-row-clr"
-                                : ""
-                            }
-                          >
-                            <td>{item.DC_InvType}</td>
-                            <td>{item.Inv_No}</td>
-                            <td>{formatDate(item.DC_Date)}</td>
-                            <td style={{ textAlign: "right" }}>
-                              {formatAmount(item.InvTotal)}
+                      <tbody className="tablebody">
+                        {/* Check if there is any data */}
+                        {HoSortedData() && HoSortedData().length > 0 ? (
+                          // Render rows for matchedInvoices and unmatchedInvoices
+                          HoSortedData().map((item, key) => (
+                            <tr
+                              key={key}
+                              style={{
+                                whiteSpace: "nowrap",
+                                backgroundColor: item.colorCode,
+                              }}
+                              onClick={() =>
+                                selectedRowFunHO(item, key, item.colorCode)
+                              }
+                              className={
+                                key === selectRowHO?.index
+                                  ? "selcted-row-clr"
+                                  : ""
+                              }
+                            >
+                              <td>{item.DC_InvType}</td>
+                              <td>{item.Inv_No}</td>
+                              <td>{formatDate(item.DC_Date)}</td>
+                              <td style={{ textAlign: "right" }}>
+                                {formatAmount(item.InvTotal)}
+                              </td>
+                              <td style={{ textAlign: "right" }}>
+                                {formatAmount(item.PymtAmtRecd)}
+                              </td>
+                              <td>{item.Cust_Name}</td>
+                              <td>{item.DCStatus}</td>
+                            </tr>
+                          ))
+                        ) : (
+                          // Render a row indicating no data
+                          <tr>
+                            <td colSpan="7" style={{ textAlign: "center" }}>
+                              Data not found!
                             </td>
-                            <td style={{ textAlign: "right" }}>
-                              {formatAmount(item.PymtAmtRecd)}
-                            </td>
-                            <td>{item.Cust_Name}</td>
-                            <td>{item.DCStatus}</td>
                           </tr>
-                        );
-                      })}
+                        )}
 
-                      {matchedInvoicesHo?.map((item, key) => {
+                        {/* {matchedInvoicesHo?.map((item, key) => {
                         return (
                           <tr
                             style={{
@@ -915,81 +1059,101 @@ export default function ShowSyncStatus() {
                             <td>{item.DCStatus}</td>
                           </tr>
                         );
-                      })}
-                    </tbody>
-                  </Table>
+                      })} */}
+                      </tbody>
+                    </Table>
+                  </div>
                 </div>
               </div>
 
               {/* Table3 and table4 */}
 
               <div className="row">
-                <div
-                  className="col-md-6"
-                  style={{
-                    height: "300px",
-                    overflowX: "scroll",
-                    overflowY: "scroll",
-                  }}
-                >
-                  <Table striped className="table-data border">
-                    <thead className="tableHeaderBGColor">
-                      <tr style={{ whiteSpace: "nowrap" }}>
-                        <th>VoucherNo</th>
-                        <th>TxnType</th>
-                        <th>Receive_Now</th>
-                        <th>VoucherStatus</th>
-                      </tr>
-                    </thead>
+                <div className="col-md-6">
+                  <div
+                    style={{
+                      height: "300px",
+                      overflowX: "scroll",
+                      overflowY: "scroll",
+                    }}
+                  >
+                    <Table striped className="table-data border">
+                      <thead className="tableHeaderBGColor">
+                        <tr style={{ whiteSpace: "nowrap" }}>
+                          <th>VoucherNo</th>
+                          <th>TxnType</th>
+                          <th>Receive_Now</th>
+                          <th>VoucherStatus</th>
+                        </tr>
+                      </thead>
 
-                    <tbody className="tablebody">
-                      {selectedPaymentVr &&
-                        selectedPaymentVr.map((item, key) => {
-                          return (
+                      <tbody className="tablebody">
+                        {/* Check if there is any data */}
+                        {selectedPaymentVr && selectedPaymentVr.length > 0 ? (
+                          // Render rows for selectedPaymentVr
+                          selectedPaymentVr.map((item, key) => (
                             <tr style={{ whiteSpace: "nowrap" }} key={key}>
                               <td>{item.VoucherNo}</td>
                               <td>{item.TxnType}</td>
                               <td>{item.Receive_Now}</td>
                               <td>{item.VoucherStatus}</td>
                             </tr>
-                          );
-                        })}
-                    </tbody>
-                  </Table>
+                          ))
+                        ) : (
+                          // Render a row indicating no data
+                          <tr>
+                            <td colSpan="4" style={{ textAlign: "center" }}>
+                              Data not found!
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </Table>
+                  </div>
                 </div>
 
-                <div
-                  className="col-md-6"
-                  style={{
-                    height: "300px",
-                    overflowX: "scroll",
-                    overflowY: "scroll",
-                  }}
-                >
-                  <Table striped className="table-data border">
-                    <thead className="tableHeaderBGColor">
-                      <tr>
-                        <th>VoucherNo</th>
-                        <th>TxnType</th>
-                        <th>Receive_Now</th>
-                        <th>VoucherStatus</th>
-                      </tr>
-                    </thead>
+                <div className="col-md-6">
+                  <div
+                    style={{
+                      height: "300px",
+                      overflowX: "scroll",
+                      overflowY: "scroll",
+                    }}
+                  >
+                    <Table striped className="table-data border">
+                      <thead className="tableHeaderBGColor">
+                        <tr>
+                          <th>VoucherNo</th>
+                          <th>TxnType</th>
+                          <th>Receive_Now</th>
+                          <th>VoucherStatus</th>
+                        </tr>
+                      </thead>
 
-                    <tbody className="tablebody">
-                      {/* {selectedPaymentVrHO &&
-                        selectedPaymentVrHO.map((item, key) => {
-                          return (
+                      <tbody className="tablebody">
+                        {/* Check if there is any data */}
+                        {selectedPaymentVrHO &&
+                        selectedPaymentVrHO.length > 0 ? (
+                          // Render rows for selectedPaymentVrHO
+                          selectedPaymentVrHO.map((item, key) => (
                             <tr style={{ whiteSpace: "nowrap" }} key={key}>
                               <td>{item.VoucherNo}</td>
                               <td>{item.TxnType}</td>
                               <td>{item.Receive_Now}</td>
                               <td>{item.VoucherStatus}</td>
                             </tr>
-                          );
-                        })} */}
-                    </tbody>
-                  </Table>
+                          ))
+                        ) : (
+                          // Render a row indicating no data
+                          <tr>
+                            <td colSpan="4" style={{ textAlign: "center" }}>
+                              Data not found!
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </Table>
+                  </div>
                 </div>
               </div>
             </Tab>
