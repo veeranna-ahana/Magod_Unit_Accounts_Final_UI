@@ -8,6 +8,9 @@ import HoReceiptVoucher from "./HoReceiptVoucher";
 import { Typography, Alert } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
+import MailModal from "../../../MailModal";
 
 export default function Export({ data }) {
   const [activeTab, setActiveTab] = useState("openInvoice");
@@ -79,29 +82,34 @@ export default function Export({ data }) {
   };
 
   const DownloadXMLButton = ({ data }) => {
-    const handleDownload = () => {
-      const xmlString = arrayToXML(data);
-      const finalXmlString = `<?xml version="1.0" standalone="yes"?>\n${xmlString}`;
-      const blob = new Blob([finalXmlString], { type: "text/xml" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      const today = new Date();
-      const formattedDate = today
-        .toLocaleDateString("en-US", {
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        })
-        .replace(/\s+/g, "_"); // Replace spaces with underscores
-      const strUnitName = "Jigani";
-      // const strUnitName = data[0]?.UnitName || "DefaultUnit"; // Replace "DefaultUnit" with a default value if UnitName is not available
-      // a.download = "unit_hosync.xml";
-      a.download = `Unit ${strUnitName} Sync ${formattedDate}.xml`;
-      document.body.appendChild(a);
-      a.click();
-      URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+    const handleDownload = async () => {
+      try {
+        const xmlString = arrayToXML(data);
+        const finalXmlString = `<?xml version="1.0" standalone="yes"?>\n${xmlString}`;
+        const blob = new Blob([finalXmlString], { type: "text/xml" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        const today = new Date();
+        const formattedDate = today
+          .toLocaleDateString("en-US", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          })
+          .replace(/\s+/g, "_"); // Replace spaces with underscores
+        const strUnitName = "Jigani";
+        // const strUnitName = data[0]?.UnitName || "DefaultUnit"; // Replace "DefaultUnit" with a default value if UnitName is not available
+        // a.download = "unit_hosync.xml";
+        a.download = `Unit ${strUnitName} Sync ${formattedDate}.xml`;
+        document.body.appendChild(a);
+        a.click();
+        URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } catch (err) {
+        console.log("Error in Eport");
+      }
+      await setTimeout(callMailModal, 10000);
     };
 
     return (
@@ -131,9 +139,53 @@ export default function Export({ data }) {
     }
   }, [activeTab, tabData]);
   //console.log(data, 'exportpage')
+  const [mailAlert, setMailAlert] = useState(false);
+  const [mailModal, setMailModal] = useState(false);
+  const handleClose = () => {
+    setMailModal(false);
+    setMailAlert(false);
+  };
+  const yesmailSubmit = () => {
+    setMailAlert(false);
+    setMailModal(true);
+  };
+
+  const callMailModal = () => {
+    setMailAlert(true);
+  };
   return (
     <>
       <div>
+        <Modal show={mailAlert} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title style={{ fontSize: "12px" }}>
+              magod_machine
+            </Modal.Title>
+          </Modal.Header>
+
+          <Modal.Body style={{ fontSize: "12px" }}>
+            {" "}
+            Accounts Sync Report Saved as (path filename.xml) Do you wish to
+            mail it?
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button
+              variant="primary"
+              onClick={yesmailSubmit}
+              style={{ fontSize: "12px" }}
+            >
+              Yes
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={handleClose}
+              style={{ fontSize: "12px" }}
+            >
+              No
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <div className="mb-2">
           <div>
             <DownloadXMLButton data={data} />
@@ -180,6 +232,9 @@ export default function Export({ data }) {
           {error}
         </MuiAlert>
       </Snackbar>
+      <div>
+        {<MailModal mailModal={mailModal} setMailModal={setMailModal} />}
+      </div>
     </>
   );
 }

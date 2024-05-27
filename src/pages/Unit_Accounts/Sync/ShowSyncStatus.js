@@ -8,7 +8,11 @@ import Tab from "react-bootstrap/Tab";
 import { Table } from "react-bootstrap";
 import InvoiceTable1 from "./InvoiceTab/InvoiceTable1";
 import { toast } from "react-toastify";
+import Modal from "react-bootstrap/Modal";
+import { Button } from "react-bootstrap";
+
 import { xml2js, js2xml } from "xml-js";
+import MailModal from "../MailModal";
 
 export default function ShowSyncStatus() {
   const version = "Unit";
@@ -202,6 +206,7 @@ export default function ShowSyncStatus() {
     } catch (error) {
       console.error("Error saving file:", error);
     }
+    await setTimeout(callMailModal, 10000);
   };
 
   const selectedRowFun = (item, index, color) => {
@@ -535,9 +540,51 @@ export default function ShowSyncStatus() {
   console.log("Unit open Invoices for export", getUnitInvoiceForExport);
   console.log("Unit open", openVoucher, "And", unitOpenInvoices);
   // console.log('color', selectedRowColor);
+  const [mailAlert, setMailAlert] = useState(false);
+  const [mailModal, setMailModal] = useState(false);
+  const handleClose = () => {
+    setMailModal(false);
+    setMailAlert(false);
+  };
+  const yesmailSubmit = () => {
+    setMailAlert(false);
+    setMailModal(true);
+  };
+
+  const callMailModal = () => {
+    setMailAlert(true);
+  };
 
   return (
     <>
+      <Modal show={mailAlert} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ fontSize: "12px" }}>magod_machine</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body style={{ fontSize: "12px" }}>
+          {" "}
+          Accounts Sync Report Saved as (path filename.xml) Do you wish to mail
+          it?
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={yesmailSubmit}
+            style={{ fontSize: "12px" }}
+          >
+            Yes
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            style={{ fontSize: "12px" }}
+          >
+            No
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="row">
         <h4 className="title">HO Unit Sync Review</h4>
       </div>
@@ -999,6 +1046,7 @@ export default function ShowSyncStatus() {
             <Tab eventKey="HOR" title=" HO Payment Receipnts"></Tab>
           </Tabs>
         </div>
+        {<MailModal mailModal={mailModal} setMailModal={setMailModal} />}
       </div>
     </>
   );
