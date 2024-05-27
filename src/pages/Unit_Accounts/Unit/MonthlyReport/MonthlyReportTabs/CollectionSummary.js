@@ -5,7 +5,7 @@ export default function CollectionSummary({ getCollectionSummary }) {
   const [selectRow, setSelectRow] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
-  // sorting function for table headings of the table 
+  // sorting function for table headings of the table
   const requestSort = (key) => {
     let direction = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
@@ -21,15 +21,13 @@ export default function CollectionSummary({ getCollectionSummary }) {
       dataCopy.sort((a, b) => {
         let valueA = a[sortConfig.key];
         let valueB = b[sortConfig.key];
-   
+
         // Convert only for the "intiger" columns
-        if (
-         sortConfig.key === "Amount" 
-         ) {
+        if (sortConfig.key === "Amount") {
           valueA = parseFloat(valueA);
           valueB = parseFloat(valueB);
         }
-   
+
         if (valueA < valueB) {
           return sortConfig.direction === "asc" ? -1 : 1;
         }
@@ -61,32 +59,48 @@ export default function CollectionSummary({ getCollectionSummary }) {
     <div>
       <div
         style={{
-          height: "300px",
+          height: "380px",
           width: "400px",
           overflowY: "scroll",
           overflowX: "scroll",
-          marginTop: "20px",
         }}
       >
         <Table striped className="table-data border" style={{ border: "1px" }}>
           <thead className="tableHeaderBGColor">
             <tr>
               <th onClick={() => requestSort("TxnType")}>Txn Type</th>
-              <th style={{textAlign:'right'}} onClick={() => requestSort("Amount")}>Amount</th>
+              <th
+                style={{ textAlign: "right" }}
+                onClick={() => requestSort("Amount")}
+              >
+                Amount
+              </th>
             </tr>
           </thead>
           <tbody className="tablebody">
-            {sortedData()?.map((item, key) => {
-              return (
-                <tr
-                  onClick={() => selectedRowFun(item, key)}
-                  className={key === selectRow?.index ? "selcted-row-clr" : ""}
-                >
-                  <td>{item.TxnType}</td>
-                  <td style={{textAlign:'right'}}>{formatAmount(item.Amount)}</td>
-                </tr>
-              );
-            })}
+            {sortedData()?.length > 0 ? (
+              sortedData()?.map((item, key) => {
+                return (
+                  <tr
+                    onClick={() => selectedRowFun(item, key)}
+                    className={
+                      key === selectRow?.index ? "selcted-row-clr" : ""
+                    }
+                  >
+                    <td>{item.TxnType}</td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.Amount)}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan="5" style={{ textAlign: "center" }}>
+                  Data not found!
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>
