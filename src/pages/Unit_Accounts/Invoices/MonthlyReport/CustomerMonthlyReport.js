@@ -161,10 +161,12 @@ export default function CustomerMonthlyReport() {
   const handleGetData = () => {
     console.log("hgsausa", fromDate, toDate);
 
+    toast.success('Please wait data being populating');
+
     axios
       .post(baseURL + `/custMonthlyReportData/monthlyTaxSummary`, {
         month: month,
-        year: year,
+        year: year, 
         getName: getName,
       })
       .then((res) => {
@@ -451,8 +453,8 @@ export default function CustomerMonthlyReport() {
         </div>
       </div> */}
 
-      <div className="mt-4">
-        <Tabs style={{ display: "flex", fontSize: "10.7px" }}>
+      <div className="mt-1">
+        <Tabs className="tab_font mb-1">
           <Tab eventKey="invoiceSummary" title="Invoice Summary">
             <InvoiceSummary getMonthInvReport={getMonthInvReport} />
           </Tab>

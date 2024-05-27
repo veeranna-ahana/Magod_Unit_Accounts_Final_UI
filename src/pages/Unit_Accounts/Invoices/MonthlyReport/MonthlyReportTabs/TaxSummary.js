@@ -61,33 +61,31 @@ export default function TaxSummary({ getMonthReport }) {
 
   return (
     <div>
-      <div
-        style={{
-          height: "260px",
-          overflowY: "scroll",
-          overflowX: "scroll",
-          marginTop: "20px",
-        }}
-      >
-        <Table striped className="table-data border" style={{ border: "1px" }}>
-          <thead className="tableHeaderBGColor">
-            <tr style={{ whiteSpace: "nowrap" }}>
-              <th onClick={() => requestSort("InvoiceType")}>Invoice Type</th>
-              <th onClick={() => requestSort("TaxName")}>Tax Name</th>
-              <th onClick={() => requestSort("TaxPercent")}>Tax %</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("TaxableAmount")}>Taxable Amount</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("TaxAmount")}>Tax Amount</th>
-            </tr>
-          </thead>
-          <tbody className="tablebody">
-            {sortedData()?.map((item, key) => {
-               const taxPercent = parseFloat(item.TaxPercent);
-               const formattedTaxPercent =
-                 taxPercent % 1 !== 0
-                   ? taxPercent.toFixed(2)
-                   : taxPercent.toFixed(0);
+       <div
+      style={{
+        height: "380px",
+        overflowY: "scroll",
+        overflowX: "scroll",
+      }}
+    >
+      <Table striped className="table-data border" style={{ border: "1px" }}>
+        <thead className="tableHeaderBGColor">
+          <tr style={{ whiteSpace: "nowrap" }}>
+            <th onClick={() => requestSort("InvoiceType")}>Invoice Type</th>
+            <th onClick={() => requestSort("TaxName")}>Tax Name</th>
+            <th onClick={() => requestSort("TaxPercent")}>Tax %</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("TaxableAmount")}>Taxable Amount</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("TaxAmount")}>Tax Amount</th>
+          </tr>
+        </thead>
+        <tbody className="tablebody">
+          {sortedData() && sortedData().length > 0 ? (
+            sortedData().map((item, key) => {
+              const taxPercent = parseFloat(item.TaxPercent);
+              const formattedTaxPercent = taxPercent % 1 !== 0 ? taxPercent.toFixed(2) : taxPercent.toFixed(0);
               return (
                 <tr
+                  key={key}
                   style={{ whiteSpace: "nowrap" }}
                   onClick={() => selectedRowFun(item, key)}
                   className={key === selectRow?.index ? "selcted-row-clr" : ""}
@@ -99,10 +97,17 @@ export default function TaxSummary({ getMonthReport }) {
                   <td style={{ textAlign: "right" }}>{formatAmount(item.TaxAmount)}</td>
                 </tr>
               );
-            })}
-          </tbody>
-        </Table>
-      </div>
+            })
+          ) : (
+            <tr>
+              <td colSpan="5" style={{ textAlign: "center" }}>
+                Data not found!
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
+    </div>
     </div>
   );
 }
