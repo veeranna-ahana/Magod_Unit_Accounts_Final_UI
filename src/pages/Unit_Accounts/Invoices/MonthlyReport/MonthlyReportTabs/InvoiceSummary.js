@@ -68,56 +68,62 @@ export default function InvoiceSummary({ getMonthInvReport }) {
   return (
     <div>
       <div
-        style={{
-          height: "260px",
-          overflowY: "scroll",
-          overflowX: "scroll",
-          marginTop: "20px",
-        }}
-      >
-        <Table striped className="table-data border" style={{ border: "1px" }}>
-          <thead className="tableHeaderBGColor">
-            <tr style={{ whiteSpace: "nowrap" }}>
-              <th onClick={() => requestSort("Cust_Name")}>Customer Name</th>
-              <th onClick={() => requestSort("Inv_No")}>Invoice No</th>
-              <th onClick={() => requestSort("DC_InvType")}>Invoice Type</th>
-              <th onClick={() => requestSort("GrandTotal")}>Grand Total</th>
-              <th onClick={() => requestSort("PymtAmtRecd")}>Received</th>
-              <th onClick={() => requestSort("MaterialValue")}>Value Added</th>
-              <th onClick={() => requestSort("MtrlChg")}>Material Value</th>
-              <th onClick={() => requestSort("Discount")}>Discount</th>
-              <th onClick={() => requestSort("Del_Chg")}>Delivery Chg</th>
-              <th onClick={() => requestSort("TptCharges")}>Transport Charges</th>
-              <th onClick={() => requestSort("TaxAmount")}>Tax Amount</th>
-              <th onClick={() => requestSort("InvTotal")}>Inv Total</th>
+      style={{
+        height: "380px",
+        overflowY: "scroll",
+        overflowX: "scroll",
+      }}
+    >
+      <Table striped className="table-data border" style={{ border: "1px" }}>
+        <thead className="tableHeaderBGColor">
+          <tr style={{ whiteSpace: "nowrap" }}>
+            <th onClick={() => requestSort("Cust_Name")}>Customer Name</th>
+            <th onClick={() => requestSort("Inv_No")}>Invoice No</th>
+            <th onClick={() => requestSort("DC_InvType")}>Invoice Type</th>
+            <th onClick={() => requestSort("GrandTotal")}>Grand Total</th>
+            <th onClick={() => requestSort("PymtAmtRecd")}>Received</th>
+            <th onClick={() => requestSort("MaterialValue")}>Value Added</th>
+            <th onClick={() => requestSort("MtrlChg")}>Material Value</th>
+            <th onClick={() => requestSort("Discount")}>Discount</th>
+            <th onClick={() => requestSort("Del_Chg")}>Delivery Chg</th>
+            <th onClick={() => requestSort("TptCharges")}>Transport Charges</th>
+            <th onClick={() => requestSort("TaxAmount")}>Tax Amount</th>
+            <th onClick={() => requestSort("InvTotal")}>Inv Total</th>
+          </tr>
+        </thead>
+        <tbody className="tablebody">
+          {sortedData() && sortedData().length > 0 ? (
+            sortedData().map((item, key) => (
+              <tr
+                key={key}
+                style={{ whiteSpace: "nowrap" }}
+                onClick={() => selectedRowFun(item, key)}
+                className={key === selectRow?.index ? "selcted-row-clr" : ""}
+              >
+                <td>{item.Cust_Name}</td>
+                <td>{item.Inv_No}</td>
+                <td>{item.DC_InvType}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.GrandTotal)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.PymtAmtRecd)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.MaterialValue)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.MtrlChg)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.Discount)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.Del_Chg)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.TptCharges)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.TaxAmount)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.InvTotal)}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="12" style={{ textAlign: "center" }}>
+                Data not found!
+              </td>
             </tr>
-          </thead>
-          <tbody className="tablebody">
-            {sortedData()?.map((item, key) => {
-              return (
-                <tr
-                  style={{ whiteSpace: "nowrap" }}
-                  onClick={() => selectedRowFun(item, key)}
-                  className={key === selectRow?.index ? "selcted-row-clr" : ""}
-                >
-                  <td>{item.Cust_Name}</td>
-                  <td>{item.Inv_No}</td>
-                  <td>{item.DC_InvType}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.GrandTotal)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.PymtAmtRecd)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.MaterialValue)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.MtrlChg)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.Discount)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.Del_Chg)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.TptCharges)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.TaxAmount)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.InvTotal)}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
+          )}
+        </tbody>
+      </Table>
+    </div>
     </div>
   );
 }

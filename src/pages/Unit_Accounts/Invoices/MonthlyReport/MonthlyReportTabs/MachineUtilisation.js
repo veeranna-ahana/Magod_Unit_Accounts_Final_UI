@@ -49,40 +49,46 @@ export default function MachineUtilisation({ getMachineSummary }) {
 
   return (
     <div>
-      <div
-        style={{
-          height: "260px",
-          width: "800px",
-          overflowY: "scroll",
-          overflowX: "scroll",
-          marginTop: "20px",
-        }}
-      >
-        <Table striped className="table-data border" style={{ border: "1px" }}>
-          <thead className="tableHeaderBGColor">
+       <div
+      style={{
+        height: "380px",
+        width: "800px",
+        overflowY: "scroll",
+        overflowX: "scroll",
+      }}
+    >
+      <Table striped className="table-data border" style={{ border: "1px" }}>
+        <thead className="tableHeaderBGColor">
+          <tr style={{ whiteSpace: "nowrap" }}>
+            <th onClick={() => requestSort("Machine")}>Machine</th>
+            <th onClick={() => requestSort("Operation")}>Operation</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("TotalTime")}>Machine Hours</th>
+          </tr>
+        </thead>
+        <tbody className="tablebody">
+          {sortedData()?.length > 0 ? (
+            sortedData().map((item, key) => (
+              <tr
+                key={key}
+                style={{ whiteSpace: "nowrap" }}
+                onClick={() => selectedRowFun(item, key)}
+                className={key === selectRow?.index ? "selcted-row-clr" : ""}
+              >
+                <td>{item.Machine}</td>
+                <td>{item.Operation}</td>
+                <td style={{ textAlign: "right" }}>{item.TotalTime}</td>
+              </tr>
+            ))
+          ) : (
             <tr>
-              <th onClick={() => requestSort("Machine")}>Machine</th>
-              <th onClick={() => requestSort("Operation")}>Operation</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("TotalTime")}>Machine Hours</th>
+              <td colSpan="3" style={{ textAlign: "center" }}>
+                Data not found!
+              </td>
             </tr>
-          </thead>
-          <tbody className="tablebody">
-            {sortedData()?.map((item, key) => {
-              return (
-                <tr
-                  style={{ whiteSpace: "nowrap" }}
-                  onClick={() => selectedRowFun(item, key)}
-                  className={key === selectRow?.index ? "selcted-row-clr" : ""}
-                >
-                  <td>{item.Machine}</td>
-                  <td>{item.Operation}</td>
-                  <td style={{ textAlign: "right" }}>{item.TotalTime}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
+          )}
+        </tbody>
+      </Table>
+    </div>
     </div>
   );
 }

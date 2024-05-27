@@ -61,43 +61,49 @@ export default function MaterialSalesSummary({ getMaterialSummary }) {
 
   return (
     <div>
-      <div
-        style={{
-          height: "260px",
-          overflowY: "scroll",
-          overflowX: "scroll",
-          marginTop: "20px",
-        }}
-      >
-        <Table striped className="table-data border" style={{ border: "1px" }}>
-          <thead className="tableHeaderBGColor">
+       <div
+      style={{
+        height: "380px",
+        overflowY: "scroll",
+        overflowX: "scroll",
+      }}
+    >
+      <Table striped className="table-data border" style={{ border: "1px" }}>
+        <thead className="tableHeaderBGColor">
+          <tr style={{ whiteSpace: "nowrap" }}>
+            <th onClick={() => requestSort("Customer")}>Customer</th>
+            <th onClick={() => requestSort("Material")}>Material</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("MaterialValue")}>Material Value</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("Weight")}>Weight</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("PerKgRate")}>Per Kg Rate</th>
+          </tr>
+        </thead>
+        <tbody className="tablebody">
+          {sortedData()?.length > 0 ? (
+            sortedData().map((item, key) => (
+              <tr
+                key={key}
+                style={{ whiteSpace: "nowrap" }}
+                onClick={() => selectedRowFun(item, key)}
+                className={key === selectRow?.index ? "selcted-row-clr" : ""}
+              >
+                <td>{item.Customer}</td>
+                <td>{item.Material}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.MaterialValue)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.Weight)}</td>
+                <td style={{ textAlign: "right" }}>{formatAmount(item.PerKgRate)}</td>
+              </tr>
+            ))
+          ) : (
             <tr>
-              <th onClick={() => requestSort("Customer")}>Customer</th>
-              <th onClick={() => requestSort("Material")}>Material</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("MaterialValue")}>Material Value</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("Weight")}>Weight</th>
-              <th style={{ textAlign: "right" }} onClick={() => requestSort("PerKgRate")}>Per Kg Rate</th>
+              <td colSpan="5" style={{ textAlign: "center" }}>
+                Data not found!
+              </td>
             </tr>
-          </thead>
-          <tbody className="tablebody">
-            {sortedData()?.map((item, key) => {
-              return (
-                <tr
-                  style={{ whiteSpace: "nowrap" }}
-                  onClick={() => selectedRowFun(item, key)}
-                  className={key === selectRow?.index ? "selcted-row-clr" : ""}
-                >
-                  <td>{item.Customer}</td>
-                  <td>{item.Material}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.MaterialValue)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.Weight)}</td>
-                  <td style={{ textAlign: "right" }}>{formatAmount(item.PerKgRate)}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-      </div>
+          )}
+        </tbody>
+      </Table>
+    </div>
     </div>
   );
 }
