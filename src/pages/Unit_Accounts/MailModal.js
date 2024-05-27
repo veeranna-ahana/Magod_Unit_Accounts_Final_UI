@@ -67,6 +67,7 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
     formData.append("fromAddress", from);
 
     console.log("form datra", formData);
+    setMailModal(false);
 
     postRequestFormData(endpoints.sendAttachmentMails, formData, (data) => {
       setMailModal(false);
@@ -137,7 +138,12 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
                       style={{ gap: "65px" }}
                     >
                       <label className="form-label">From</label>
-                      <Form.Control type="text" required id="fromInput" />
+                      <Form.Control
+                        type="text"
+                        required
+                        id="fromInput"
+                        style={{ fontSize: "12px" }}
+                      />
                     </div>
                   </Form.Group>
                   <Form.Group className=" row" controlId="formToAddress">
@@ -146,7 +152,11 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
                       style={{ gap: "80px" }}
                     >
                       <label className="form-label">To</label>
-                      <Form.Control type="text" required />
+                      <Form.Control
+                        type="text"
+                        required
+                        style={{ fontSize: "12px" }}
+                      />
                     </div>
                   </Form.Group>
 
@@ -156,7 +166,7 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
                       style={{ gap: "80px" }}
                     >
                       <label className="form-label">CC</label>
-                      <Form.Control type="text" />
+                      <Form.Control type="text" style={{ fontSize: "12px" }} />
                     </div>
                   </Form.Group>
                   <Form.Group as={Row} controlId="attachments">
@@ -174,7 +184,7 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
                       style={{ gap: "50px" }}
                     >
                       <label className="form-label">Subject</label>
-                      <Form.Control type="text" />
+                      <Form.Control type="text" style={{ fontSize: "12px" }} />
                     </div>
                   </Form.Group>
                   <Form.Group as={Row} controlId="formMessageBody">
@@ -186,28 +196,29 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
                       <Form.Control
                         as="textarea"
                         rows={50}
-                        style={{ height: "130px", overflowY: "scroll" }}
+                        style={{
+                          height: "130px",
+                          overflowY: "scroll",
+                          fontSize: "12px",
+                        }}
                       />
                     </div>
                   </Form.Group>
 
-                  <Form.Group className="row justify-content-center mt-3 mb-5">
-                    <button
-                      type="submit"
-                      className="button-style"
-                      style={{ width: "120px" }}
-                    >
-                      Send Mail
-                    </button>
-                    <button
-                      type="button"
-                      className="button-style"
-                      id="close"
-                      onClick={closesendmail}
-                      style={{ width: "110px" }}
-                    >
-                      Close
-                    </button>
+                  <Form.Group className="row mt-3 mb-5">
+                    <div style={{ marginLeft: "200px" }}>
+                      <button type="submit" className="button-style">
+                        Send Mail
+                      </button>
+                      <button
+                        type="button"
+                        className="button-style"
+                        id="close"
+                        onClick={closesendmail}
+                      >
+                        Close
+                      </button>
+                    </div>
                   </Form.Group>
                 </Form>
               </div>
