@@ -671,8 +671,8 @@ export default function ShowSyncStatus() {
 
     if (HoSortConfig.key) {
       dataCopy.sort((a, b) => {
-        let valueA = a[sortConfig.key];
-        let valueB = b[sortConfig.key];
+        let valueA = a[HoSortConfig.key];
+        let valueB = b[HoSortConfig.key];
 
         // Convert only for the "intiger" columns
         if (
