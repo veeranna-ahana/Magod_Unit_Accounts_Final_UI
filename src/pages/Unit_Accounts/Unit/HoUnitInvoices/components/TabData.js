@@ -37,6 +37,12 @@ export default function TabData() {
   const [selectedDCType, setSelectedDCType] = useState("");
   const [flag, setFlag] = useState("");
 
+  const [selectedUnitName, setSelectedUnitName] = useState("");
+  const [selectUnit, setSelectUnit] = useState([]);
+
+  const [unitData, setunitData] = useState([]);
+  const [unit, setUnit] = useState([]);
+
   useEffect(() => {
     getCustomerData();
     getDistinctDCtypes();
@@ -44,8 +50,38 @@ export default function TabData() {
 
   console.log("11111111111111");
 
+  const handleUnitSelect = (selected) => {
+    console.log("selectexdddddddd", selected);
+    const selectedCustomer = selected[0];
+
+    setSelectUnit(selected);
+    setUnit(selected[0].UnitName);
+
+    setSelectedUnitName(selected);
+  };
+
+  console.log(
+    "selected unit name in customer outstandibg",
+    selectedUnitName[0]?.UnitName
+  );
+
+  const handleUnitName = () => {
+    axios
+      .get(baseURL + `/customerOutstanding/unitNames`)
+      .then((res) => {
+        console.log("firstTable", res.data);
+        setunitData(res.data.Result);
+      })
+      .catch((err) => {
+        console.log("err in table", err);
+      });
+  };
+
+  useEffect(() => {
+    handleUnitName();
+  }, []);
+
   const getCustomerData = () => {
-    console.log("hiiiiiiiiiiii");
     axios
       .get(baseURL + "/customerOutstanding/getCustomers")
       .then((res) => {
@@ -135,8 +171,19 @@ export default function TabData() {
   // Get distinct PO_NO values
   const distinctPO_NOs = Object.keys(poSumMap);
 
-  console.log("Distinct PO_NOs:", distinctPO_NOs);
-  console.log("Sum of Balances for each PO_NO:", poSumMap);
+  const [unitAddress, setUnitAddress] = useState([]);
+  const fetchUnitAddress = () => {
+    axios
+      .post(baseURL + "/customerOutstanding/getAddress", {
+        unit,
+      })
+      .then((res) => {
+        setUnitAddress(res.data.Result);
+      })
+      .catch((err) => {
+        console.log("errin pdf address", err);
+      });
+  };
 
   return (
     <>
@@ -160,12 +207,12 @@ export default function TabData() {
 
       <div className="row">
         <div className="d-flex col-md-4" style={{ gap: "10px" }}>
-          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+          <label className="form-label mt-1" style={{ whiteSpace: "nowrap" }}>
             Select Customer
           </label>
           <Typeahead
-            id="basic-example"
-            className="ip-select"
+            id="basic-example "
+            className="ip-select mt-1"
             labelKey={(option) =>
               option && option.Cust_name ? option.Cust_name.toString() : ""
             }
@@ -176,6 +223,31 @@ export default function TabData() {
             selected={selectedOption}
           />
         </div>
+
+        {/* <div className="col-md-4 ">
+          <div className="d-flex ">
+            <div className="col-md-3">
+              <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                Select Unit
+              </label>
+            </div>
+            <div className="col-md-8 ">
+              <Typeahead
+                // className="ip-select col-md-5"
+                className="input-disabled  "
+                id="ip-select"
+                labelKey={(option) =>
+                  option && option.UnitName ? option.UnitName.toString() : ""
+                }
+                options={unitData}
+                placeholder="Select Unit"
+                onChange={handleUnitSelect}
+                selected={selectedUnitName}
+                //   selected={selectedUnitName ? [selectedUnitName] : []}
+              />
+            </div>
+          </div>
+        </div> */}
         <div className="d-flex col-md-3" style={{ gap: "10px" }}>
           <label className="form-label mt-1" style={{ whiteSpace: "nowrap" }}>
             Search Inv No
@@ -228,6 +300,23 @@ export default function TabData() {
       </div>
 
       <div className="row">
+        {/* <div className="d-flex col-md-4" style={{ gap: "15px" }}>
+          <label className="form-label mt-1" style={{ whiteSpace: "nowrap" }}>
+            Select Customer
+          </label>
+          <Typeahead
+            id="basic-example"
+            className="ip-select"
+            labelKey={(option) =>
+              option && option.Cust_name ? option.Cust_name.toString() : ""
+            }
+            valueKey="Cust_Code"
+            options={customersData}
+            placeholder="Select Customer"
+            onChange={handleTypeaheadChange}
+            selected={selectedOption}
+          />
+        </div> */}
         <div className="d-flex col-md-6" style={{ gap: "30px" }}>
           <div className="mt-1 p-1">
             <div className="form-check">
@@ -347,7 +436,7 @@ export default function TabData() {
           className="tab_font"
         >
           <Tab eventKey="unit_O" title="Unit Outstanding">
-            <UnitOutStanding />
+            <UnitOutStanding selectedUnitName={selectedUnitName[0]?.UnitName} />
           </Tab>
 
           <Tab eventKey="customer_O" title="Customer Outstanding">

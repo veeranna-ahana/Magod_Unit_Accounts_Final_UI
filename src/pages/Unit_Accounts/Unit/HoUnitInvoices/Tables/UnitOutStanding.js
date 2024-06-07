@@ -3,19 +3,34 @@ import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { baseURL } from "../../../../../api/baseUrl";
 
-export default function UnitOutStanding() {
+export default function UnitOutStanding({ selectedUnitName }) {
+  console.log("sel uni", selectedUnitName);
   const [unitOutstandingData, setUnitOutstandingData] = useState([]);
 
+  // useEffect(() => {
+  //   if (selectedUnitName) {
+  //     getDataSubmit();
+  //   }
+  // }, [selectedUnitName]);
   useEffect(() => {
     getDataSubmit();
   }, []);
 
   const getDataSubmit = () => {
     axios
-      .get(baseURL + "/customerOutstanding/unitOutstandingData")
+      .get(baseURL + "/customerOutstanding/unitOutstandingData", {
+        params: {
+          // unitname: selectedUnitName,
+          unitname: "Jigani",
+        },
+      })
       .then((res) => {
         console.log("unitoutstanding", res.data.Result);
-        setUnitOutstandingData(res.data.Result);
+        if (res.data.Result.length > 0) {
+          setUnitOutstandingData(res.data.Result);
+        } else {
+          alert("no data");
+        }
       });
   };
 
@@ -91,24 +106,32 @@ export default function UnitOutStanding() {
         </thead>
 
         <tbody className="tablebody">
-          {sortedData().map((item, i) => {
-            return (
-              <>
-                <tr>
-                  <td>{item.UnitName}</td>
-                  <td>{item.Cust_Code}</td>
-                  <td>{item.Cust_name}</td>
-                  <td>{item.Branch}</td>
-                  <td style={{ textAlign: "right" }}>
-                    {formatAmount(item.OutStandingAmount)}
-                  </td>
-                  <td style={{ textAlign: "center" }}>
-                    {item.OutStandingInvoiceCount}
-                  </td>
-                </tr>
-              </>
-            );
-          })}
+          {sortedData()?.length > 0 ? (
+            sortedData().map((item, i) => {
+              return (
+                <>
+                  <tr>
+                    <td>{item.UnitName}</td>
+                    <td>{item.Cust_Code}</td>
+                    <td>{item.Cust_name}</td>
+                    <td>{item.Branch}</td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.OutStandingAmount)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {item.OutStandingInvoiceCount}
+                    </td>
+                  </tr>
+                </>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan="12" style={{ textAlign: "center" }}>
+                Data not found!
+              </td>
+            </tr>
+          )}
         </tbody>
       </Table>
     </div>

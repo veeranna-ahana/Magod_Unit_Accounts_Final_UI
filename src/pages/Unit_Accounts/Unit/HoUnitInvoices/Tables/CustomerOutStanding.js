@@ -283,30 +283,38 @@ export default function CustomerOutStanding({
             </thead>
 
             <tbody className="tablebody">
-              {sortedData().map((item, index) => (
-                <tr
-                  onClick={() => handleRowSelect(item.DC_Inv_No)}
-                  key={index}
-                  className={
-                    selectedRow === item.DC_Inv_No ? "selcted-row-clr" : ""
-                  }
-                >
-                  <td style={{ whiteSpace: "nowrap" }}>{item.DC_InvType}</td>
-                  <td>{item.Inv_No}</td>
-                  <td>{item.InvoiceFor}</td>
-                  <td>{new Date(item.Inv_Date).toLocaleDateString("en-GB")}</td>
-                  <td style={{ textAlign: "right" }}>
-                    {formatAmount(item.GrandTotal)}
+              {sortedData()?.length > 0 ? (
+                sortedData().map((item, index) => (
+                  <tr
+                    onClick={() => handleRowSelect(item.DC_Inv_No)}
+                    key={index}
+                    className={
+                      selectedRow === item.DC_Inv_No ? "selcted-row-clr" : ""
+                    }
+                  >
+                    <td style={{ whiteSpace: "nowrap" }}>{item.DC_InvType}</td>
+                    <td>{item.Inv_No}</td>
+                    <td>{item.InvoiceFor}</td>
+                    <td>
+                      {new Date(item.Inv_Date).toLocaleDateString("en-GB")}
+                    </td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.GrandTotal)}
+                    </td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.Balance)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>{item.duedays}</td>
+                    <td style={{ textAlign: "center" }}>{item.DCStatus}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="12" style={{ textAlign: "center" }}>
+                    Data not found!
                   </td>
-                  <td style={{ textAlign: "right" }}>
-                    {formatAmount(item.Balance)}
-                  </td>
-                  <td style={{ textAlign: "center" }}>{item.duedays}</td>
-                  <td style={{ textAlign: "center" }}>{item.DCStatus}</td>
                 </tr>
-              ))}
-
-              {}
+              )}
             </tbody>
           </Table>
         </div>
