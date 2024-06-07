@@ -110,20 +110,29 @@ export default function CustomerOutStandingTable02({
         </thead>
 
         <tbody className="tablebody" style={{ textAlign: "center" }}>
-          {sortedData().map((item, index) => {
-            return (
-              <>
-                <tr>
-                  <td>{item.VrRef}</td>
-                  <td style={{ textAlign: "right" }}>
-                    {formatAmount(item.Receive_Now)}
-                  </td>
-                  <td>{item.TxnType}</td>
-                  <td>{item.VrStatus}</td>
-                </tr>
-              </>
-            );
-          })}
+          {sortedData()?.length > 0 ? (
+            sortedData().map((item, index) => {
+              return (
+                <>
+                  <tr>
+                    <td>{item.VrRef}</td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.Receive_Now)}
+                    </td>
+                    <td>{item.TxnType}</td>
+                    <td>{item.VrStatus}</td>
+                  </tr>
+                </>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan="12" style={{ textAlign: "center" }}>
+                Data not found!
+              </td>
+            </tr>
+          )}
+
           {/* <tr className="" >
                         <td>TaskNo</td>
                         <td>Machine</td>
