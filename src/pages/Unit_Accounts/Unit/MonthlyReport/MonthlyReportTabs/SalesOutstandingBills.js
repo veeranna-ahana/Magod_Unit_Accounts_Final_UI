@@ -74,8 +74,8 @@ export default function SalesOutstandingBills({ getSalesOutStanding }) {
             <tr style={{ whiteSpace: "nowrap" }}>
               <th onClick={() => requestSort("Cust_Code")}>Customer Code</th>
               <th onClick={() => requestSort("Cust_Name")}>Customer Name</th>
-              <th onClick={() => requestSort("totalBilling")}>Total Billing</th>
-              <th onClick={() => requestSort("AmountReceived")}>
+              <th onClick={() => requestSort("totalBilling")} style={{ textAlign: "right" }}>Total Billing</th>
+              <th onClick={() => requestSort("AmountReceived")} style={{ textAlign: "right" }}>
                 Amount Received
               </th>
               <th>Balance</th>
@@ -83,7 +83,7 @@ export default function SalesOutstandingBills({ getSalesOutStanding }) {
               <th>Value Added</th>
               <th>Material Value</th>
               <th>Period</th>
-              <th onClick={() => requestSort("Outstanding")}>Outstanding</th>
+              <th onClick={() => requestSort("Outstanding")} style={{ textAlign: "right" }}>Outstanding</th>
             </tr>
           </thead>
           <tbody className="tablebody">
