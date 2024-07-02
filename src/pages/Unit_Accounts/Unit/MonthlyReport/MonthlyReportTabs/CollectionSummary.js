@@ -60,7 +60,7 @@ export default function CollectionSummary({ getCollectionSummary }) {
       <div
         style={{
           height: "380px",
-          width: "400px",
+          width: "40%",
           overflowY: "scroll",
           overflowX: "scroll",
         }}
