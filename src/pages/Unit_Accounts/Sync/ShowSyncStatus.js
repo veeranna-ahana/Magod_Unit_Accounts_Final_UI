@@ -321,7 +321,7 @@ export default function ShowSyncStatus() {
     const parsedData = {
       open_inv: [],
       open_unit: [],
-      unit_recipts_register: []
+      unit_recipts_register: [],
     };
     // Function to extract data dynamically from nodes
     const extractData = (nodes, targetArray) => {
@@ -437,7 +437,6 @@ export default function ShowSyncStatus() {
     }
   }, [report]);
 
-
   const [allUnitInvoices, setAllUnitInvoices] = useState([]);
   const [countUnmatched, setCountUnmatched] = useState(0);
 
@@ -452,7 +451,8 @@ export default function ShowSyncStatus() {
         const matchedInv = report.open_inv.find(
           (importInv) =>
             parseInt(importInv.DC_Inv_No) === parseInt(unitInv.DC_Inv_No) &&
-            importInv.PymtAmtRecd === unitInv.PymtAmtRecd && importInv.Unitname === unitInv.Unitname
+            importInv.PymtAmtRecd === unitInv.PymtAmtRecd &&
+            importInv.Unitname === unitInv.Unitname
         );
 
         if (matchedInv) {
@@ -479,7 +479,6 @@ export default function ShowSyncStatus() {
       console.log("there is no length");
     }
   };
-
 
   const [allInvoices, setAllInvoices] = useState([]);
 
@@ -515,20 +514,29 @@ export default function ShowSyncStatus() {
   //     console.log("there is no length");
   //   }
   // };
-
+  
   const HOCompare = (report) => {
+    console.log("entering into HOCompare", report);
+
     if (getUnitInvoice.length === 1) {
-      const unitInvoices = getUnitInvoice[0].cmdInvList;
-      // setInvPaymentVrListHO(getHOInvoice[0].cmdHoInvPaymentVrList);
+      const unitInvoices = report.open_inv;
+      // setInvPaymentVrListHO(getHOInvoice[0].cmdInvList);
 
-      const newInvoices = []; 
-
+      const newInvoices = [];
+      
       unitInvoices.forEach((unitInv) => {
-        const matchedInv = report.unit_recipts_register.find(
+        console.log("report values for register", report.unit_recipts_register);
+        console.log("unit data values", unitInvoices);
+        
+        
+        const matchedInv = getUnitInvoice[0].cmdInvList.find(
           (importInv) =>
             parseInt(importInv.DC_Inv_No) === parseInt(unitInv.DC_Inv_No) &&
-            importInv.PymtAmtRecd === unitInv.PymtAmtRecd && importInv.Unitname === unitInv.Unitname
+            importInv.PymtAmtRecd === unitInv.PymtAmtRecd &&
+            importInv.Unitname === unitInv.Unitname
         );
+
+        console.log("matchedInv...123", matchedInv);
 
         if (matchedInv) {
           // Invoice is matched, add to newInvoices array with color code for matched
@@ -696,7 +704,6 @@ export default function ShowSyncStatus() {
 
   console.log("Report", report);
   console.log("unit data", getUnitInvoice);
-  
 
   return (
     <>

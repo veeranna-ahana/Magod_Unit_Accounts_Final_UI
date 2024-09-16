@@ -20,6 +20,10 @@ export default function ReviewInvoiceForm({
     setKeys123123(false);
     setOpenForm(true);
   };
+
+  console.log('getValuesClearance', getValuesClearance);
+  
+
   return (
     <div>
       <Modal show={Keys123} size="lg" onHide={handleClose}>
