@@ -21,18 +21,25 @@ export default function CancelFormTable({ getValuesClearance }) {
           </thead>
 
           <tbody className="tablebody">
-            {getValuesClearance.map((item, key) => {
-              return (
-                <tr style={{ whiteSpace: "nowrap" }}>
-                  <td>{item.SummarySrl}</td>
-                  <td>{item.Material}</td>
-                  <td>{item.Mtrl}</td>
-                  <td>{item.Excise_CL_no}</td>
-                  <td>{item.TotQty}</td>
-                  <td>{item.TotAmount}</td>
-                </tr>
-              );
-            })}
+            {Array.isArray(getValuesClearance) &&
+            getValuesClearance.length > 0 ? (
+              getValuesClearance.map((item, key) => {
+                return (
+                  <tr key={key} style={{ whiteSpace: "nowrap" }}>
+                    <td>{item.SummarySrl}</td>
+                    <td>{item.Material}</td>
+                    <td>{item.Mtrl}</td>
+                    <td>{item.Excise_CL_no}</td>
+                    <td>{item.TotQty}</td>
+                    <td>{item.TotAmount}</td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td  colSpan="6" style={{ textAlign: "center", padding: "20px" }}>Data not found</td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>

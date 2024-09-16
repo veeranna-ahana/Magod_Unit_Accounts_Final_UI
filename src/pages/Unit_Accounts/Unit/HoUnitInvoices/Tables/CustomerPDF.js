@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
   page: {
     fontSize: 11,
     flexDirection: "column",
+    padding: 10,
+    marginTop: 30,
+    marginBottom: 50,
+    paddingBottom: 50,
   },
   tableContainer: {
     width: "800px",
