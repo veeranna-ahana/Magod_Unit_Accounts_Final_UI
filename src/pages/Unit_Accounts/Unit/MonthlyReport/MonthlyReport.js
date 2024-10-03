@@ -113,10 +113,10 @@ export default function MonthlyReport() {
     const currentYear = new Date().getFullYear();
     if (year < 2014) {
       toast.error("Please select a year after 2014");
-      setYear(""); // Clear the year value
+      setYear(""); 
     } else if (year > currentYear) {
       toast.error("Please select a year before or equal to the current year");
-      setYear(""); // Clear the year value
+      setYear(""); 
     }
   };
 
