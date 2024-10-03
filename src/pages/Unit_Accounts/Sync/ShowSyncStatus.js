@@ -388,14 +388,14 @@ export default function ShowSyncStatus() {
         console.log("err in table", err);
       });
 
-    await axios
-      .get(baseURL + `/showSyncStatus/getHoOpenInvAndReceipts/` + getName)
-      .then((res) => {
-        setGetHOInvoice(res.data);
-      })
-      .catch((err) => {
-        console.log("err in table", err);
-      });
+    // await axios
+    //   .get(baseURL + `/showSyncStatus/getHoOpenInvAndReceipts/` + getName)
+    //   .then((res) => {
+    //     setGetHOInvoice(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err in table", err);
+    //   });
 
     await axios
       .get(
@@ -414,7 +414,7 @@ export default function ShowSyncStatus() {
   useEffect(() => {
     if (getUnitInvoice.length === 1) {
       compare(report);
-      toast.success("Please wait data being Populating");
+      toast.success("Data displayed successfully");
     }
   }, [report]);
 
@@ -514,7 +514,7 @@ export default function ShowSyncStatus() {
   //     console.log("there is no length");
   //   }
   // };
-  
+
   const HOCompare = (report) => {
     console.log("entering into HOCompare", report);
 
@@ -523,12 +523,11 @@ export default function ShowSyncStatus() {
       // setInvPaymentVrListHO(getHOInvoice[0].cmdInvList);
 
       const newInvoices = [];
-      
+
       unitInvoices.forEach((unitInv) => {
         console.log("report values for register", report.unit_recipts_register);
         console.log("unit data values", unitInvoices);
-        
-        
+
         const matchedInv = getUnitInvoice[0].cmdInvList.find(
           (importInv) =>
             parseInt(importInv.DC_Inv_No) === parseInt(unitInv.DC_Inv_No) &&
