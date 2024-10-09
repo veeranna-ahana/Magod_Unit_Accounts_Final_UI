@@ -14,35 +14,13 @@ import axios from "axios";
 import { baseURL } from "../../api/baseUrl";
 import Modal from "react-bootstrap/Modal";
 
-const {
-  // getRequest,
-  // postRequest,
-  postRequestFormData,
-} = require("../../api/apiinstance");
+const { postRequestFormData } = require("../../api/apiinstance");
 const { endpoints } = require("../../api/constants");
 
 function MailModal({ mailModal, setMailModal, xmlFile }) {
-  // const [searchParams] = useSearchParams();
-
-  // let history = useHistory();
-  // let [formMessageBody, setFormMessageBody] = useState("");
-  // let [formSubject, setFormSubject] = useState("");
   const isFirstClickRef = useRef(true);
 
   console.log("xml file", xmlFile);
-
-  //   useEffect(() => {
-  //     console.log(searchParams.get("mlbody"));
-  //     // setFormMessageBody(searchParams.get("mlbody"));
-  //     document.getElementById("formMessageBody").value = Buffer.from(
-  //       searchParams.get("mlbody"),
-  //       "base64"
-  //     ).toString("ascii");
-  //     document.getElementById("formSubject").value = Buffer.from(
-  //       searchParams.get("mlsubjct"),
-  //       "base64"
-  //     ).toString("ascii");
-  //   }, []);
 
   const sendmaildetails = async (e) => {
     e.preventDefault();
@@ -62,7 +40,6 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
     formData.append("subjectLine", subject);
     formData.append("mailBody", mailbody);
     formData.append("file", files[0]);
-    // formData.append("file", xmlFile, xmlFile.name);
 
     formData.append("fromAddress", from);
 
@@ -75,7 +52,6 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
         if (isFirstClickRef.current) {
           toast.success("Email Sent Successfully..", {
             autoClose: 2000,
-            // Timeout in milliseconds (e.g., 3000ms = 3 seconds)
           });
           isFirstClickRef.current = false;
         }
@@ -91,20 +67,14 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
   let closesendmail = () => {
     setMailModal(false);
     if (isFirstClickRef.current) {
-      //   toast.success("Closing Email..", {
-      //     autoClose: 2000,
-
-      //   });
       isFirstClickRef.current = false;
     }
 
     setTimeout(() => {
-      // window.location.href = "/Customer/CustomerInvoiceAndPayments";
       window.close();
     }, 3000);
   };
 
-  // const [mailModal, setMailModal] = useState(false)
   const sendModalopen = () => {
     setMailModal(true);
   };
@@ -115,23 +85,17 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
     <>
       <Modal show={mailModal} size="lg" onHide={handleClose}>
         <ModalHeader closeButton>
-          <ModalTitle style={{ fontSize: "14px" }}>Send Quotation</ModalTitle>
+          <ModalTitle style={{ fontSize: "14px" }}>Send Mail</ModalTitle>
         </ModalHeader>
         <ModalBody>
           <div className="form-style">
             <Col xs={12}>
               <div className="addquotecard">
-                {/* <button onClick={sendModalopen}>open </button> */}
                 <Form
                   style={{ padding: "0px 10px" }}
                   onSubmit={sendmaildetails}
                   autoComplete="off"
                 >
-                  {/* <Row>
-                                        <Form.Label style={{ width: '100px', height: '30px', fontFamily: 'Roboto', fontSize: '14px' }}>From</Form.Label>
-                                        <Form.Control type="text" controlId="fromaddress" value={fromaddress} style={{ width: '200px', height: '30px', fontFamily: 'Roboto', fontSize: '14px' }} />
-                                    </Row> */}
-
                   <Form.Group className=" row" controlId="from">
                     <div
                       className=" d-flex col-md-8 mt-2"
@@ -140,7 +104,6 @@ function MailModal({ mailModal, setMailModal, xmlFile }) {
                       <label className="form-label">From</label>
                       <Form.Control
                         type="text"
-                        required
                         id="fromInput"
                         style={{ fontSize: "12px" }}
                       />

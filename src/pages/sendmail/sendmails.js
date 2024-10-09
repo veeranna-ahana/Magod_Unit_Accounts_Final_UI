@@ -4,22 +4,14 @@ import { useSearchParams } from "react-router-dom";
 import { Buffer } from "buffer";
 import { toast } from "react-toastify";
 
-// const {
-  
-//   postRequestFormData,
-// } = require("../api/apiinstance");
-// const { endpoints } = require("../api/constants");
-
 function SendMail() {
   const [searchParams] = useSearchParams();
-  // let history = useHistory();
-  // let [formMessageBody, setFormMessageBody] = useState("");
-  // let [formSubject, setFormSubject] = useState("");
+
   const isFirstClickRef = useRef(true);
 
   useEffect(() => {
     console.log(searchParams.get("mlbody"));
-    // setFormMessageBody(searchParams.get("mlbody"));
+
     document.getElementById("formMessageBody").value = Buffer.from(
       searchParams.get("mlbody"),
       "base64"
@@ -51,7 +43,7 @@ function SendMail() {
       if (data != null) {
         if (isFirstClickRef.current) {
           toast.success("Email Sent Successfully..", {
-            autoClose: 2000, // Timeout in milliseconds (e.g., 3000ms = 3 seconds)
+            autoClose: 2000,
           });
           isFirstClickRef.current = false;
         }
@@ -63,24 +55,15 @@ function SendMail() {
     });
   };
 
-  // let closesendmail = () => {
-  //   // alert("Closing Email..");
-  //   toast.error("Closing Email..");
-  //   // window.close();
-  //   window.location.href = "/Customer/CustomerInvoiceAndPayments";
-  //   //  navigate(-1);
-  // };
-
   let closesendmail = () => {
     if (isFirstClickRef.current) {
       toast.success("Closing Email..", {
-        autoClose: 2000, // Timeout in milliseconds (e.g., 3000ms = 3 seconds)
+        autoClose: 2000,
       });
       isFirstClickRef.current = false;
     }
 
     setTimeout(() => {
-      // window.location.href = "/Customer/CustomerInvoiceAndPayments";
       window.close();
     }, 3000);
   };
@@ -96,10 +79,6 @@ function SendMail() {
               onSubmit={sendmaildetails}
               autoComplete="off"
             >
-              {/* <Row>
-                                        <Form.Label style={{ width: '100px', height: '30px', fontFamily: 'Roboto', fontSize: '14px' }}>From</Form.Label>
-                                        <Form.Control type="text" controlId="fromaddress" value={fromaddress} style={{ width: '200px', height: '30px', fontFamily: 'Roboto', fontSize: '14px' }} />
-                                    </Row> */}
               <Form.Group className="row" controlId="formToAddress">
                 <div className="col-md-4">
                   <label className="form-label">To</label>
