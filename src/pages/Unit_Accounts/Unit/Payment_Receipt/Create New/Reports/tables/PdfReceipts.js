@@ -1,6 +1,4 @@
-
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Page,
   Document,
@@ -9,9 +7,7 @@ import {
   Text,
   Image,
 } from "@react-pdf/renderer";
-import MagodLOGO from '../../../../../../../Logo/MagodLogo.png'
-
-
+import MagodLOGO from "../../../../../../../Logo/MagodLogo.png";
 
 const styles = StyleSheet.create({
   page: {
@@ -19,7 +15,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   tableContainer: {
-
     flexDirection: "row",
     flexWrap: "wrap",
     margin: 10,
@@ -51,10 +46,9 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 10,
 
-    paddingBottom: '5px',
-    height: '80px',
-    paddingTop: '10px'
-
+    paddingBottom: "5px",
+    height: "80px",
+    paddingTop: "10px",
   },
   // headerText: {
   //   fontSize: 16,
@@ -65,10 +59,9 @@ const styles = StyleSheet.create({
   // },
 
   headerText1: {
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: "Helvetica-Bold",
   },
-
 
   poNo: {
     width: "100%",
@@ -90,25 +83,19 @@ const styles = StyleSheet.create({
   },
   header123: {
     marginBottom: 10,
-    height: '100px',
+    height: "100px",
     flexDirection: "row",
-
   },
   head1234: {
-
-    marginLeft: '200px',
-    width: '100px'
+    marginLeft: "200px",
+    width: "100px",
   },
   head4: {
-    
     flexDirection: "row",
-    marginBottom: '5px'
-  }
+    marginBottom: "5px",
+  },
 
-
-
-
-  , srl: {
+  srl: {
     width: "40px",
     textAlign: "center",
 
@@ -147,29 +134,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: "1px",
     // borderBottom: 1,
-
   },
   unitprice: {
     width: "80px",
     textAlign: "center",
     padding: "1px",
     // borderBottom: 1,
-
   },
   total: {
     width: "90px",
     textAlign: "center",
     padding: "1px",
-
   },
   tableDataView: {
     width: "570px",
     // borderBottom: 1,
     // borderRight: 1,
     // borderLeft: 1,
-    marginLeft: '5px'
-
-
+    marginLeft: "5px",
   },
 
   tableDisplay: {
@@ -178,22 +160,19 @@ const styles = StyleSheet.create({
     marginTop: "25px",
     marginLeft: "10px",
     borderTop: 1,
-
   },
   row: {
     flexDirection: "row",
-    borderBottom: 1
-
+    borderBottom: 1,
   },
   column: {
-    flexDirection: "column"
+    flexDirection: "column",
   },
   grnno: {
     width: "100px",
     textAlign: "center",
     padding: "1px",
     // borderBottom: 1,
-
   },
 
   globalfontwithbold: {
@@ -205,84 +184,59 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: "50px",
-    height: "50px"
+    height: "50px",
   },
   row11: {
     flexDirection: "row",
     borderBottom: 1,
-    height: '80px',
-    paddingTop: '20px'
+    height: "80px",
+    paddingTop: "20px",
   },
 
   mrgnbttm: {
     flexDirection: "row",
-    marginBottom: '5px'
+    marginBottom: "5px",
   },
   unitprice11: {
     width: "80px",
     textAlign: "center",
     padding: "1px",
-    marginLeft: '20px'
+    marginLeft: "20px",
     // borderBottom: 1,
-
   },
 });
 
-
-
-
-
-
-
-
-
-
 export default function PdfReceipts({ data }) {
-
-
   console.log("pdf voucher", data.receipt_details);
   console.log(">>>>>>>", data);
 
-  const [currentDate, setCurrentDate] = useState('');
+  const [currentDate, setCurrentDate] = useState("");
   // const [totalReceiveNow, setTotalReceiveNow] = useState(0);
   const totalReceiveNow = data.receipt_details.reduce(
     (accumulator, item) => accumulator + parseFloat(item.Receive_Now),
     0
   );
 
-
-
-
-
-
   useEffect(() => {
     // Function to get and format the current date
     const getCurrentDate = () => {
-      
       const now = new Date();
-    const options = { day: '2-digit', month: '2-digit', year: '2-digit' };
-    const formattedDate = now.toLocaleDateString('en-US', options);
-    const parts = formattedDate.split('/');
-    const formattedDateInDDMMYY = `${parts[1]}-${parts[0]}-${parts[2]}`;
-    setCurrentDate(formattedDateInDDMMYY);
+      const options = { day: "2-digit", month: "2-digit", year: "2-digit" };
+      const formattedDate = now.toLocaleDateString("en-US", options);
+      const parts = formattedDate.split("/");
+      const formattedDateInDDMMYY = `${parts[1]}-${parts[0]}-${parts[2]}`;
+      setCurrentDate(formattedDateInDDMMYY);
     };
-
-
-
 
     // Call the functions when the component mounts
     getCurrentDate();
-
   }, [data.receipt_details]);
 
- 
-
-  console.log("total count", totalReceiveNow);
-
+  console.log("total counttt", totalReceiveNow, data.receipt_data.Recd_PV_Date);
 
   function formatAmount(amount) {
     // Assuming amount is a number
-    const formattedAmount = new Intl.NumberFormat('en-IN', {
+    const formattedAmount = new Intl.NumberFormat("en-IN", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(amount);
@@ -290,104 +244,121 @@ export default function PdfReceipts({ data }) {
     return formattedAmount;
   }
 
+  console.log("recept datetttttttttte, ", data.receipt_data.Recd_PV_Date);
+
   const Header = () => (
     <View style={styles.row11}>
       <Image style={styles.logo} src={MagodLOGO} />
       <View>
-        <Text style={{ marginLeft: '200px', fontFamily: "Helvetica-Bold", marginTop: '10px', marginBottom: '2px' }}>Magod Laser Machining  Pvt Ltd</Text>
-        <Text style={{ marginLeft: '210px', marginBottom: '5px' }}>Payment Receipt Voucher</Text>
+        <Text
+          style={{
+            marginLeft: "200px",
+            fontFamily: "Helvetica-Bold",
+            marginTop: "10px",
+            marginBottom: "2px",
+          }}
+        >
+          Magod Laser Machining Pvt Ltd
+        </Text>
+        <Text style={{ marginLeft: "210px", marginBottom: "5px" }}>
+          Payment Receipt Voucher
+        </Text>
       </View>
     </View>
   );
 
   const Header22 = () => (
     <Document>
-      <Page size='A4' style={styles.page}>
+      <Page size="A4" style={styles.page}>
         <View style={styles.row11}>
           <Image style={styles.logo} src={MagodLOGO} />
           <View>
-            <Text style={{ marginLeft: '200px', fontFamily: "Helvetica-Bold", marginTop: '10px', marginBottom: '2px' }}>Magod Laser Machining  Pvt Ltd</Text>
-            <Text style={{ marginLeft: '210px', marginBottom: '5px' }}>Payment Receipt Voucher</Text>
+            <Text
+              style={{
+                marginLeft: "200px",
+                fontFamily: "Helvetica-Bold",
+                marginTop: "10px",
+                marginBottom: "2px",
+              }}
+            >
+              Magod Laser Machining Pvt Ltd
+            </Text>
+            <Text style={{ marginLeft: "210px", marginBottom: "5px" }}>
+              Payment Receipt Voucher
+            </Text>
           </View>
         </View>
 
-
         <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '70px' }}>
-            Unit :
-          </Text>
-          <Text style={{ marginLeft: '130px' }}>
+          <View>
+            <Text style={{ marginLeft: "70px" }}>Unit :</Text>
+            <Text style={{ marginLeft: "28px", marginTop: "5px" }}>
+              <Text style={{ fontFamily: "Helvetica-Bold" }}>
+                Voucher No :{" "}
+              </Text>
+              {data.receipt_data.Recd_PVNo}
+            </Text>
 
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Received From:</Text>{data.receipt_data.CustName} ({data.receipt_data.Cust_code})
+            <Text style={{ marginLeft: "65px", marginTop: "5px" }}>
+              <Text style={{ fontFamily: "Helvetica-Bold" }}>Date : </Text>
+              {/* {currentDate} */}
 
+              {new Date(data.receipt_data.Recd_PV_Date).toLocaleDateString(
+                "en-GB"
+              )}
+            </Text>
 
+            <Text style={{ marginLeft: "30px", marginTop: "5px" }}>
+              <Text style={{ fontFamily: "Helvetica-Bold" }}>
+                Transaction Type:{" "}
+              </Text>{" "}
+              {data.receipt_data.TxnType}
+            </Text>
+          </View>
+
+          <View>
+            <Text style={{ marginLeft: "130px", width: "340px" }}>
+              <Text style={{ fontFamily: "Helvetica-Bold" }}>
+                Received From:
+              </Text>
+              {data.receipt_data.CustName} ({data.receipt_data.Cust_code})
+            </Text>
+
+            <Text
+              style={{ marginLeft: "120px", width: "310px", marginTop: "10px" }}
+            >
+              <Text style={{ fontFamily: "Helvetica-Bold" }}>Vibe : </Text>{" "}
+              {data.receipt_data.Description}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.head4}>
+          <Text style={{ marginLeft: "400px" }}>
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>Amount: </Text>{" "}
+            {formatAmount(data.receipt_data.Amount)}
           </Text>
         </View>
 
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '30px' }}>
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Voucher No :  </Text>{data.receipt_data.Recd_PVNo}
-          </Text>
-
-
-
-        </View>
-
-
-
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '65px' }}>
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Date :  </Text>{currentDate}
-
-          </Text>
-          <Text style={{ marginLeft: '130px' }}>
-
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Vibe : </Text> {data.receipt_data.Description}
+        <View style={styles.head4}>
+          <Text style={{ marginLeft: "395px" }}>
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>Adjusted: </Text>{" "}
+            {formatAmount(totalReceiveNow)}
           </Text>
         </View>
 
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '30px' }}>
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Transaction Type: </Text> {data.receipt_data.TxnType}
-
-          </Text>
-
-        </View>
-
-
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '330px' }}>
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Amount: </Text> {formatAmount(data.receipt_data.Amount)}
-
-          </Text>
-
-        </View>
-
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '330px' }}>
-
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Adjusted: </Text> {formatAmount(totalReceiveNow)}
-
-          </Text>
-
-        </View>
-
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '330px' }}>
-
-            <Text style={{ fontFamily: "Helvetica-Bold" }}> On Account: </Text>{formatAmount(data.receipt_data.On_account)}
+        <View style={styles.head4}>
+          <Text style={{ marginLeft: "377px" }}>
+            <Text style={{ fontFamily: "Helvetica-Bold" }}> On Account: </Text>
+            {formatAmount(data.receipt_data.On_account)}
           </Text>
         </View>
-
 
         <View style={styles.tableDisplay}>
-
           <View style={styles.row}>
             <View style={styles.srl}>
               <Text style={styles.globalfontwithbold}>Srl </Text>
             </View>
-
-
 
             <View style={styles.Material}>
               <Text style={styles.globalfontwithbold}>Invoice No</Text>
@@ -409,104 +380,76 @@ export default function PdfReceipts({ data }) {
             <View style={styles.unitprice}>
               <Text style={styles.globalfontwithbold}>Reference No</Text>
             </View>
-
-
           </View>
-
         </View>
-
-
       </Page>
     </Document>
-
-
   );
-
 
   const Header222 = () => (
     <>
-        
-
-
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '70px' }}>
-            Unit :
+      <View style={styles.mrgnbttm}>
+        <View>
+          <Text style={{ marginLeft: "70px" }}>Unit :</Text>
+          <Text style={{ marginLeft: "28px", marginTop: "5px" }}>
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>Voucher No : </Text>
+            {data.receipt_data.Recd_PVNo}
           </Text>
-          <Text style={{ marginLeft: '130px' ,width:'340px'}}>
 
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Received From:</Text>{data.receipt_data.CustName} ({data.receipt_data.Cust_code})
+          <Text style={{ marginLeft: "65px", marginTop: "5px" }}>
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>Date : </Text>
+            {/* {currentDate} */}
 
+            {new Date(data.receipt_data.Recd_PV_Date).toLocaleDateString(
+              "en-GB"
+            )}
+          </Text>
 
+          <Text style={{ marginLeft: "30px", marginTop: "5px" }}>
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>
+              Transaction Type:{" "}
+            </Text>{" "}
+            {data.receipt_data.TxnType}
           </Text>
         </View>
 
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '30px' }}>
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Voucher No :  </Text>{data.receipt_data.Recd_PVNo}
+        <View>
+          <Text style={{ marginLeft: "130px", width: "340px" }}>
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>Received From:</Text>
+            {data.receipt_data.CustName} ({data.receipt_data.Cust_code})
           </Text>
 
-
-
+          <Text
+            style={{ marginLeft: "100px", width: "310px", marginTop: "10px" }}
+          >
+            <Text style={{ fontFamily: "Helvetica-Bold" }}>Vibe : </Text>{" "}
+            {data.receipt_data.Description}
+          </Text>
         </View>
+      </View>
 
+      <View style={styles.head4}>
+        <Text style={{ marginLeft: "400px" }}>
+          <Text style={{ fontFamily: "Helvetica-Bold" }}>Amount: </Text>{" "}
+          {formatAmount(data.receipt_data.Amount)}
+        </Text>
+      </View>
 
+      <View style={styles.head4}>
+        <Text style={{ marginLeft: "395px" }}>
+          <Text style={{ fontFamily: "Helvetica-Bold" }}>Adjusted: </Text>{" "}
+          {formatAmount(totalReceiveNow)}
+        </Text>
+      </View>
 
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '65px' }}>
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Date :  </Text>{currentDate}
-
-          </Text>
-          
-        </View>
-
-        <View style={styles.mrgnbttm}>
-          <Text style={{ marginLeft: '30px' }}>
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Transaction Type: </Text> {data.receipt_data.TxnType}
-
-          </Text>
-
-          <Text style={{ marginLeft: '100px',width:'310px' }}>
-
-            <Text style={{ fontFamily: "Helvetica-Bold" }}>Vibe : </Text> {data.receipt_data.Description}
-          </Text>
-
-        </View>
-
-
-        <View style={styles.head4}>
-                <Text style={{ marginLeft: '400px' }}>
-                  <Text style={{ fontFamily: "Helvetica-Bold" }}>Amount:   </Text>  {formatAmount(data.receipt_data.Amount)}
-
-                </Text>
-
-              </View>
-
-              <View style={styles.head4}>
-                <Text style={{ marginLeft: '395px', }}>
-
-                  <Text style={{ fontFamily: "Helvetica-Bold" }}>Adjusted:    </Text> {formatAmount(totalReceiveNow)}
-
-                </Text>
-
-              </View>
-
-
-          
-
-              <View style={styles.head4}>
-                <Text style={{ marginLeft: '377px', }}>
-
-                  <Text style={{ fontFamily: "Helvetica-Bold" }}> On Account:     </Text>{formatAmount(data.receipt_data.On_account)}
-                </Text>
-              </View>
-        </>
-
-
+      <View style={styles.head4}>
+        <Text style={{ marginLeft: "377px" }}>
+          <Text style={{ fontFamily: "Helvetica-Bold" }}> On Account: </Text>
+          {formatAmount(data.receipt_data.On_account)}
+        </Text>
+      </View>
+    </>
   );
-
-
-
-
 
   if (!data.receipt_details || data.receipt_details.length === 0) {
     return <Header22 />;
@@ -516,7 +459,6 @@ export default function PdfReceipts({ data }) {
   const itemsPerPageForOtherPages = 15;
   return (
     <>
-
       <Document>
         {data.receipt_details.map((pageData, pageIndex) => {
           const startItem = pageIndex * itemsPerPageForOtherPages;
@@ -530,121 +472,151 @@ export default function PdfReceipts({ data }) {
             }, {});
 
           if (Object.keys(currentPageData).length === 0) {
-            return null; 
+            return null;
             // Skip rendering empty pages
           }
 
-          return(
-          <Page key={pageIndex} size="A4" style={styles.page}>
-
-
-
-            
-
-            {pageIndex === 0 && 
-            <>
-            <Header />
-            
-            <Header222/>
-            </>
-            }
-
-
-
-
-
-            {pageIndex === 0 &&
-              <View style={styles.tableDisplay}>
-
-                <View style={styles.row}>
-                  <View style={styles.srl}>
-                    <Text style={styles.globalfontwithbold}>Srl </Text>
-                  </View>
-
-
-
-                  <View style={styles.Material}>
-                    <Text style={styles.globalfontwithbold}>Invoice No</Text>
-                  </View>
-
-                  <View style={styles.hsn}>
-                    <Text style={styles.globalfontwithbold}>Type </Text>
-                  </View>
-
-                  <View style={styles.qty}>
-                    <Text style={styles.globalfontwithbold}>Invoiced</Text>
-                  </View>
-                  <View style={styles.uom}>
-                    <Text style={[styles.globalfontwithbold, { textAlign: 'right' }]}>Received</Text>
-                  </View>
-                  <View style={styles.unitprice}>
-                    <Text style={[styles.globalfontwithbold, { textAlign: 'right' }]}>Receive Now</Text>
-                  </View>
-                  <View style={styles.unitprice11}>
-                    <Text style={styles.globalfontwithbold}>Reference No</Text>
-                  </View>
-
-
-                </View>
-
-              </View>}
-
-
-
-            {pageIndex === 0 && <View style={styles.tableDataView}>
-
-
-              {data.receipt_details.map((item, index) => (
+          return (
+            <Page key={pageIndex} size="A4" style={styles.page}>
+              {pageIndex === 0 && (
                 <>
+                  <Header />
 
-                  <View style={styles.row} key={index}>
+                  <Header222 />
+                </>
+              )}
+
+              {pageIndex === 0 && (
+                <View style={styles.tableDisplay}>
+                  <View style={styles.row}>
                     <View style={styles.srl}>
-                      <Text style={[styles.globalfontwithoutbold, { paddingBottom: "15px" }]}>{index + 1}</Text>
+                      <Text style={styles.globalfontwithbold}>Srl </Text>
                     </View>
 
-                    <View style={styles.drawingname}>
-                      <Text style={styles.globalfontwithoutbold}>
-                        {item.Inv_No} {new Date(item.Inv_date).toLocaleDateString('en-GB')}
-                      </Text>
+                    <View style={styles.Material}>
+                      <Text style={styles.globalfontwithbold}>Invoice No</Text>
                     </View>
-
-
 
                     <View style={styles.hsn}>
-                      <Text style={styles.globalfontwithoutbold}>{item.Inv_Type} </Text>
+                      <Text style={styles.globalfontwithbold}>Type </Text>
                     </View>
 
                     <View style={styles.qty}>
-                      <Text style={[styles.globalfontwithoutbold, { textAlign: 'right' }]}>{formatAmount(item.Inv_Amount)}</Text>
+                      <Text style={styles.globalfontwithbold}>Invoiced</Text>
                     </View>
                     <View style={styles.uom}>
-                      <Text style={[styles.globalfontwithoutbold, { textAlign: 'right' }]}>{formatAmount(item.Amt_received)}</Text>
+                      <Text
+                        style={[
+                          styles.globalfontwithbold,
+                          { textAlign: "right" },
+                        ]}
+                      >
+                        Received
+                      </Text>
                     </View>
-
                     <View style={styles.unitprice}>
-                      <Text style={[styles.globalfontwithoutbold, { textAlign: 'right' }]}>{formatAmount(item.Receive_Now)}</Text>
+                      <Text
+                        style={[
+                          styles.globalfontwithbold,
+                          { textAlign: "right" },
+                        ]}
+                      >
+                        Receive Now
+                      </Text>
                     </View>
                     <View style={styles.unitprice11}>
-                      <Text style={styles.globalfontwithoutbold}>{item.RefNo}</Text>
+                      <Text style={styles.globalfontwithbold}>
+                        Reference No
+                      </Text>
                     </View>
-
-
                   </View>
+                </View>
+              )}
 
-                </>
-              ))}
+              {pageIndex === 0 && (
+                <View style={styles.tableDataView}>
+                  {data.receipt_details.map((item, index) => (
+                    <>
+                      <View style={styles.row} key={index}>
+                        <View style={styles.srl}>
+                          <Text
+                            style={[
+                              styles.globalfontwithoutbold,
+                              { paddingBottom: "15px" },
+                            ]}
+                          >
+                            {index + 1}
+                          </Text>
+                        </View>
 
-            </View>}
+                        <View style={styles.drawingname}>
+                          <Text style={styles.globalfontwithoutbold}>
+                            {item.Inv_No}{" "}
+                            {new Date(item.Inv_date).toLocaleDateString(
+                              "en-GB"
+                            )}
+                          </Text>
+                        </View>
 
+                        <View style={styles.hsn}>
+                          <Text style={styles.globalfontwithoutbold}>
+                            {item.Inv_Type}{" "}
+                          </Text>
+                        </View>
 
-            {pageIndex === 0 && <View>
-              <Text style={{ marginLeft: '410px', fontSize: "10px", }}>{formatAmount(totalReceiveNow)}</Text>
-            </View>}
-          </Page>
-          )
-})}
+                        <View style={styles.qty}>
+                          <Text
+                            style={[
+                              styles.globalfontwithoutbold,
+                              { textAlign: "right" },
+                            ]}
+                          >
+                            {formatAmount(item.Inv_Amount)}
+                          </Text>
+                        </View>
+                        <View style={styles.uom}>
+                          <Text
+                            style={[
+                              styles.globalfontwithoutbold,
+                              { textAlign: "right" },
+                            ]}
+                          >
+                            {formatAmount(item.Amt_received)}
+                          </Text>
+                        </View>
+
+                        <View style={styles.unitprice}>
+                          <Text
+                            style={[
+                              styles.globalfontwithoutbold,
+                              { textAlign: "right" },
+                            ]}
+                          >
+                            {formatAmount(item.Receive_Now)}
+                          </Text>
+                        </View>
+                        <View style={styles.unitprice11}>
+                          <Text style={styles.globalfontwithoutbold}>
+                            {item.RefNo}
+                          </Text>
+                        </View>
+                      </View>
+                    </>
+                  ))}
+                </View>
+              )}
+
+              {pageIndex === 0 && (
+                <View>
+                  <Text style={{ marginLeft: "410px", fontSize: "10px" }}>
+                    {formatAmount(totalReceiveNow)}
+                  </Text>
+                </View>
+              )}
+            </Page>
+          );
+        })}
       </Document>
     </>
-  )
-
+  );
 }
