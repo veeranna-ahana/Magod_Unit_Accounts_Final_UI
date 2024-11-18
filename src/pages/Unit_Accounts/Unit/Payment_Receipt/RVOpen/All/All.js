@@ -75,10 +75,23 @@ export default function All() {
   const handleNavigate = (RecdPVID) => {
     navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", { state: RecdPVID });
   };
+  // const openVoucherButton = () => {
+  //   if (selectRow !== "") {
+  //     navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", {
+  //       state: selectRow.RecdPVID,
+  //     });
+  //   } else {
+  //     toast.error("Select Row");
+  //   }
+  // };
+
   const openVoucherButton = () => {
     if (selectRow !== "") {
       navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", {
-        state: selectRow.RecdPVID,
+        state: {
+          rowData: selectRow.RecdPVID,
+          date: selectRow.Recd_PV_Date,
+        },
       });
     } else {
       toast.error("Select Row");

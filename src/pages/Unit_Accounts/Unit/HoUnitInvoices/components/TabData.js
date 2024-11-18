@@ -145,11 +145,13 @@ export default function TabData() {
   console.log("set flag", flag);
   const handleSelectChange = (e) => {
     const value = e.target.value;
-    console.log("nnnnnnnnnnnnnnn", value);
+
     setSelectedDCType(value);
   };
 
   const [pdfOpen, setPdfOpen] = useState(false);
+
+  console.log("nnnnnnnnnnnnnnn", selectedCustCode);
 
   const pdfSubmit = () => {
     setPdfOpen(true);
