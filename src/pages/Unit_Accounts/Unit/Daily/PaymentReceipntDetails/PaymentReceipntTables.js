@@ -245,7 +245,7 @@ export default function PaymentReceipntTables({ getValues, date }) {
 
       <div
         className=""
-        style={{ overflowY: "scroll", overflowX: "scroll", height: "160px" }}
+        style={{ overflowY: "scroll", overflowX: "scroll", height: "130px" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">

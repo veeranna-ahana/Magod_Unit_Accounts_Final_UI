@@ -453,6 +453,8 @@ function Create_New() {
     }
   }, [rvData.postData]);
 
+  console.log("row data from oaccount list ", rowData);
+
   useEffect(() => {
     const fetchData = async () => {
       if (rowData !== "") {
@@ -1204,7 +1206,7 @@ function Create_New() {
               option && option.Cust_name ? option.Cust_name.toString() : ""
             }
             onChange={handleTypeaheadChange}
-            disabled={rvData.postData.ReceiptStatus !== "Draft"}
+            disabled={rvData.postData.ReceiptStatus !== "Draft" || rowData}
           />
         </div>
 
@@ -1445,7 +1447,7 @@ function Create_New() {
           </div>
           <div
             style={{
-              height: "200px",
+              height: "220px",
               overflowY: "scroll",
               overflowX: "scroll",
             }}
@@ -1568,7 +1570,7 @@ function Create_New() {
           <div className="mt-3">
             <div
               style={{
-                height: "200px",
+                height: "220px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}

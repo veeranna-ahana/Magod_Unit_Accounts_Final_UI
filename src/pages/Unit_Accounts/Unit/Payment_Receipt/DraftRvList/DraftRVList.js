@@ -208,7 +208,7 @@ export default function DraftRVList() {
 
       <div
         style={{
-          height: "280px",
+          height: "350px",
           overflowY: "scroll",
           overflowX: "scroll",
           marginTop: "20px",

@@ -111,7 +111,7 @@ export default function OpenReceipt({ data }) {
     <div>
       <div
         className="mt-4"
-        style={{ height: "250px", overflowY: "scroll", overflowX: "scroll" }}
+        style={{ height: "280px", overflowY: "scroll", overflowX: "scroll" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">

@@ -50,8 +50,9 @@ export default function Closed() {
       const response = await axios.get(
         baseURL + "/Payment_Receipts/getclosedreceipts"
       ); // Replace this URL with your API endpoint
-      setData(response.data.Result);
-      setFilteredData(response.data.Result);
+      const results = response.data?.Result || [];
+      setData(results);
+      setFilteredData(results);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -211,54 +212,7 @@ export default function Closed() {
         </div>
       </div>
 
-      {/* ------------------------------------------- */}
-      {/* <div className="row">
-        <div className="col-md-3 mt-4 col-sm-12">
-          <label className="form-label">Payment Receipt Vouchers</label>
-        </div>
-
-        <div className="col-md-2  ">
-          <label className="form-label">Search</label>
-          <input
-            placeholder="RV_NO/Txn_Type"
-            type="text"
-            onChange={handleSearch}
-            value={searchInput}
-          />
-        </div>
-
-        <div className="col-md-2  ">
-          <label className="form-label">Search customer</label>
-          <input
-            class=""
-            type="text"
-            placeholder="Search Customer"
-            onChange={searchCustomer}
-            value={searchCustName}
-          />
-        </div>
-
-        <div className="col-md-2 mt-1 col-sm-12">
-          <button
-            className="button-style  group-button"
-            onClick={openVoucherButton}
-          >
-            Open Voucher
-          </button>
-        </div>
-
-        <div className="col-md-2 mt-1 col-sm-12">
-          <button
-            className="button-style  group-button"
-            style={{ marginLeft: "190px" }}
-            onClick={(e) => navigate("/UnitAccounts")}
-          >
-            Close
-          </button>
-        </div>
-      </div> */}
-
-      <div style={{ height: "300px", overflowY: "scroll", marginTop: "20px" }}>
+      <div style={{ height: "350px", overflowY: "scroll", marginTop: "20px" }}>
         <Table
           striped
           className="table-data border"

@@ -49,8 +49,8 @@ export default function MachineUtilisation({ getMachineSummary }) {
     <div>
       <div
         style={{
-          height: "380px",
-          width: "50%",
+          height: "350px",
+          width: "800px",
           overflowY: "scroll",
           overflowX: "scroll",
         }}
@@ -60,7 +60,12 @@ export default function MachineUtilisation({ getMachineSummary }) {
             <tr>
               <th onClick={() => requestSort("Machine")}>Machine</th>
               <th onClick={() => requestSort("Operation")}>Operation</th>
-              <th onClick={() => requestSort("TotalTime")} style={{ textAlign: "right" }}>Machine Hours</th>
+              <th
+                onClick={() => requestSort("TotalTime")}
+                style={{ textAlign: "right" }}
+              >
+                Machine Hours
+              </th>
             </tr>
           </thead>
           <tbody className="tablebody">

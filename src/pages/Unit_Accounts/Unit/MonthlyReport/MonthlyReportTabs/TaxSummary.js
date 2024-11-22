@@ -63,7 +63,7 @@ export default function TaxSummary({ getMonthReport }) {
     <div>
       <div
         style={{
-          height: "380px",
+          height: "350px",
           overflowY: "scroll",
           overflowX: "scroll",
         }}

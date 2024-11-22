@@ -14,10 +14,6 @@ export default function BodyForm() {
   const location = useLocation();
   const rowData = location.state ? location.state : "";
 
-  console.log(
-    "dateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeuuuuuuuuuuu",
-    rowData
-  );
   const contentRef = React.useRef();
 
   // Create a reference for the ReactToPrint component
