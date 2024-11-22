@@ -138,7 +138,7 @@ export default function Tabpage2Table({ selectedDate }) {
     <div
       className=""
       style={{
-        height: "350px",
+        height: "320px",
         overflowY: "scroll",
         overflowX: "scroll",
         width: "500px",

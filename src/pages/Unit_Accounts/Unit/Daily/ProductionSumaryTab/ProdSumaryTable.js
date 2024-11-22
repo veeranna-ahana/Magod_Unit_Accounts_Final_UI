@@ -74,7 +74,7 @@ export default function ProdSumaryTable({ getValuesPrdSum }) {
     <div>
       <div
         className=""
-        style={{ overflowY: "scroll", overflowX: "scroll", height: "370px" }}
+        style={{ overflowY: "scroll", overflowX: "scroll", height: "350px" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">

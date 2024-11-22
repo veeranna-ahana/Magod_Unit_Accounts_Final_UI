@@ -143,7 +143,7 @@ export default function HoRvListTable({ getValuesHo, getValuesHoDe }) {
             style={{
               overflowY: "scroll",
               overflowX: "scroll",
-              height: "350px",
+              height: "320px",
             }}
           >
             <Table striped className="table-data border">
@@ -201,7 +201,7 @@ export default function HoRvListTable({ getValuesHo, getValuesHoDe }) {
             style={{
               overflowY: "scroll",
               overflowX: "scroll",
-              height: "350px",
+              height: "320px",
             }}
           >
             <Table striped className="table-data border">

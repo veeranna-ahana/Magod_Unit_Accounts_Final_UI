@@ -242,7 +242,7 @@ export default function CustomerOutStanding({
     <div className="row col-md-12">
       <div className="mt-3 col-md-6">
         <div
-          style={{ height: "350px", overflowY: "scroll", overflowX: "scroll" }}
+          style={{ height: "320px", overflowY: "scroll", overflowX: "scroll" }}
         >
           <Table className="table-data border" striped>
             <thead className="tableHeaderBGColor">
@@ -321,7 +321,7 @@ export default function CustomerOutStanding({
         </div>
       </div>
 
-      <div className="box col-md-6" >
+      <div className="box col-md-6">
         <CustomerOutStandingTable02
           selectedCustCode={selectedCustCode}
           selectedDCInvNo={selectedDCInvNo}

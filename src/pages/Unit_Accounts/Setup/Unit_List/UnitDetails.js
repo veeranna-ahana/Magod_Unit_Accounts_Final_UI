@@ -154,7 +154,7 @@ export default function UnitDetails() {
         <div
           className="col-md-4"
           style={{
-            height: "430px",
+            height: "400px",
             maxWidth: "32%",
 
             overflowY: "scroll",
@@ -217,7 +217,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "10px" }}>
+            <div className="d-flex " style={{ gap: "10px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Unit Name<span style={{ color: "red" }}>*</span>
@@ -236,7 +236,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "35px" }}>
+            <div className="d-flex " style={{ gap: "35px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Mail Id
@@ -254,7 +254,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "45px" }}>
+            <div className="d-flex " style={{ gap: "45px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Place
@@ -272,7 +272,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "54px" }}>
+            <div className="d-flex " style={{ gap: "54px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   PIN
@@ -291,7 +291,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "5px" }}>
+            <div className="d-flex " style={{ gap: "5px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Unit Address
@@ -313,7 +313,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "30px" }}>
+            <div className="d-flex " style={{ gap: "30px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Country
@@ -360,7 +360,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "5px" }}>
+            <div className="d-flex " style={{ gap: "5px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Tally Account Name
@@ -378,7 +378,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "55px" }}>
+            <div className="d-flex " style={{ gap: "55px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Unit Initials
@@ -396,7 +396,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "90px" }}>
+            <div className="d-flex " style={{ gap: "90px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   State
@@ -414,7 +414,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "100px" }}>
+            <div className="d-flex " style={{ gap: "100px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Current
@@ -437,7 +437,7 @@ export default function UnitDetails() {
               </div>
             </div>
 
-            <div className="d-flex mt-1" style={{ gap: "15px" }}>
+            <div className="d-flex " style={{ gap: "15px" }}>
               <div>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Contact details

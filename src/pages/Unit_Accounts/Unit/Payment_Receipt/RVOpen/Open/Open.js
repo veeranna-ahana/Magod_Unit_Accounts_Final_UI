@@ -50,8 +50,9 @@ export default function Open() {
       const response = await axios.get(
         baseURL + "/Payment_Receipts/getopenreceipts"
       ); // Replace this URL with your API endpoint
-      setData(response.data.Result);
-      setFilteredData(response.data.Result);
+      const results = response.data?.Result || [];
+      setData(results);
+      setFilteredData(results);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
