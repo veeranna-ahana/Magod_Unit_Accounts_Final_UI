@@ -164,21 +164,49 @@ const SalesReportPdf = React.forwardRef((props, ref) => {
       <div ref={ref}>
         <style type="text/css" media="print">
           {`
-          @page {
-            size: A4 landscape;
-            margin-top: 50px; /* Add top margin to the printed page */ 
-           
-          }
+      @page {
+        size: A4;
+        margin-top: 200px; /* Increase this for more header space */
+        margin-bottom: 50px; /* Increase this for more footer space */
+      }
 
-          /* Add page breaks before certain elements if necessary */
-          .page-break {
-            page-break-before: always;
-          }  
-        `}
+      /* Add page breaks before certain elements if necessary */
+      .page-break {
+        page-break-before: always;
+      }
+
+      /* Optionally style header and footer if needed */
+      .header, .footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background-color: transparent;
+        text-align: center;
+        line-height: 50px;
+        z-index: 1000;
+      }
+
+      .header {
+        top: 0;
+      }
+
+      .footer {
+        bottom: 0;
+      }
+
+      .content {
+        margin-top: 30px; /* Start content after the header */
+        margin-bottom: 70px; /* Leave space before the footer */
+      }
+    `}
         </style>
 
+        {/* Header */}
+        <div className="header">{/* <span>Header Content</span> */}</div>
+
         <div
-          className="p-0"
+          className="content"
           style={{
             marginLeft: "35px",
             marginRight: "35px",
@@ -633,6 +661,9 @@ const SalesReportPdf = React.forwardRef((props, ref) => {
             </div>
           ))}
         </div>
+
+        {/* Footer */}
+        <div className="footer">{/* <span>Footer Content</span> */}</div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export default function AllOutstandingBills({ getAllOutStanding }) {
   const [selectRow, setSelectRow] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
-  // sorting function for table headings of the table 
+  // sorting function for table headings of the table
   const requestSort = (key) => {
     let direction = "asc";
     if (sortConfig.key === key && sortConfig.direction === "asc") {
@@ -21,19 +21,19 @@ export default function AllOutstandingBills({ getAllOutStanding }) {
       dataCopy.sort((a, b) => {
         let valueA = a[sortConfig.key];
         let valueB = b[sortConfig.key];
-   
+
         // Convert only for the "intiger" columns
         if (
-         sortConfig.key === "Cust_Code" || 
-         sortConfig.key === "totalBilling" ||
-         sortConfig.key === "AmountReceived" || 
-         sortConfig.key === "Outstanding" || 
-         sortConfig.key === "ValueAdded" 
-         ) {
+          sortConfig.key === "Cust_Code" ||
+          sortConfig.key === "totalBilling" ||
+          sortConfig.key === "AmountReceived" ||
+          sortConfig.key === "Outstanding" ||
+          sortConfig.key === "ValueAdded"
+        ) {
           valueA = parseFloat(valueA);
           valueB = parseFloat(valueB);
         }
-   
+
         if (valueA < valueB) {
           return sortConfig.direction === "asc" ? -1 : 1;
         }
@@ -68,7 +68,6 @@ export default function AllOutstandingBills({ getAllOutStanding }) {
           height: "350px",
           overflowY: "scroll",
           overflowX: "scroll",
-          marginTop: "20px",
         }}
       >
         <Table striped className="table-data border" style={{ border: "1px" }}>
@@ -76,37 +75,68 @@ export default function AllOutstandingBills({ getAllOutStanding }) {
             <tr style={{ whiteSpace: "nowrap" }}>
               <th onClick={() => requestSort("Cust_Code")}>Customer Code</th>
               <th onClick={() => requestSort("Cust_Name")}>Customer Name</th>
-              <th onClick={() => requestSort("totalBilling")}>Total Billing</th>
-              <th onClick={() => requestSort("AmountReceived")}>Amount Received</th>
+              <th
+                onClick={() => requestSort("totalBilling")}
+                style={{ textAlign: "right" }}
+              >
+                Total Billing
+              </th>
+              <th
+                onClick={() => requestSort("AmountReceived")}
+                style={{ textAlign: "right" }}
+              >
+                Amount Received
+              </th>
               <th>Balance</th>
               <th onClick={() => requestSort("UnitName")}>Unit Name</th>
               <th>Value Added</th>
               <th>Material Value</th>
               <th>Period</th>
-              <th onClick={() => requestSort("Outstanding")}>Outstanding</th>
+              <th
+                onClick={() => requestSort("Outstanding")}
+                style={{ textAlign: "right" }}
+              >
+                Outstanding
+              </th>
             </tr>
           </thead>
           <tbody className="tablebody">
-            {sortedData()?.map((item, key) => {
-              return (
-                <tr
-                  style={{ whiteSpace: "nowrap" }}
-                  onClick={() => selectedRowFun(item, key)}
-                  className={key === selectRow?.index ? "selcted-row-clr" : ""}
-                >
-                  <td>{item.Cust_Code}</td>
-                  <td>{item.Cust_Name}</td>
-                  <td style={{textAlign:'right'}}>{formatAmount(item.totalBilling)}</td>
-                  <td style={{textAlign:'right'}}>{formatAmount(item.AmountReceived)}</td>
-                  <td></td>
-                  <td>{item.UnitName}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td style={{textAlign:'right'}}>{formatAmount(item.Outstanding)}</td>
-                </tr>
-              );
-            })}
+            {sortedData()?.length > 0 ? (
+              sortedData()?.map((item, key) => {
+                return (
+                  <tr
+                    style={{ whiteSpace: "nowrap" }}
+                    onClick={() => selectedRowFun(item, key)}
+                    className={
+                      key === selectRow?.index ? "selcted-row-clr" : ""
+                    }
+                  >
+                    <td>{item.Cust_Code}</td>
+                    <td>{item.Cust_Name}</td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.totalBilling)}
+                    </td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.AmountReceived)}
+                    </td>
+                    <td></td>
+                    <td>{item.UnitName}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatAmount(item.Outstanding)}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan="12" style={{ textAlign: "center" }}>
+                  Data not found!
+                </td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>

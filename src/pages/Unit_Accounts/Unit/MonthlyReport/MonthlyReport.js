@@ -106,13 +106,17 @@ export default function MonthlyReport() {
 
   const handleYear = (e) => {
     const inputYear = e.target.value;
-    const currentYear = new Date().getFullYear();
+    setYear(inputYear); // Update the year value immediately
+  };
 
-    if (inputYear < 2014) {
+  const validateYear = () => {
+    const currentYear = new Date().getFullYear();
+    if (year < 2014) {
       toast.error("Please select a year after 2014");
-    } else if (inputYear <= currentYear) {
-      // Set the year if it's less than or equal to the current year
-      setYear(inputYear);
+      setYear(""); 
+    } else if (year > currentYear) {
+      toast.error("Please select a year before or equal to the current year");
+      setYear(""); 
     }
   };
 
@@ -306,11 +310,10 @@ export default function MonthlyReport() {
           <div>
             <input
               onChange={(e) => handleYear(e)}
-              className="mt-2"
-              style={{ fontSize: "12px" }}
+              onBlur={validateYear} // Validate year when input loses focus
+              className="in-field mt-1"
               type="number"
               value={year}
-              max={getCurrentYear()}
             />
           </div>
         </div>
@@ -406,8 +409,8 @@ export default function MonthlyReport() {
         </div>
       </div> */}
 
-      <div className="mt-3">
-        <Tabs style={{ display: "flex", fontSize: "10.7px" }}>
+      <div className="mt-1">
+        <Tabs className="tab_font mb-1">
           <Tab eventKey="invoiceSummary" title="Invoice Summary">
             <InvoiceSummary getMonthInvReport={getMonthInvReport} />
           </Tab>

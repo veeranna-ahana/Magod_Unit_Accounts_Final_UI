@@ -1,12 +1,9 @@
-
 import React, { useState } from "react";
 import "./Login.css";
 import Logo from "../Auth/Magod Laser Logo - Default [2500].png";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../../api/baseUrl";
- 
 
- 
 function Login() {
   const navigate = useNavigate();
   let [username, setUsername] = useState("");
@@ -14,7 +11,7 @@ function Login() {
   const handleLogin = () => {
     navigate("/home");
   };
- 
+
   const postRequest = async (url, body, callback) => {
     let response = await fetch(url, {
       method: "POST",
@@ -27,7 +24,7 @@ function Login() {
     let content = await response.json();
     callback(content);
   };
- 
+  `${baseURL}/user/login`, console.log("baseURL", baseURL);
   function submitLogin() {
     postRequest(
       // "http://localhost:5001/user/login",
@@ -44,7 +41,7 @@ function Login() {
       }
     );
   }
- 
+
   return (
     <>
       <div
@@ -138,6 +135,5 @@ function Login() {
     </>
   );
 }
- 
+
 export default Login;
- 

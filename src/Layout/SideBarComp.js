@@ -90,13 +90,13 @@ const SidebarComp = () => {
       newSideBarData,
       lazerUser.data.access
     );
-    console.log("filter",filterSidebar);
+    console.log("filter", filterSidebar);
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     setAccessSideBarData(filterSidebar);
     // setAccessSideBarData(quotationSidebar)
   }, []);
 
-  console.log('access',accessSideBarData);
+  console.log("access", accessSideBarData);
 
   return (
     <>

@@ -317,9 +317,11 @@ export default function ShowSyncStatus() {
     const xmlDoc = parser.parseFromString(xmlString, "application/xml");
     const multiMediaNodesunit = xmlDoc.querySelectorAll("MagodUnits");
     const multiMediaNodes = xmlDoc.querySelectorAll("unit_invoices_list");
+    const multiMediaNodes1 = xmlDoc.querySelectorAll("unit_recipts_register");
     const parsedData = {
       open_inv: [],
       open_unit: [],
+      unit_recipts_register: [],
     };
     // Function to extract data dynamically from nodes
     const extractData = (nodes, targetArray) => {
@@ -338,6 +340,7 @@ export default function ShowSyncStatus() {
     // Call the function for both arrays
     extractData(multiMediaNodesunit, parsedData.open_unit);
     extractData(multiMediaNodes, parsedData.open_inv);
+    extractData(multiMediaNodes1, parsedData.unit_recipts_register);
     setReport(parsedData);
     setUnitName(parsedData.open_unit[0].UnitName);
     return parsedData;
@@ -385,14 +388,14 @@ export default function ShowSyncStatus() {
         console.log("err in table", err);
       });
 
-    await axios
-      .get(baseURL + `/showSyncStatus/getHoOpenInvAndReceipts/` + getName)
-      .then((res) => {
-        setGetHOInvoice(res.data);
-      })
-      .catch((err) => {
-        console.log("err in table", err);
-      });
+    // await axios
+    //   .get(baseURL + `/showSyncStatus/getHoOpenInvAndReceipts/` + getName)
+    //   .then((res) => {
+    //     setGetHOInvoice(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err in table", err);
+    //   });
 
     await axios
       .get(
@@ -411,7 +414,7 @@ export default function ShowSyncStatus() {
   useEffect(() => {
     if (getUnitInvoice.length === 1) {
       compare(report);
-      toast.success("Please wait data being Populating");
+      toast.success("Data displayed successfully");
     }
   }, [report]);
 
@@ -422,46 +425,17 @@ export default function ShowSyncStatus() {
     }
   }, [getUnitInvoiceForExport]);
 
+  // useEffect(() => {
+  //   if (getHOInvoice.length === 1) {
+  //     HOCompare(report);
+  //   }
+  // }, [getHOInvoice]);
+
   useEffect(() => {
-    if (getHOInvoice.length === 1) {
+    if (getUnitInvoice.length === 1) {
       HOCompare(report);
     }
-  }, [getHOInvoice]);
-
-  // Initialize arrays to store matched and unmatched invoices
-  // const [matchedInvoices, setmatchedInvoices] = useState([]);
-  // const [unmatchedInvoices, setunmatchedInvoices] = useState([]);
-
-  // const compare = (report) => {
-  //   if (getUnitInvoice.length === 1) {
-  //     const unitInvoices = getUnitInvoice[0].cmdInvList;
-  //     setInvPaymentVrList(getUnitInvoice[0].cmdInvPaymentVrList);
-  //     // Identify invoices in unitInvoices that are not in report.open_inv
-  //     unitInvoices.forEach((unitInv) => {
-  //       const matchedInv = report.open_inv.find(
-  //         (importInv) =>
-  //           parseInt(importInv.DC_Inv_No) === parseInt(unitInv.DC_Inv_No) &&
-  //           importInv.PymtAmtRecd === unitInv.PymtAmtRecd
-  //       );
-
-  //       if (matchedInv) {
-  //         // Invoice is matched, add to matchedInvoices array
-  //         matchedInvoices.push({ ...unitInv, matchedInv });
-  //       } else {
-  //         // Invoice is unmatched, add to unmatchedInvoices array
-  //         unmatchedInvoices.push(unitInv);
-  //       }
-  //     });
-
-  //     // Now matchedInvoices contains the matched invoices along with their corresponding importInv
-  //     console.log("matchedInvoices", matchedInvoices);
-
-  //     // Now unmatchedInvoices contains the invoices present in unitInvoices but not in report.open_inv
-  //     console.log("unmatchedInvoices", unmatchedInvoices);
-  //   } else {
-  //     console.log("there is no length");
-  //   }
-  // };
+  }, [report]);
 
   const [allUnitInvoices, setAllUnitInvoices] = useState([]);
   const [countUnmatched, setCountUnmatched] = useState(0);
@@ -477,7 +451,8 @@ export default function ShowSyncStatus() {
         const matchedInv = report.open_inv.find(
           (importInv) =>
             parseInt(importInv.DC_Inv_No) === parseInt(unitInv.DC_Inv_No) &&
-            importInv.PymtAmtRecd === unitInv.PymtAmtRecd
+            importInv.PymtAmtRecd === unitInv.PymtAmtRecd &&
+            importInv.Unitname === unitInv.Unitname
         );
 
         if (matchedInv) {
@@ -505,15 +480,15 @@ export default function ShowSyncStatus() {
     }
   };
 
-  // Initialize arrays to store matched and unmatched invoices
-  // const [matchedInvoicesHo, setmatchedInvoicesHo] = useState([]);
-  // const [unmatchedInvoicesHO, setunmatchedInvoicesHo] = useState([]);
+  const [allInvoices, setAllInvoices] = useState([]);
 
   // const HOCompare = (report) => {
   //   if (getHOInvoice.length === 1) {
   //     const hoInvoices = getHOInvoice[0].cmdHoInvList;
   //     setInvPaymentVrListHO(getHOInvoice[0].cmdHoInvPaymentVrList);
-  //     // Identify invoices in unitInvoices that are not in report.open_inv
+
+  //     const newInvoices = [];
+
   //     hoInvoices.forEach((unitInv) => {
   //       const matchedInv = getUnitInvoice[0].cmdInvList.find(
   //         (importInv) =>
@@ -522,39 +497,45 @@ export default function ShowSyncStatus() {
   //       );
 
   //       if (matchedInv) {
-  //         // Invoice is matched, add to matchedInvoices array
-  //         matchedInvoicesHo.push({ ...unitInv, matchedInv });
+  //         // Invoice is matched, add to newInvoices array with color code for matched
+  //         newInvoices.push({ ...unitInv, matchedInv, colorCode: "#92ec93" });
   //       } else {
-  //         // Invoice is unmatched, add to unmatchedInvoices array
-  //         unmatchedInvoicesHO.push(unitInv);
+  //         // Invoice is unmatched, add to newInvoices array with color code for unmatched
+  //         newInvoices.push({ ...unitInv, colorCode: "#f48483" });
   //       }
   //     });
 
-  //     // Now matchedInvoices contains the matched invoices along with their corresponding importInv
-  //     console.log("matchedInvoicesHo", matchedInvoicesHo);
+  //     // Set the combined invoices with color codes to the state
+  //     setAllInvoices(newInvoices);
 
-  //     // Now unmatchedInvoices contains the invoices present in unitInvoices but not in report.open_inv
-  //     console.log("unmatchedInvoicesHO", unmatchedInvoicesHO);
+  //     // Now allInvoices contains both matched and unmatched invoices with color codes
+  //     console.log("allInvoices", newInvoices);
   //   } else {
   //     console.log("there is no length");
   //   }
   // };
 
-  const [allInvoices, setAllInvoices] = useState([]);
-
   const HOCompare = (report) => {
-    if (getHOInvoice.length === 1) {
-      const hoInvoices = getHOInvoice[0].cmdHoInvList;
-      setInvPaymentVrListHO(getHOInvoice[0].cmdHoInvPaymentVrList);
+    console.log("entering into HOCompare", report);
+
+    if (getUnitInvoice.length === 1) {
+      const unitInvoices = report.open_inv;
+      // setInvPaymentVrListHO(getHOInvoice[0].cmdInvList);
 
       const newInvoices = [];
 
-      hoInvoices.forEach((unitInv) => {
+      unitInvoices.forEach((unitInv) => {
+        console.log("report values for register", report.unit_recipts_register);
+        console.log("unit data values", unitInvoices);
+
         const matchedInv = getUnitInvoice[0].cmdInvList.find(
           (importInv) =>
             parseInt(importInv.DC_Inv_No) === parseInt(unitInv.DC_Inv_No) &&
-            importInv.PymtAmtRecd === unitInv.PymtAmtRecd
+            importInv.PymtAmtRecd === unitInv.PymtAmtRecd &&
+            importInv.Unitname === unitInv.Unitname
         );
+
+        console.log("matchedInv...123", matchedInv);
 
         if (matchedInv) {
           // Invoice is matched, add to newInvoices array with color code for matched
@@ -704,6 +685,7 @@ export default function ShowSyncStatus() {
   console.log("Unit open Invoices for export", getUnitInvoiceForExport);
   console.log("Unit open", openVoucher, "And", unitOpenInvoices);
   // console.log('color', selectedRowColor);
+
   const [mailAlert, setMailAlert] = useState(false);
   const [mailModal, setMailModal] = useState(false);
   const handleClose = () => {
@@ -718,6 +700,9 @@ export default function ShowSyncStatus() {
   const callMailModal = () => {
     setMailAlert(true);
   };
+
+  console.log("Report", report);
+  console.log("unit data", getUnitInvoice);
 
   return (
     <>
