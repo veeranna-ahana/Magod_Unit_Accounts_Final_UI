@@ -212,7 +212,7 @@ export default function Open() {
         </div>
       </div>
 
-      <div style={{ height: "290px", overflowY: "scroll", marginTop: "20px" }}>
+      <div style={{ height: "350px", overflowY: "scroll", marginTop: "20px" }}>
         <Table
           striped
           className="table-data border"

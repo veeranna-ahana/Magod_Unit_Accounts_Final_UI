@@ -59,7 +59,7 @@ export default function OnAccountDetailsForm() {
   const groupedArray = Object.values(groupedData);
 
   console.log(groupedArray, "hjjhjkjk");
-  const itemsPerPage = 10; // Number of items per page
+  const itemsPerPage = 13; // Number of items per page
   const [currentPage, setCurrentPage] = useState(0);
 
   // Calculate the start and end indices for the current page
@@ -90,7 +90,11 @@ export default function OnAccountDetailsForm() {
   const openVoucherButton = () => {
     if (selectRow !== "") {
       navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", {
-        state: selectRow.RecdPVID,
+        // state: selectRow.RecdPVID,
+        state: {
+          rowData: selectRow.RecdPVID,
+          // date: selectRow.Recd_PV_Date,
+        },
       });
     } else {
       toast.error("Select Row");
@@ -210,7 +214,7 @@ export default function OnAccountDetailsForm() {
       <div>
         <div
           className=""
-          style={{ overflowY: "scroll", overflowX: "scroll", height: "290px" }}
+          style={{ overflowY: "scroll", overflowX: "scroll", height: "360px" }}
         >
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">

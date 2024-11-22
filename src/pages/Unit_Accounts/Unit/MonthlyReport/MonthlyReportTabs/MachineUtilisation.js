@@ -51,7 +51,7 @@ export default function MachineUtilisation({ getMachineSummary }) {
     <div>
       <div
         style={{
-          height: "300px",
+          height: "350px",
           width: "800px",
           overflowY: "scroll",
           overflowX: "scroll",

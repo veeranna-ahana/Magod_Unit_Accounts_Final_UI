@@ -88,7 +88,7 @@ export default function CustomerOutStandingTable02({
     <div
       className="mt-3"
       style={{
-        height: "230px",
+        height: "350px",
         overflowY: "scroll",
         overflowX: "scroll",
         width: "590px",

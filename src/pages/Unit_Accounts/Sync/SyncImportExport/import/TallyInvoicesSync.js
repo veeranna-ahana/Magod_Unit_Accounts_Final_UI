@@ -25,7 +25,7 @@ export default function TallyInvoicesSync({ data }) {
 
       <div
         className="mt-4"
-        style={{ height: "216px", overflowY: "scroll", overflowX: "scroll" }}
+        style={{ height: "280px", overflowY: "scroll", overflowX: "scroll" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">

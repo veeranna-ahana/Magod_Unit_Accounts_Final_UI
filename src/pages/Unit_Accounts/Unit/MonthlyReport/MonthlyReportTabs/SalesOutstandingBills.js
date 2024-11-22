@@ -64,7 +64,7 @@ export default function SalesOutstandingBills({ getSalesOutStanding }) {
     <div>
       <div
         style={{
-          height: "300px",
+          height: "350px",
           overflowY: "scroll",
           overflowX: "scroll",
           marginTop: "20px",

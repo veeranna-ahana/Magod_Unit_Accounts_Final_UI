@@ -212,54 +212,7 @@ export default function All() {
         </div>
       </div>
 
-      {/* ------------------------------------------- */}
-
-      {/* <div className="row">
-        <div className="col-md-3 mt-4 col-sm-12">
-          <label className="form-label">Payment Receipt Vouchers</label>
-        </div>
-
-        <div className="col-md-2  ">
-          <label className="form-label">Search</label>
-          <input
-            placeholder="RV_NO/Status/Txn_Type"
-            type="text"
-            onChange={handleSearch}
-            value={searchInput}
-          />
-        </div>
-
-        <div className="col-md-2  ">
-          <label className="form-label">Search customer</label>
-          <input
-            type="text"
-            placeholder="Search Customer"
-            onChange={searchCustomer}
-            value={searchCustName}
-          />
-        </div>
-
-        <div className="col-md-2 mt-1 col-sm-12">
-          <button
-            className="button-style  group-button"
-            onClick={openVoucherButton}
-          >
-            Open Voucher
-          </button>
-        </div>
-
-        <div className="col-md-2 mt-1 col-sm-12">
-          <button
-            className="button-style  group-button"
-            style={{ marginLeft: "210px" }}
-            onClick={(e) => navigate("/UnitAccounts")}
-          >
-            Close
-          </button>
-        </div>
-      </div> */}
-
-      <div style={{ height: "300px", overflowY: "scroll", marginTop: "20px" }}>
+      <div style={{ height: "350px", overflowY: "scroll", marginTop: "20px" }}>
         <Table
           striped
           className="table-data border"

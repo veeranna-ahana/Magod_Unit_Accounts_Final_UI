@@ -70,7 +70,7 @@ export default function TabPage1Table({ selectedDate }) {
     <div>
       <div
         className=""
-        style={{ height: "300px", overflowY: "scroll", overflowX: "scroll" }}
+        style={{ height: "350px", overflowY: "scroll", overflowX: "scroll" }}
       >
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">

@@ -124,7 +124,7 @@ export default function TaxMasterForm() {
     <div className="row">
       <div className="col-md-6 col-sm-12">
         <div
-          style={{ height: "300px", overflowY: "scroll", overflowX: "scroll" }}
+          style={{ height: "450px", overflowY: "scroll", overflowX: "scroll" }}
         >
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
@@ -167,6 +167,7 @@ export default function TaxMasterForm() {
                 return (
                   <>
                     <tr
+                      style={{ whiteSpace: "nowrap" }}
                       onClick={() => selectedRowFun(item, key)}
                       className={
                         key === selectRow?.index ? "selcted-row-clr" : ""
@@ -257,7 +258,7 @@ export default function TaxMasterForm() {
           </div>
 
           <div className="row">
-            <div className="d-flex col-md-6 mt-1" style={{ gap: "57px" }}>
+            <div className="d-flex col-md-6 mt-4" style={{ gap: "57px" }}>
               <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                 Tax %
               </label>
@@ -273,7 +274,7 @@ export default function TaxMasterForm() {
               />
             </div>
 
-            <div className="d-flex col-md-6 mt-1" style={{ gap: "44px" }}>
+            <div className="d-flex col-md-6 mt-4" style={{ gap: "44px" }}>
               <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                 Tax on
               </label>
@@ -287,7 +288,7 @@ export default function TaxMasterForm() {
           </div>
 
           <div className="row">
-            <div className="d-flex col-md-6 mt-1" style={{ gap: "10px" }}>
+            <div className="d-flex col-md-6 mt-4" style={{ gap: "10px" }}>
               <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                 Effective From
               </label>
@@ -300,7 +301,7 @@ export default function TaxMasterForm() {
               />
             </div>
 
-            <div className="d-flex col-md-6 mt-1" style={{ gap: "15px" }}>
+            <div className="d-flex col-md-6 mt-4" style={{ gap: "15px" }}>
               <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                 Effective To
               </label>
@@ -315,7 +316,7 @@ export default function TaxMasterForm() {
           </div>
 
           <div className="row">
-            <div className="d-flex col-md-6" style={{ gap: "17px" }}>
+            <div className="d-flex col-md-6 mt-4" style={{ gap: "17px" }}>
               <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                 LedgerName
               </label>
@@ -327,7 +328,7 @@ export default function TaxMasterForm() {
               />
             </div>
 
-            <div className="d-flex col-md-6" style={{ gap: "10px" }}>
+            <div className="d-flex col-md-6 mt-4" style={{ gap: "10px" }}>
               <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                 UnderGroup
               </label>
@@ -341,7 +342,7 @@ export default function TaxMasterForm() {
           </div>
 
           <div className="row">
-            <div className="row col-md-6 ">
+            <div className="row col-md-6 mt-2 ">
               <input
                 className="mt-3 col-md-3  custom-checkbox "
                 type="checkbox"
