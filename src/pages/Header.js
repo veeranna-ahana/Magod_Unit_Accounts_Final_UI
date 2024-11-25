@@ -26,13 +26,15 @@ function Header({ user }) {
 			return "";
 		}
 	};
+	const logoutUrl = process.env.REACT_APP_LOGOUT_URL;
 
 	let logout = () => {
 		localStorage.removeItem("LazerUser");
 
 		// window.location.replace("/");
 		Cookies.remove("userData");
-		window.location.replace("http://172.16.20.61:3000/");
+		// window.location.replace("http://172.16.20.61:3000/");
+		window.location.replace(logoutUrl);
 		// window.location.replace("http://192.168.1.25:9000/");
 	};
 

@@ -58,6 +58,8 @@ import { faPenRuler } from "@fortawesome/free-solid-svg-icons";
 import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelopeOpen } from "@fortawesome/free-regular-svg-icons";
 
+const previousMenuUrl = process.env.REACT_APP_PREVIOUS_MENU_URL;
+
 export const customerSidebar = [
 	{
 		title: "Setup",
@@ -244,7 +246,8 @@ export const customerSidebar = [
 	// },
 	{
 		title: "Previous Menu",
-		path: "http://172.16.20.61:3000/home",
+		path: previousMenuUrl,
+		// path: "http://172.16.20.61:3000/home",
 		// path: "http://192.168.1.25:9000/home",
 		// onClick: () => {
 		// 	console.log("Navigating to port 3000/salesHome");
