@@ -84,7 +84,7 @@ export default function UnitOutStanding({ selectedUnitName }) {
   return (
     <div
       className="mt-1"
-      style={{ height: "250px", overflowY: "scroll", overflowX: "scroll" }}
+      style={{ height: "320px", overflowY: "scroll", overflowX: "scroll" }}
     >
       <Table className="table-data border" striped>
         <thead className="tableHeaderBGColor">
