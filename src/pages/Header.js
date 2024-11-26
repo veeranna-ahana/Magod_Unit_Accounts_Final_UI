@@ -78,7 +78,7 @@ function Header({ user }) {
 									fontWeight: "600",
 								}}
 								onClick={logout}>
-								Sign Out
+								Sign Out (O.O2)
 							</button>
 						</>
 					) : (
