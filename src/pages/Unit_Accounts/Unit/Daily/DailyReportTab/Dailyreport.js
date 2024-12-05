@@ -1,9 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import ReactToPrint, { useReactToPrint } from "react-to-print";
 import SalesReportPdf from "./Print/SalesReportPdf/SalesReportPdf";
 // import ProductionReportPdf from "../../../../../PDF/DailyReportPdf/ProductionReportPdf";
 import ProductionReportPdf from "./Print/ProductionReportPdf/ProductionReportPdf";
 import ReceiptReportPdf from "./Print/ReceiptReportPdf/ReceiptReportPdf";
+import { baseURL } from "../../../../../api/baseUrl";
+import axios from "axios";
+import SalesReportModal from "./Print/SalesReportPdf/SalesReportModal";
+import jsPDF from "jspdf";
+import ProductionReportModal from "./Print/ProductionReportPdf/ProductionReportModal";
+import ReceiptReportModal from "./Print/ReceiptReportPdf/ReceiptReportModal";
 
 export default function Dailyreport({
   date,
@@ -16,6 +22,25 @@ export default function Dailyreport({
   overallTotal,
   overallOnAccountTotal,
 }) {
+  const [pdfOpen, setPdfOpen] = useState(false);
+  const [productionPdfOpen, setProductionPdfOpen] = useState(false);
+  const [receiptPdfOpen, setReceiptPdfOpen] = useState(false);
+
+  // Sales Report Pdf
+  const pdfSalesReport = () => {
+    setPdfOpen(true);
+  };
+
+  // Production Report Pdf
+  const pdfProductionReport = () => {
+    setProductionPdfOpen(true);
+  };
+
+  // Production Report Pdf
+  const pdfRaceiptReport = () => {
+    setReceiptPdfOpen(true);
+  };
+
   const contentRef = React.useRef();
 
   // Create a reference for the ReactToPrint component
@@ -47,20 +72,80 @@ export default function Dailyreport({
     printRefff.current.handlePrint();
   };
 
+  const handleDownloadPdf = async () => {
+    axios
+      .post(`${baseURL}/dailyReportPdfServer/dailyReportSalesReportPdf`, {
+        date,
+        groupedArray,
+        getValuesTax,
+      })
+      .then((response) => {
+        console.log("Response data:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error in table:", error.message);
+      });
+  };
+
+  // const handleDownloadPdf = async () => {
+  //   const pdf = new jsPDF();
+  //   const content = contentRef.current;
+
+  //   pdf.html(content, {
+  //     callback: async (doc) => {
+  //       const pdfBlob = doc.output("blob");
+  //       const pdfFile = new File([pdfBlob], "SalesReport.pdf", {
+  //         type: "application/pdf",
+  //       });
+
+  //       const url = URL.createObjectURL(pdfBlob);
+  //       window.open(url, "_blank");
+
+  //       // Log file details
+  //       console.log("FormData file details:", pdfFile);
+  //       console.log("FormData file size:", pdfFile.size);
+  //       console.log("FormData file type:", pdfFile.type);
+
+  //       const formData = new FormData();
+  //       formData.append("file", pdfFile);
+
+  //       // Log FormData to check file content
+  //       console.log("FormData object content:", formData);
+
+  //       try {
+  //         const response = await axios.post(
+  //           `${baseURL}/dailyReportPdfServer/dailyReportSalesReportPdf`,
+  //           formData,
+  //           {
+  //             headers: { "Content-Type": "multipart/form-data" },
+  //           }
+  //         );
+  //         console.log("Server Response:", response.data);
+  //       } catch (error) {
+  //         console.error(
+  //           "Upload Error:",
+  //           error.response ? error.response.data : error.message
+  //         );
+  //       }
+  //     },
+  //   });
+  // };
+
   return (
     <>
       <div className="row col-md-12">
-        <div className="col-md-2">
+        {/* <div className="col-md-2">
           <div>
-            {/* Button outside ReactToPrint */}
             <button
               className="button-style mt-2 group-button"
-              onClick={handlePrintButtonClick}
+              onClick={() => {
+                handlePrintButtonClick();
+                handleDownloadPdf();
+              }}
               style={{ width: "120px" }}
             >
               Sales Report
             </button>
-            {/* ReactToPrint component */}
             <ReactToPrint
               trigger={() => (
                 <div style={{ display: "none" }}>
@@ -73,7 +158,7 @@ export default function Dailyreport({
                 </div>
               )}
               content={() => contentRef.current}
-              ref={printRef} // Attach the reference to the ReactToPrint component
+              ref={printRef} 
               documentTitle="Sales Report"
             />
           </div>
@@ -85,7 +170,6 @@ export default function Dailyreport({
             >
               Production Report
             </button>
-            {/* ReactToPrint component */}
             <ReactToPrint
               trigger={() => (
                 <div style={{ display: "none" }}>
@@ -97,7 +181,7 @@ export default function Dailyreport({
                 </div>
               )}
               content={() => contentReff.current}
-              ref={printReff} // Attach the reference to the ReactToPrint component
+              ref={printReff}
               documentTitle="Production Report"
             />
           </div>
@@ -126,9 +210,68 @@ export default function Dailyreport({
                 </div>
               )}
               content={() => contentRefff.current}
-              ref={printRefff} // Attach the reference to the ReactToPrint component
+              ref={printRefff} 
               documentTitle="Receipt Report"
             />
+          </div>
+        </div> */}
+        
+        <div className="col-md-2">
+          <div>
+            <button
+              className="button-style mt-2 group-button"
+              style={{ width: "120px" }}
+              onClick={pdfSalesReport}
+            >
+              Sales Report
+            </button>
+            {pdfOpen && (
+              <SalesReportModal
+                pdfOpen={pdfOpen}
+                setPdfOpen={setPdfOpen}
+                date={date}
+                groupedArray={groupedArray}
+                getValuesTax={getValuesTax}
+              />
+            )}
+          </div>
+          <div className="mt-3">
+            <button
+              className="button-style mt-2 group-button"
+              style={{ width: "120px" }}
+              onClick={pdfProductionReport}
+            >
+              Production Report
+            </button>
+            {productionPdfOpen && (
+              <ProductionReportModal
+                productionPdfOpen={productionPdfOpen}
+                setProductionPdfOpen={setProductionPdfOpen}
+                getValuesPrdSum={getValuesPrdSum}
+                date={date}
+              />
+            )}
+          </div>
+          <div className="mt-4">
+            <button
+              className="button-style mt-2 group-button"
+              style={{ width: "120px" }}
+              onClick={pdfRaceiptReport}
+            >
+              Receipt Report
+            </button>
+            {receiptPdfOpen && (
+              <ReceiptReportModal
+                getPdfTaxValuess={getPdfTaxValuess}
+                date={date}
+                groupedCustTaxArray={groupedCustTaxArray}
+                getCustTax={getCustTax}
+                overallOnAccountTotal={overallOnAccountTotal}
+                overallTotal={overallTotal}
+                receiptPdfOpen={receiptPdfOpen}
+                setReceiptPdfOpen={setReceiptPdfOpen}
+              />
+            )}
           </div>
         </div>
 
