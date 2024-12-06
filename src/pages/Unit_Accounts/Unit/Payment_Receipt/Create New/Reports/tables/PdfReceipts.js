@@ -317,7 +317,7 @@ export default function PdfReceipts({ data }) {
           </View>
 
           <View>
-            <Text style={{ marginLeft: "130px", width: "340px" }}>
+            <Text style={{ marginLeft: "110px", width: "320px" }}>
               <Text style={{ fontFamily: "Helvetica-Bold" }}>
                 Received From:
               </Text>
@@ -414,7 +414,7 @@ export default function PdfReceipts({ data }) {
         </View>
 
         <View>
-          <Text style={{ marginLeft: "130px", width: "340px" }}>
+          <Text style={{ marginLeft: "80px", width: "320px" }}>
             <Text style={{ fontFamily: "Helvetica-Bold" }}>Received From:</Text>
             {data.receipt_data.CustName} ({data.receipt_data.Cust_code})
           </Text>
