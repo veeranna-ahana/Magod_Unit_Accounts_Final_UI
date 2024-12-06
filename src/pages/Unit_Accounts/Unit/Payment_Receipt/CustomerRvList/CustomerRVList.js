@@ -28,8 +28,6 @@ export default function CustomerRVList() {
 
   // Get the data for the current page
   const currentPageData = filteredData.slice(startIndex, endIndex);
-  console.log(currentPageData, "currentPageData");
-  console.log(filteredData, "filteredData");
 
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected);
@@ -58,7 +56,8 @@ export default function CustomerRVList() {
     try {
       const response = await axios.get(
         baseURL + "/Payment_Receipts/getcustomerdata"
-      ); // Replace this URL with your API endpoint
+      );
+      // Replace this URL with your API endpoint
       // console.log(response.data.Result);
       // let optionItems = response.data.Result.map((item) =>
       //   <option value={item.Cust_Code}>{item.Cust_name}</option>
@@ -127,13 +126,27 @@ export default function CustomerRVList() {
     // setState(true);
   };
   const handleNavigate = (RecdPVID) => {
-    navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", { state: RecdPVID });
+    // navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", { state: RecdPVID });
   };
+
+  // const openVoucherButton = () => {
+  //   if (selectRow !== "") {
+  //     navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", {
+  //       state: selectRow.RecdPVID,
+  //       date: selectRow.Recd_PV_Date,
+  //     });
+  //   } else {
+  //     toast.error("Select Row");
+  //   }
+  // };
 
   const openVoucherButton = () => {
     if (selectRow !== "") {
       navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", {
-        state: selectRow.RecdPVID,
+        state: {
+          rowData: selectRow.RecdPVID,
+          date: selectRow.Recd_PV_Date,
+        },
       });
     } else {
       toast.error("Select Row");
@@ -241,65 +254,7 @@ export default function CustomerRVList() {
         </div>
       </div>
 
-      {/* <div className="row">
-        <div className="col-md-3 mt-4 col-sm-12">
-          <label className="form-label">Payment Receipt Vouchers</label>
-        </div>
-
-        <div className="col-md-8 col-sm-12">
-          <div className="row">
-            <div className="col-md-4 col-sm-12">
-              <label className="form-label  ">Select Customer</label>
-
-              <Typeahead
-                className="ip-select"
-                id="basic-example"
-                labelKey={(option) =>
-                  option && option.Cust_name ? option.Cust_name.toString() : ""
-                }
-                valueKey="Cust_Code"
-                options={custdata}
-                placeholder="Select Customer"
-                onChange={handleTypeaheadChange}
-                selected={selectedOption}
-              />
-            </div>
-            <div className="col-md-3  col-sm-12">
-              <label className="form-label">Search</label>
-              <form>
-                <input
-                  className="ip-select"
-                  type="text"
-                  style={{ marginTop: "5px" }}
-                  onChange={handleSearch}
-                  value={searchInput}
-                />
-              </form>
-            </div>
-
-            <div className="col-md-3 mt-1">
-              <button
-                className="button-style group-button"
-                onClick={openVoucherButton}
-              >
-                Open Voucher
-              </button>
-            </div>
-
-            <div className="col-md-2 mt-1">
-              <button
-                className="button-style group-button"
-                style={{ marginLeft: "160px" }}
-                onClick={(e) => navigate("/UnitAccounts")}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-      <div style={{ height: "280px", overflowY: "scroll", marginTop: "20px" }}>
+      <div style={{ height: "350px", overflowY: "scroll", marginTop: "20px" }}>
         <Table
           striped
           className="table-data border"

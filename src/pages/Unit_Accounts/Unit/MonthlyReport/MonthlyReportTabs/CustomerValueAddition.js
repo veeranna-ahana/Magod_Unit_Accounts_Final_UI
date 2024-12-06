@@ -65,7 +65,7 @@ export default function CustomerValueAddition({ getCustomerAddtion }) {
     <div>
       <div
         style={{
-          height: "380px",
+          height: "350px",
           overflowY: "scroll",
           overflowX: "scroll",
         }}
@@ -75,13 +75,29 @@ export default function CustomerValueAddition({ getCustomerAddtion }) {
             <tr style={{ whiteSpace: "nowrap" }}>
               <th onClick={() => requestSort("Cust_Code")}>Customer Code</th>
               <th onClick={() => requestSort("Cust_Name")}>Customer Name</th>
-              <th onClick={() => requestSort("totalBilling")} style={{ textAlign: "right" }}>Total Billing</th>
-              <th onClick={() => requestSort("AmountReceived")} style={{ textAlign: "right" }}>
+              <th
+                onClick={() => requestSort("totalBilling")}
+                style={{ textAlign: "right" }}
+              >
+                Total Billing
+              </th>
+              <th
+                onClick={() => requestSort("AmountReceived")}
+                style={{ textAlign: "right" }}
+              >
                 Amount Received
               </th>
               <th>Balance</th>
-              <th onClick={() => requestSort("ValueAdded")} style={{ textAlign: "right" }}>Value Added</th>
-              <th onClick={() => requestSort("MaterialValue")} style={{ textAlign: "right" }}>
+              <th
+                onClick={() => requestSort("ValueAdded")}
+                style={{ textAlign: "right" }}
+              >
+                Value Added
+              </th>
+              <th
+                onClick={() => requestSort("MaterialValue")}
+                style={{ textAlign: "right" }}
+              >
                 Material Value
               </th>
               <th onClick={() => requestSort("UnitName")}>Unit Name</th>

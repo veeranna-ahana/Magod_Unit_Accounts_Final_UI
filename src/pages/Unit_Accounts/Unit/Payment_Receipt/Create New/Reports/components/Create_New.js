@@ -13,17 +13,38 @@ import PdfVoucherModal from "../tables/PdfVoucherModal";
 
 function Create_New() {
   const location = useLocation();
-  const rowData = location.state ? location.state : "";
+  const { rowData, date } = location.state ? location.state : "";
+
+  const newDate = new Date(date).toLocaleDateString("en-GB");
+  console.log("dateeeeeeeeeeeeeeeeeeee", rowData, newDate);
+
   const contentRef = React.useRef();
   const printRef = React.useRef();
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
+  const [currentDate, setCurrentDate] = useState("");
+
+  useEffect(() => {
+    const today = new Date();
+    const formattedDate = today.toISOString().substr(0, 10); // Format as yyyy-mm-dd
+    setCurrentDate(formattedDate);
+  }, []);
+  const formatDatee = (date) => {
     const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
+  const formattedInputDate = date
+    ? formatDatee(new Date(date))
+    : formatDatee(new Date(currentDate));
+
+  // const formatDate = (dateString) => {
+  //   const date = new Date(dateString);
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, "0");
+  //   const day = String(date.getDate()).padStart(2, "0");
+  //   return `${year}-${month}-${day}`;
+  // };
 
   const [open, setOpen] = useState(false);
   const [deleteDraft, setDeleteDraft] = useState(false);
@@ -39,8 +60,8 @@ function Create_New() {
     postData: {
       RecdPVID: "",
       Recd_PVNo: "Draft",
-      // Recd_PV_Date: new Date().toLocaleDateString("en-GB").split("/").join("-"),
-      Recd_PV_Date: formatDate(new Date()),
+      Recd_PV_Date: new Date().toLocaleDateString("en-GB").split("/").join("-"),
+      // Recd_PV_Date: formattedInputDate,
 
       ReceiptStatus: "Draft",
       CustName: "",
@@ -68,7 +89,7 @@ function Create_New() {
     RecdPVID: "",
     Recd_PVNo: "Draft",
     // Recd_PV_Date: new Date().toLocaleDateString("en-GB").split("/").join("-"),
-    Recd_PV_Date: formatDate(new Date()),
+    Recd_PV_Date: formattedInputDate,
     ReceiptStatus: "Draft",
     CustName: "",
     Cust_code: "",
@@ -78,13 +99,6 @@ function Create_New() {
     Description: "",
     selectedCustomer: "",
   };
-
-  console.log("secondTableArray", rvData.secondTableArray);
-  console.log("firstTableArray", rvData.firstTableArray);
-
-  console.log("RECEIPT ID", rvData.data.receipt_id);
-
-  console.log("RecdPVID", rvData.postData.RecdPVID);
 
   // const [selectedOption, setSelectedOption] = useState([
   //   { Cust_name: "MAGOD LASER MACHINING PVT LTD" },
@@ -105,6 +119,7 @@ function Create_New() {
   }, []);
 
   const handleSave = async (e) => {
+    console.log("postData  ,,,,,,,,,", rvData.postData);
     const isAnyEmptyReceiveNow = rvData.firstTableArray.some(
       (row) => row.Receive_Now === ""
     );
@@ -132,6 +147,7 @@ function Create_New() {
         } else if (response.data.ReceiptStatus === "query") {
           toast.error("SQL error");
         } else {
+          toast.success("Saved Successfully");
           let receipt_id = "";
 
           if (response.data.result.id) {
@@ -270,6 +286,8 @@ function Create_New() {
 
         return true;
       });
+    } else {
+      toast.error("Receipt details can not be empty");
     }
 
     e.preventDefault();
@@ -434,6 +452,8 @@ function Create_New() {
       }));
     }
   }, [rvData.postData]);
+
+  console.log("row data from oaccount list ", rowData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -1186,7 +1206,7 @@ function Create_New() {
               option && option.Cust_name ? option.Cust_name.toString() : ""
             }
             onChange={handleTypeaheadChange}
-            disabled={rvData.postData.ReceiptStatus !== "Draft"}
+            disabled={rvData.postData.ReceiptStatus !== "Draft" || rowData}
           />
         </div>
 
@@ -1210,7 +1230,7 @@ function Create_New() {
             className="in-field"
             type="text"
             name="Recd_PV_Date"
-            value={new Date().toLocaleDateString("en-GB").split("/").join("-")}
+            value={formattedInputDate}
             id="date"
             disabled
             onChange={PaymentReceipts}
@@ -1427,7 +1447,7 @@ function Create_New() {
           </div>
           <div
             style={{
-              height: "200px",
+              height: "220px",
               overflowY: "scroll",
               overflowX: "scroll",
             }}
@@ -1550,7 +1570,7 @@ function Create_New() {
           <div className="mt-3">
             <div
               style={{
-                height: "200px",
+                height: "220px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}

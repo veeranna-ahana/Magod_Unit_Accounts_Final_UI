@@ -331,43 +331,6 @@ export default function DailyReportsForm() {
         </div>
       </div>
 
-      {/* <div className="row">
-        <div className="col-md-3">
-          <label className="form-label ms-2">Unit Accounts Daily Reports</label>
-        </div>
-        <div className="col-md-3">
-          <div className="">
-            <label className="form-label mt-2" style={{ whiteSpace: "nowrap" }}>
-              Select Report Date
-            </label>
-          </div>
-          <div className="">
-            <input
-              className="in-field "
-              type="date"
-              onChange={(e) => handleDate(e)}
-            />
-          </div>
-        </div>
-        <div className="col-md-3">
-          <button
-            className="button-style mt-4 ms-2 group-button"
-            onClick={getDataOfDate}
-          >
-            Load Data
-          </button>
-        </div>
-        <div className="col-md-3">
-          <button
-            className="button-style mt-4 group-button"
-            style={{ marginLeft: "200px" }}
-            onClick={(e) => navigate("/UnitAccounts")}
-          >
-            Close
-          </button>
-        </div>
-      </div> */}
-
       <TabsSeven
         getValues={getValues}
         getValuesHo={getValuesHo}

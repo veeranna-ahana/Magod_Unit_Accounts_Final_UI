@@ -18,7 +18,7 @@ export default function CustomerOutStanding({
 }) {
   const [dataBasedOnCust, setDataBasedOnCust] = useState([]);
 
-  console.log("salessssssss", selectedDCType);
+  console.log("salessssssss", selectedDCType, selectedCustCode);
 
   const coolDownDuration = 6000; // 2 seconds (adjust as needed)
   const [lastToastTimestamp, setLastToastTimestamp] = useState(0);
@@ -120,6 +120,7 @@ export default function CustomerOutStanding({
       toast.error("Select DC Invoice Type");
     } else {
       console.log("dc type ", selectedDCType, flag);
+      console.log("cust codeeeeee in customer outstanding", selectedCustCode);
       try {
         await axios
           .get(baseURL + "/customerOutstanding/getDataBasedOnCustomer", {
@@ -241,7 +242,7 @@ export default function CustomerOutStanding({
     <div className="row col-md-12">
       <div className="mt-3 col-md-6">
         <div
-          style={{ height: "230px", overflowY: "scroll", overflowX: "scroll" }}
+          style={{ height: "320px", overflowY: "scroll", overflowX: "scroll" }}
         >
           <Table className="table-data border" striped>
             <thead className="tableHeaderBGColor">

@@ -20,18 +20,29 @@ export default function DeleteDraftModal({
     <>
       <Modal show={deleteDraft}>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Magod Unit Accounts</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>
+            Magod Unit Accounts
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ fontSize: "12px" }}>
           <p>
             Confirm : Do you wish to Delete this Draft Payment Receipt Voucher
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" type="submit" onClick={handleYes}>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={handleYes}
+            style={{ fontSize: "12px" }}
+          >
             Yes
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            style={{ fontSize: "12px" }}
+          >
             No
           </Button>
         </Modal.Footer>

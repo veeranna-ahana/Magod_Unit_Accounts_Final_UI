@@ -74,11 +74,71 @@ export default function Tabpage2Table({ selectedDate }) {
     // setState(true);
   };
 
+  //ascending and descinding
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "asc",
+  });
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedArray = React.useMemo(() => {
+    const sortedData = [...groupedArray];
+    if (sortConfig.key) {
+      sortedData.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortedData;
+  }, [groupedArray, sortConfig]);
+
+  //ascending and descinding for expanded group
+  const [expandedSortConfig, setExpandedSortConfig] = useState({
+    key: null,
+    direction: "asc",
+  });
+
+  const sortExpandedGroupItems = (items) => {
+    if (!expandedSortConfig.key) return items;
+    return [...items].sort((a, b) => {
+      const aValue = a[expandedSortConfig.key];
+      const bValue = b[expandedSortConfig.key];
+      if (aValue < bValue) {
+        return expandedSortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return expandedSortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+  const handleExpandedSort = (key) => {
+    let direction = "asc";
+    if (
+      expandedSortConfig.key === key &&
+      expandedSortConfig.direction === "asc"
+    ) {
+      direction = "desc";
+    }
+    setExpandedSortConfig({ key, direction });
+  };
+
   return (
     <div
       className=""
       style={{
-        height: "300px",
+        height: "320px",
         overflowY: "scroll",
         overflowX: "scroll",
         width: "500px",
@@ -88,14 +148,24 @@ export default function Tabpage2Table({ selectedDate }) {
         <thead className="tableHeaderBGColor">
           <tr>
             <th></th>
-            <th>Invoice Type</th>
-            <th style={{ textAlign: "center" }}>Count</th>
-            <th style={{ textAlign: "right" }}>Total</th>
+            <th onClick={() => handleSort("DC_InvType")}>Invoice Type</th>
+            <th
+              onClick={() => handleSort("InvTypeCount")}
+              style={{ textAlign: "center" }}
+            >
+              Count
+            </th>
+            <th
+              onClick={() => handleSort("totalOnAccount")}
+              style={{ textAlign: "right" }}
+            >
+              Total
+            </th>
           </tr>
         </thead>
 
         <tbody className="tablebody">
-          {groupedArray.map((group, index) => (
+          {sortedArray.map((group, index) => (
             <React.Fragment key={index}>
               <tr>
                 <td
@@ -115,10 +185,27 @@ export default function Tabpage2Table({ selectedDate }) {
                   <tr style={{ backgroundColor: "AliceBlue" }}>
                     <th></th>
                     <th></th>
-                    <th>Invoice No</th>
-                    <th style={{ textAlign: "right" }}>Invoice Total</th>
+                    <th onClick={() => handleExpandedSort("Inv_No")}>
+                      Invoice No
+                      {expandedSortConfig.key === "Inv_No"
+                        ? expandedSortConfig.direction === "asc"
+                          ? ""
+                          : ""
+                        : ""}
+                    </th>
+                    <th
+                      style={{ textAlign: "right" }}
+                      onClick={() => handleExpandedSort("Net_Total")}
+                    >
+                      Invoice Total
+                      {expandedSortConfig.key === "Net_Total"
+                        ? expandedSortConfig.direction === "asc"
+                          ? ""
+                          : ""
+                        : ""}
+                    </th>
                   </tr>
-                  {group.items.map((item, key) => (
+                  {sortExpandedGroupItems(group.items).map((item, key) => (
                     <tr
                       onClick={() => selectedRowFun(item, key)}
                       className={

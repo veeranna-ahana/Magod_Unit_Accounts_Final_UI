@@ -76,7 +76,10 @@ export default function DraftRVList() {
   const openVoucherButton = () => {
     if (selectRow !== "") {
       navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", {
-        state: selectRow.RecdPVID,
+        state: {
+          rowData: selectRow.RecdPVID,
+          date: selectRow.Recd_PV_Date,
+        },
       });
     } else {
       toast.error("Select Row");
@@ -205,7 +208,7 @@ export default function DraftRVList() {
 
       <div
         style={{
-          height: "280px",
+          height: "350px",
           overflowY: "scroll",
           overflowX: "scroll",
           marginTop: "20px",

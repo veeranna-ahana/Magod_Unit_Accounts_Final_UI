@@ -50,8 +50,9 @@ export default function Open() {
       const response = await axios.get(
         baseURL + "/Payment_Receipts/getopenreceipts"
       ); // Replace this URL with your API endpoint
-      setData(response.data.Result);
-      setFilteredData(response.data.Result);
+      const results = response.data?.Result || [];
+      setData(results);
+      setFilteredData(results);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -74,10 +75,23 @@ export default function Open() {
     navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", { state: RecdPVID });
   };
 
+  // const openVoucherButton = () => {
+  //   if (selectRow !== "") {
+  //     navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", {
+  //       state: selectRow.RecdPVID,
+  //     });
+  //   } else {
+  //     toast.error("Select Row");
+  //   }
+  // };
+
   const openVoucherButton = () => {
     if (selectRow !== "") {
       navigate("/UnitAccounts/Unit/PaymentReceiptVoucher", {
-        state: selectRow.RecdPVID,
+        state: {
+          rowData: selectRow.RecdPVID,
+          date: selectRow.Recd_PV_Date,
+        },
       });
     } else {
       toast.error("Select Row");
@@ -199,7 +213,7 @@ export default function Open() {
         </div>
       </div>
 
-      <div style={{ height: "290px", overflowY: "scroll", marginTop: "20px" }}>
+      <div style={{ height: "350px", overflowY: "scroll", marginTop: "20px" }}>
         <Table
           striped
           className="table-data border"

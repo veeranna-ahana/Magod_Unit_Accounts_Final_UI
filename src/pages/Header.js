@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 
 // import { Button, Menu, MenuItem, Tooltip } from "@mui/material";
@@ -11,80 +13,83 @@ import { BiDownArrow } from "react-icons/bi";
 import { AiFillCaretDown } from "react-icons/ai";
 
 import { CgProfile } from "react-icons/cg";
-
+import Cookies from "js-cookie";
 function Header({ user }) {
-  let getUser = () => {
-    if (localStorage.getItem("LazerUser")) {
-      let data = JSON.parse(localStorage.getItem("LazerUser"));
+	let getUser = () => {
+		if (localStorage.getItem("LazerUser")) {
+			let data = JSON.parse(localStorage.getItem("LazerUser"));
 
-      if (data) {
-        return data.data;
-      }
+			if (data) {
+				return data.data;
+			}
 
-      return "";
-    }
-  };
+			return "";
+		}
+	};
+	const logoutUrl = process.env.REACT_APP_LOGOUT_URL;
 
-  let logout = () => {
-    localStorage.removeItem("LazerUser");
+	let logout = () => {
+		localStorage.removeItem("LazerUser");
 
-    window.location.replace("/");
-  };
+		// window.location.replace("/");
+		Cookies.remove("userData");
+		// window.location.replace("http://172.16.20.61:3000/");
+		window.location.replace(logoutUrl);
+		// window.location.replace("http://192.168.1.25:9000/");
+	};
 
-  const [anchorEl, setAnchorEl] = useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
 
-  const userDropDown = Boolean(anchorEl);
+	const userDropDown = Boolean(anchorEl);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
-  return (
-    <>
-      <nav className="header">
-        <div style={{ marginLeft: "10px" }}>
-          <h4 style={{ fontSize: "16px", fontWeight: "600" }}>Magod ERP</h4>
-        </div>
+	return (
+		<>
+			<nav className="header">
+				<div style={{ marginLeft: "10px" }}>
+					<h4 style={{ fontSize: "16px", fontWeight: "600" }}>Magod ERP</h4>
+				</div>
 
-        <div
-          style={{ marginRight: "30px", fontSize: "12px", fontWeight: "600" }}
-        >
-          {getUser() !== undefined ? (
-            <>
-              <>{console.log(getUser())}</>
+				<div
+					style={{ marginRight: "30px", fontSize: "12px", fontWeight: "600" }}>
+					{getUser() !== undefined ? (
+						<>
+							<>{console.log(getUser())}</>
 
-              <>
-                {getUser()[0]["Name"]} - {getUser()[0]["UnitName"]} |{" "}
-              </>
+							<>
+								{getUser()[0]["Name"]} - {getUser()[0]["UnitName"]} |{" "}
+							</>
 
-              <button
-                style={{
-                  backgroundColor: "transparent",
+							<button
+								style={{
+									backgroundColor: "transparent",
 
-                  border: "none",
+									border: "none",
 
-                  color: "black",
-                  fontSize: "12px",
-                  fontWeight: "600",
-                }}
-                onClick={logout}
-              >
-                Sign Out
-              </button>
-            </>
-          ) : (
-            ""
-          )}
-        </div>
-      </nav>
+									color: "black",
+									fontSize: "12px",
+									fontWeight: "600",
+								}}
+								onClick={logout}>
+								Sign Out (O.O2)
+							</button>
+						</>
+					) : (
+						""
+					)}
+				</div>
+			</nav>
 
-      <div style={{ height: "10px" }}>&nbsp;</div>
-    </>
-  );
+			<div style={{ height: "10px" }}>&nbsp;</div>
+		</>
+	);
 }
 
 export default Header;
