@@ -153,8 +153,16 @@ export default function OnAccountDetailsForm() {
   const sortExpandedGroupItems = (items) => {
     if (!expandedSortConfig.key) return items;
     return [...items].sort((a, b) => {
-      const aValue = a[expandedSortConfig.key];
-      const bValue = b[expandedSortConfig.key];
+      let aValue = a[expandedSortConfig.key];
+      let bValue = b[expandedSortConfig.key];
+
+      if (
+        expandedSortConfig.key === "Amount" ||
+        expandedSortConfig.key === "On_account"
+      ) {
+        aValue = parseFloat(aValue);
+        bValue = parseFloat(bValue);
+      }
       if (aValue < bValue) {
         return expandedSortConfig.direction === "ascending" ? -1 : 1;
       }

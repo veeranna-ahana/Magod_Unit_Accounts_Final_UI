@@ -209,7 +209,7 @@ export default function TabData() {
 
       <div className="row">
         <div className="d-flex col-md-4" style={{ gap: "10px" }}>
-          <label className="form-label mt-1" style={{ whiteSpace: "nowrap" }}>
+          <label className="form-label mt-2" style={{ whiteSpace: "nowrap" }}>
             Select Customer
           </label>
           <Typeahead
