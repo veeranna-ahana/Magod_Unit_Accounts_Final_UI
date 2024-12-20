@@ -185,7 +185,7 @@ export default function Tabpage2Table({ selectedDate }) {
                   <tr style={{ backgroundColor: "AliceBlue" }}>
                     <th></th>
                     <th></th>
-                    <th onClick={() => handleExpandedSort("Inv_No")}>
+                    <th onClick={() => handleExpandedSort("Inv_No")} style={{textAlign:'center'}}>
                       Invoice No
                       {expandedSortConfig.key === "Inv_No"
                         ? expandedSortConfig.direction === "asc"
@@ -214,7 +214,7 @@ export default function Tabpage2Table({ selectedDate }) {
                     >
                       <td></td>
                       <td></td>
-                      <td>{item.Inv_No}</td>
+                      <td style={{textAlign:'center'}}>{item.Inv_No}</td>
                       <td style={{ textAlign: "right" }}>
                         {formatAmount(item.Net_Total)}
                       </td>

@@ -414,13 +414,13 @@ export default function PdfReceipts({ data }) {
         </View>
 
         <View>
-          <Text style={{ marginLeft: "80px", width: "320px" }}>
+          <Text style={{ marginLeft: "60px", width: "300px" }}>
             <Text style={{ fontFamily: "Helvetica-Bold" }}>Received From:</Text>
             {data.receipt_data.CustName} ({data.receipt_data.Cust_code})
           </Text>
 
           <Text
-            style={{ marginLeft: "100px", width: "310px", marginTop: "10px" }}
+            style={{ marginLeft: "60px", width: "300px", marginTop: "10px" }}
           >
             <Text style={{ fontFamily: "Helvetica-Bold" }}>Vibe : </Text>{" "}
             {data.receipt_data.Description}

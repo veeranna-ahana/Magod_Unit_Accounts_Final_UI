@@ -233,7 +233,7 @@ export default function DraftRVList() {
               >
                 On Account
               </th>
-              <th onClick={() => requestSort("Description")}>Description</th>
+              <th onClick={() => requestSort("Description")} style={{ textAlign: "center" }}>Description</th>
             </tr>
           </thead>
           <tbody className="tablebody">
