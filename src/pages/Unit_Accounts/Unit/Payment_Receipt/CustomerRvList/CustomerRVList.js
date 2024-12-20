@@ -19,7 +19,7 @@ export default function CustomerRVList() {
   const [filteredData, setFilteredData] = useState([]);
   const navigate = useNavigate();
 
-  const itemsPerPage = 10; // Number of items per page
+  const itemsPerPage = 12; // Number of items per page
   const [currentPage, setCurrentPage] = useState(0);
 
   // Calculate the start and end indices for the current page
@@ -266,12 +266,12 @@ export default function CustomerRVList() {
               <th onClick={() => requestSort("ReceiptStatus")}>
                 Receipt Status
               </th>
-              <th onClick={() => requestSort("Recd_PV_Date")}>Date</th>
+              <th onClick={() => requestSort("Recd_PV_Date")} style={{ textAlign: "center" }}>Date</th>
               <th onClick={() => requestSort("CustName")}>Customer</th>
               <th onClick={() => requestSort("TxnType")}>Transaction Type</th>
-              <th onClick={() => requestSort("Amount")}>Amount</th>
-              <th onClick={() => requestSort("On_account")}>On Account</th>
-              <th onClick={() => requestSort("Description")}>Description</th>
+              <th onClick={() => requestSort("Amount")} style={{ textAlign: "right" }}>Amount</th>
+              <th onClick={() => requestSort("On_account")} style={{ textAlign: "center" }}>On Account</th>
+              <th onClick={() => requestSort("Description")} style={{ textAlign: "center" }}>Description</th>
             </tr>
           </thead>
           <tbody className="tablebody">
@@ -286,18 +286,19 @@ export default function CustomerRVList() {
                     onClick={() => selectedRowFun(rv, key)}
 
                     // className={key === selectRow?.index ? 'selcted-row-clr' : ''}
+                    style={{whiteSpace:'nowrap'}}
                   >
                     <td>{rv.Recd_PVNo}</td>
-                    <td>{rv.ReceiptStatus}</td>
+                    <td style={{ textAlign: "center" }}>{rv.ReceiptStatus}</td>
                     <td>
                       {new Date(rv.Recd_PV_Date).toLocaleDateString("en-GB")}
                     </td>
                     <td>{rv.CustName}</td>
-                    <td>{rv.TxnType}</td>
+                    <td style={{ textAlign: "center" }}>{rv.TxnType}</td>
                     <td style={{ textAlign: "right" }}>
                       {formatAmount(rv.Amount)}
                     </td>
-                    <td style={{ textAlign: "right" }}>
+                    <td style={{ textAlign: "center" }}>
                       {formatAmount(rv.On_account)}
                     </td>
                     <td style={{ textAlign: "center" }}>{rv.Description}</td>
