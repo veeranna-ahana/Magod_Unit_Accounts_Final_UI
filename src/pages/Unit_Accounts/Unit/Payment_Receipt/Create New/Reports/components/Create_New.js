@@ -103,6 +103,27 @@ function Create_New() {
   // const [selectedOption, setSelectedOption] = useState([
   //   { Cust_name: "MAGOD LASER MACHINING PVT LTD" },
   // ]);
+
+  const [txnTypes, setTxnTypes] = useState([]);
+  useEffect(() => {
+    const fetchTxnTypes = async () => {
+      try {
+        const res = await axios.get(baseURL + "/Payment_Receipts/txntypes/");
+        if (res.data && res.data.Result && res.data.Result.length > 0) {
+          setTxnTypes(res.data.Result);
+        } else {
+          console.error("Response data structure is unexpected:", res.data);
+        }
+      } catch (error) {
+        console.error("Error fetching transaction types:", error);
+      }
+    };
+
+    fetchTxnTypes();
+  }, []);
+
+  console.log("txn types ", txnTypes);
+  
   const [selectedOption, setSelectedOption] = useState("");
 
   const PaymentReceipts = useCallback((e) => {
@@ -1316,7 +1337,7 @@ function Create_New() {
       </div>
 
       <div className="row mt-2">
-        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+        {/* <div className="d-flex col-md-3" style={{ gap: "10px" }}>
           <label className="form-label" style={{ whiteSpace: "nowrap" }}>
             Transaction Type
           </label>
@@ -1347,7 +1368,37 @@ function Create_New() {
             </option>
             <option value="QR Code and RTGS">QR Code and RTGS</option>
           </select>
-        </div>
+        </div> */}
+
+<div className="d-flex col-md-3" style={{ gap: "10px" }}>
+  <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+    Transaction Type
+  </label>
+  <select
+    className="ip-select"
+    name="TxnType"
+    id="TxnType"
+    onChange={PaymentReceipts}
+    value={rvData.postData.TxnType}
+    disabled={
+      rvData && rvData.postData.ReceiptStatus !== "Draft"
+        ? rvData.postData.ReceiptStatus
+        : ""
+    }
+  >
+    <option value="">Select</option>
+    {txnTypes.length > 0 ? (
+      txnTypes.map((txn, index) => (
+        <option key={index} value={txn.TxnType}>
+        {txn.TxnType}
+      </option>
+      ))
+    ) : (
+      <option value="">No transaction types available</option>
+    )}
+  </select>
+</div>
+        
 
         <div className="d-flex mt-1 col-md-3" style={{ gap: "35px" }}>
           <label className="form-label"> Description </label>
