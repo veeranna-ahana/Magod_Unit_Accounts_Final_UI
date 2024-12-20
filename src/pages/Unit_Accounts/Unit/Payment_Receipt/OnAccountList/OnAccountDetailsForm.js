@@ -37,7 +37,12 @@ export default function OnAccountDetailsForm() {
   }, []); // Empty dependency array ensures it runs only once, equivalent to componentDidMount
   console.log(data, "syncpage");
 
-  const groupedData = data.reduce((groups, item) => {
+  const filterBasedOnCustomer = data.filter(
+    (item) =>
+      item.CustName.toLowerCase().includes(searchInput.toLowerCase()) ||
+      item.Cust_code.toString().includes(searchInput)
+  );
+  const groupedData = filterBasedOnCustomer.reduce((groups, item) => {
     const key = `${item.CustName}-${item.Cust_code}`;
 
     if (!groups[key]) {
@@ -183,6 +188,8 @@ export default function OnAccountDetailsForm() {
     }));
   };
 
+
+  
   return (
     <>
       <div className="row">
@@ -199,15 +206,30 @@ export default function OnAccountDetailsForm() {
             On Account Details
           </label>
         </div>
-        <div className="col-md-4">
+        <div className="col-md-2">
           <button
             className="button-style mt-2 group-button"
             onClick={openVoucherButton}
           >
-            Open Voucher
+            Open Voucherr
           </button>
         </div>
-        <div className="col-md-3">
+        <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+          <label className="form-label">Search</label>
+          <input
+            className="ip-select"
+            type="text"
+            style={{ marginTop: "3px" }}
+            placeholder="Search by Customer Name or Code"
+            value={searchInput}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+              setCurrentPage(0); // Reset to the first page when filtering
+            }}
+            
+          />
+        </div>
+        <div className="col-md-2">
           <button
             className="button-style mt-2 group-button"
             style={{ float: "right" }}

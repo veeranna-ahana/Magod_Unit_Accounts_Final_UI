@@ -221,12 +221,12 @@ export default function Closed() {
           <thead className="tableHeaderBGColor">
             <tr style={{ whiteSpace: "nowrap" }}>
               <th onClick={() => requestSort("Recd_PVNo")}>Receipt Vr No</th>
-              <th onClick={() => requestSort("Recd_PV_Date")}>Date</th>
+              <th onClick={() => requestSort("Recd_PV_Date")} style={{ textAlign: "center" }}>Date</th>
               <th onClick={() => requestSort("CustName")}>Customer</th>
               <th onClick={() => requestSort("TxnType")}>Transaction Type</th>
-              <th onClick={() => requestSort("Amount")}>Amount</th>
-              <th onClick={() => requestSort("On_account")}>On Account</th>
-              <th onClick={() => requestSort("Description")}>Description</th>
+              <th onClick={() => requestSort("Amount")} style={{ textAlign: "center" }}>Amount</th>
+              <th onClick={() => requestSort("On_account")} style={{ textAlign: "center" }}>On Account</th>
+              <th onClick={() => requestSort("Description")} style={{ textAlign: "center" }}>Description</th>
             </tr>
           </thead>
           <tbody className="tablebody">
@@ -258,13 +258,13 @@ export default function Closed() {
                     </td>
                     <td>{rv.CustName}</td>
                     <td style={{ textAlign: "center" }}>{rv.TxnType}</td>
-                    <td style={{ textAlign: "right" }}>
+                    <td style={{ textAlign: "center" }}>
                       {formatAmount(rv.Amount)}
                     </td>
-                    <td style={{ textAlign: "right" }}>
+                    <td style={{ textAlign: "center" }}>
                       {formatAmount(rv.On_account)}
                     </td>
-                    <td>{rv.Description}</td>
+                    <td style={{ textAlign: "center" }}>{rv.Description}</td>
                   </tr>
                 ))
               : ""}
