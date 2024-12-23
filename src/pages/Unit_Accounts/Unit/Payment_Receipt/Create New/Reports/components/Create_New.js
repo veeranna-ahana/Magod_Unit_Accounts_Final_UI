@@ -152,7 +152,13 @@ function Create_New() {
 
     if (rvData.postData.CustName === "" || rvData.postData.TxnType === "") {
       toast.error("Customer Name and Transaction type can not be empty");
-    } else {
+    } 
+    else if(rvData.postData.Amount===''){
+      toast.error("Please Enter Amount");
+      return;
+    }
+    
+    else {
       try {
         const response = await axios.post(
           baseURL + "/Payment_Receipts/saveReceipt",
