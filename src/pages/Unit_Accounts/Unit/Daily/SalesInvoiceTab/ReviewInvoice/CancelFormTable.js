@@ -2,6 +2,9 @@ import React from "react";
 import { Table } from "react-bootstrap";
 
 export default function CancelFormTable({ getValuesClearance }) {
+
+  console.log('Hello getValuesClearance', getValuesClearance);
+
   return (
     <>
       <div

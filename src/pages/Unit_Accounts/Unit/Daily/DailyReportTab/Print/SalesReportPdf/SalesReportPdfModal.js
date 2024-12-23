@@ -62,6 +62,13 @@ const styles = StyleSheet.create({
     marginVertical: 10, // Adds some spacing above and below the container
     paddingHorizontal: 10, // Adds some padding on the sides
   },
+  childLeft: {
+    width: "50%", // Occupies 50% of the container
+  },
+  childRight: {
+    width: "40%", // Occupies the other 50% of the container
+    // alignItems: "flex-end", // Align content to the right (optional)
+  },
 });
 
 const SalesReportPdfModal = ({ groupedArray, date, getValuesTax }) => {
@@ -196,13 +203,13 @@ const SalesReportPdfModal = ({ groupedArray, date, getValuesTax }) => {
         {/* Date and Prepared By Section */}
         <View style={styles.dateformate}>
           {/* Left Section */}
-          <View>
+          <View style={styles.childLeft}>
             <Text>Unit: Jigani</Text>
             <Text>Date: {formatDate(date)}</Text>
           </View>
 
           {/* Right Section */}
-          <View>
+          <View style={styles.childRight}>
             {groupedArray[0] && (
               <>
                 <Text>Prepared By: {groupedArray[0].preparedby || ""}</Text>
