@@ -117,45 +117,48 @@ export default function InvoicesList() {
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr style={{ whiteSpace: "nowrap" }}>
+                <th>Srl No</th>
                 <th onClick={() => requestSort("CancelVrNo")}>CancelVrNo</th>
                 <th onClick={() => requestSort("VrDate")}>VrDate</th>
                 <th onClick={() => requestSort("VrAmount")}>VrAmount</th>
+                <th onClick={() => requestSort("Cust_Name")}>Cust_Name</th>
                 <th onClick={() => requestSort("CancelReason")}>
                   CancelReason
                 </th>
                 <th onClick={() => requestSort("RefVrNo")}>RefVrNo</th>
                 <th onClick={() => requestSort("RefVrDate")}>RefVrDate</th>
                 <th onClick={() => requestSort("Cust_Code")}>Cust_Code</th>
-                <th onClick={() => requestSort("Cust_Name")}>Cust_Name</th>
               </tr>
             </thead>
 
             <tbody className="tablebody">
-              {sortedData()?.map((item, key) => {
+              {sortedData()?.map((item, index) => {
                 return (
                   <tr
                     style={{ whiteSpace: "nowrap" }}
-                    onClick={() => selectedRowFun(item, key)}
+                    onClick={() => selectedRowFun(item, index)}
                     className={
-                      key === selectRow?.index ? "selcted-row-clr" : ""
+                      index === selectRow?.index ? "selcted-row-clr" : ""
                     }
                   >
+                    <td>{index + 1}</td>
                     <td>{item.CancelVrNo}</td>
                     <td>{formatDate(item.VrDate)}</td>
                     <td style={{ textAlign: "right" }}>
                       {formatAmount(item.VrAmount)}
                     </td>
+                    <td>{item.Cust_Name}</td>
                     <td>{item.CancelReason}</td>
                     <td>{item.RefVrNo}</td>
                     <td>{formatDate(item.RefVrDate)}</td>
                     <td>{item.Cust_Code}</td>
-                    <td>{item.Cust_Name}</td>
                   </tr>
                 );
               })}
             </tbody>
           </Table>
         </div>
+
         <div className="col-md-5">
           <button
             className="button-style group-button"
