@@ -80,15 +80,15 @@ export default function InvoiceSummary({ getMonthInvReport }) {
             <th onClick={() => requestSort("Cust_Name")}>Customer Name</th>
             <th onClick={() => requestSort("Inv_No")}>Invoice No</th>
             <th onClick={() => requestSort("DC_InvType")}>Invoice Type</th>
-            <th onClick={() => requestSort("GrandTotal")}>Grand Total</th>
-            <th onClick={() => requestSort("PymtAmtRecd")}>Received</th>
-            <th onClick={() => requestSort("MaterialValue")}>Value Added</th>
-            <th onClick={() => requestSort("MtrlChg")}>Material Value</th>
-            <th onClick={() => requestSort("Discount")}>Discount</th>
-            <th onClick={() => requestSort("Del_Chg")}>Delivery Chg</th>
-            <th onClick={() => requestSort("TptCharges")}>Transport Charges</th>
-            <th onClick={() => requestSort("TaxAmount")}>Tax Amount</th>
-            <th onClick={() => requestSort("InvTotal")}>Inv Total</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("GrandTotal")}>Grand Total</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("PymtAmtRecd")}>Received</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("MaterialValue")}>Value Added</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("MtrlChg")}>Material Value</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("Discount")}>Discount</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("Del_Chg")}>Delivery Chg</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("TptCharges")}>Transport Charges</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("TaxAmount")}>Tax Amount</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("InvTotal")}>Inv Total</th>
           </tr>
         </thead>
         <tbody className="tablebody">

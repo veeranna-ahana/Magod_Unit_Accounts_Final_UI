@@ -75,11 +75,11 @@ export default function CustomerValueAddition({ getCustomerAddtion }) {
           <tr style={{ whiteSpace: "nowrap" }}>
             <th onClick={() => requestSort("Cust_Code")}>Customer Code</th>
             <th onClick={() => requestSort("Cust_Name")}>Customer Name</th>
-            <th onClick={() => requestSort("totalBilling")}>Total Billing</th>
-            <th onClick={() => requestSort("AmountReceived")}>Amount Received</th>
-            <th>Balance</th>
-            <th onClick={() => requestSort("ValueAdded")}>Value Added</th>
-            <th onClick={() => requestSort("MaterialValue")}>Material Value</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("totalBilling")}>Total Billing</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("AmountReceived")}>Amount Received</th>
+            <th style={{ textAlign: "right" }}>Balance</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("ValueAdded")}>Value Added</th>
+            <th style={{ textAlign: "right" }} onClick={() => requestSort("MaterialValue")}>Material Value</th>
             <th>Unit Name</th>
             <th>Period</th>
             <th>Outstanding</th>
