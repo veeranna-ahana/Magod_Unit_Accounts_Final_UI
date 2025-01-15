@@ -16,6 +16,7 @@ export default function ModalPDF({
   flag,
   setFlag,
   filterData,
+  unitData
 }) {
   const [dataBasedOnCust, setDataBasedOnCust] = useState([]);
   const handleClose = () => {
@@ -79,37 +80,7 @@ export default function ModalPDF({
   }
   const location = useLocation();
 
-  // const savePdfToServer = async () => {
-  //   try {
-  //     // Generate the Blob from PdfAdjustment
-  //     const blob = await pdf(
-  //       <CustomerPDF dataBasedOnCust={filterData} />
-  //     ).toBlob();
-
-  //     // Convert Blob to File
-  //     const file = new File([blob], "GeneratedPDF.pdf", {
-  //       type: "application/pdf",
-  //     });
-
-  //     // Create a FormData object
-  //     const formData = new FormData();
-
-  //     const adjustment = "RV"; // Replace with the actual name you want to send
-  //     formData.append("file", file);
-  //     formData.append("adjustment", adjustment);
-
-  //     // Send the PDF to the backend
-  //     const response = await axios.post(baseURL + `/PDF/save-pdf`, formData, {
-  //       headers: { "Content-Type": "multipart/form-data" },
-  //     });
-
-  //     if (response.status === 200) {
-  //       toast.success("PDF saved successfully!");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error saving PDF to server:", error);
-  //   }
-  // };
+  
 
   const savePdfToServer = async () => {
     try {
@@ -140,6 +111,9 @@ export default function ModalPDF({
       console.error("Error saving PDF to server:", error);
     }
   };
+
+  console.log("unit address ", unitData);
+  
   return (
     <>
       <Modal show={pdfOpen} fullscreen>
@@ -170,7 +144,7 @@ export default function ModalPDF({
         <Modal.Body>
           <Fragment>
             <PDFViewer width="1200" height="600">
-              <CustomerPDF dataBasedOnCust={filterData} />
+              <CustomerPDF dataBasedOnCust={filterData}  unitData={unitData}/>
             </PDFViewer>
           </Fragment>
         </Modal.Body>

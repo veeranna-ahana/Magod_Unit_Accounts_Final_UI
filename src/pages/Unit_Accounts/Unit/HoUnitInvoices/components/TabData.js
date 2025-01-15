@@ -79,6 +79,7 @@ export default function TabData() {
 
   useEffect(() => {
     handleUnitName();
+   
   }, []);
 
   const getCustomerData = () => {
@@ -173,19 +174,8 @@ export default function TabData() {
   // Get distinct PO_NO values
   const distinctPO_NOs = Object.keys(poSumMap);
 
-  const [unitAddress, setUnitAddress] = useState([]);
-  const fetchUnitAddress = () => {
-    axios
-      .post(baseURL + "/customerOutstanding/getAddress", {
-        unit,
-      })
-      .then((res) => {
-        setUnitAddress(res.data.Result);
-      })
-      .catch((err) => {
-        console.log("errin pdf address", err);
-      });
-  };
+  
+  
 
   return (
     <>
@@ -200,6 +190,7 @@ export default function TabData() {
           selectedDCType={selectedDCType}
           setFilterData={setFilterData}
           filterData={filterData}
+          unitData={unitData}
         />
       )}
 

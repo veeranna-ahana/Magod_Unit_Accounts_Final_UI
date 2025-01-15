@@ -17,13 +17,14 @@ const styles = StyleSheet.create({
     marginLeft: "10px",
     marginRight: "10px",
     marginBottom: "10px",
+    borderBottom: 1,
   },
 
   page: {
     fontSize: 11,
     flexDirection: "column",
     padding: 10,
-    marginTop: 30,
+  
     marginBottom: 50,
     paddingBottom: 50,
   },
@@ -56,19 +57,15 @@ const styles = StyleSheet.create({
 
   header: {
     marginBottom: 5,
+    // textAlign: "center",
   },
 
-  // header: {
-  //   marginBottom: 10,
-  //   display: "flex",
-
-  //   alignItems: 'center'
-  // },
+ 
   headerText: {
     fontSize: 16,
     fontWeight: "bold",
-    marginTop: "30px",
-    marginLeft: "20px",
+    // marginTop: "30px",
+    // marginLeft: "20px",
   },
 
   headerText1: {
@@ -110,7 +107,7 @@ const styles = StyleSheet.create({
   tableDisplay: {
     width: "570px",
 
-    marginTop: "15px",
+    marginTop: "10px",
     marginLeft: "10px",
     borderTop: 1,
   },
@@ -201,12 +198,7 @@ const styles = StyleSheet.create({
   divide: {
     paddingBottom: 3,
   },
-  pageHeader: {
-    marginBottom: 5,
-    height: "80px",
-    flexDirection: "row",
-    borderBottom: 1,
-  },
+  
   logo: {
     marginTop: "20px",
     width: "50px",
@@ -219,10 +211,20 @@ const styles = StyleSheet.create({
   underline: {
     textDecoration: "underline",
   },
+
+  headerTextContainer: {
+    flex: 1, // Allow this view to take the remaining space
+    textAlign: "center", // Center text horizontally
+  },
+  
+  addressText: {
+    fontSize: 10,
+    marginTop: 5,
+  },
 });
 
-export default function CustomerPDF({ dataBasedOnCust }) {
-  // console.log("pdf data", dataBasedOnCust);
+export default function CustomerPDF({ dataBasedOnCust,unitData }) {
+   console.log("pdf data", unitData[0]?.URL);
   const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {
@@ -260,24 +262,40 @@ export default function CustomerPDF({ dataBasedOnCust }) {
   const Header22 = () => (
     <Document>
       <Page size="A4" style={styles.page}>
-        <View style={styles.pageHeader}>
-          <Image src={MagodIMAGE} style={styles.logo} />
-          <View>
-            <Text style={styles.headerText}>Magod Laser Private Limited </Text>
-            <Text style={{ marginLeft: "30px", marginTop: "5px" }}>Jigani</Text>
-          </View>
-          {/* Adjust the styles as needed for the address */}
-          <Text style={styles.head1234}>
-            Plot NO 72, Phase || KIADB Industrial Area Jigani, Anekal Taluk
-            Bangalore Pin: Karnataka
-          </Text>
-        </View>
+      <View style={styles.pageHeader}>
+        {/* Logo */}
+        <Image src={MagodIMAGE} style={styles.logo} />
 
-        <View style={styles.header}>
-          <Text style={[styles.headerText1]}>
-            List of invoices Due for Payment As On:{currentDate}
+        {/* Header details */}
+        <View style={styles.headerTextContainer}>
+          <Text style={[styles.headerText, {marginBottom:'3px'}]}>Magod Laser Private Limited</Text>
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'10px'}}>
+          <Text style={{ fontWeight: 'bold' }}>GST: {unitData[0]?.GST_No}</Text>
+          <Text style={{ fontWeight: 'bold' }}>CIN_No: {unitData[0]?.CIN_No}</Text>
+          </View>
+        
+          <Text style={[styles.addressText, {marginBottom:'3px'}]}>
+            {/* Plot NO 72, Phase || KIADB Industrial Area Jigani, Anekal Taluk
+            Bangalore Pin: Karnataka */}
+            {unitData[0]?.Unit_Address}
+            
           </Text>
+
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'5px'}}>
+          <Text > {unitData[0]?.PhonePrimary}</Text>
+          <Text > {unitData[0]?.PhoneSecondary}</Text>
+          <Text > {unitData[0]?.URL}</Text>
+          <Text > {unitData[0]?.Email}</Text>
+          </View>
         </View>
+      </View>
+
+      {/* Additional Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerText1}>
+          List of invoices Due for Payment As On: {currentDate}
+        </Text>
+      </View>
       </Page>
     </Document>
   );
@@ -289,24 +307,7 @@ export default function CustomerPDF({ dataBasedOnCust }) {
   console.log("filterd data", dataBasedOnCust);
   const paginatedData = chunkArray(dataBasedOnCust, rowsPerPage);
 
-  const Header = (dataBasedOnCust) => (
-    <View style={styles.pageHeader}>
-      <Image src={MagodIMAGE} style={styles.logo} />
-      <View>
-        <Text style={styles.headerText}>Magod Laser Private Limited </Text>
-        <Text style={{ marginLeft: "30px", marginTop: "5px" }}>Jigani</Text>
-      </View>
-      {/* Adjust the styles as needed for the address */}
-      <Text style={styles.head1234}>
-        Plot NO 72, Phase || KIADB Industrial Area Jigani, Anekal Taluk
-        Bangalore Pin:
-        {dataBasedOnCust && dataBasedOnCust.length >= 0
-          ? dataBasedOnCust[0]?.PIN_Code
-          : ""}
-        Karnataka
-      </Text>
-    </View>
-  );
+
   const uniquePONos = new Set();
 
   console.log("uniquePONos", uniquePONos);
@@ -405,33 +406,41 @@ export default function CustomerPDF({ dataBasedOnCust }) {
 
           return (
             <Page key={index} size="A4" style={styles.page}>
-              <View style={styles.pageHeader}>
-                <Image src={MagodIMAGE} style={styles.logo} />
+       <View style={styles.pageHeader}>
+        {/* Logo */}
+        <Image src={MagodIMAGE} style={styles.logo} />
 
-                <View>
-                  <Text style={styles.headerText}>
-                    Magod Laser Private Limited{" "}
-                  </Text>
-                  <Text style={{ marginLeft: "30px", marginTop: "5px" }}>
-                    Jigani
-                  </Text>
-                </View>
+        {/* Header details */}
+        <View style={styles.headerTextContainer}>
+          <Text style={[styles.headerText, {marginBottom:'3px'}]}>Magod Laser Private Limited</Text>
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'10px'}}>
+          <Text style={{ fontWeight: 'bold' }}>GST: {unitData[0]?.GST_No}</Text>
+          <Text style={{ fontWeight: 'bold' }}>CIN_No: {unitData[0]?.CIN_No}</Text>
+          </View>
+        
+          <Text style={[styles.addressText, {marginBottom:'3px'}]}>
+            {/* Plot NO 72, Phase || KIADB Industrial Area Jigani, Anekal Taluk
+            Bangalore Pin: Karnataka */}
+            {unitData[0]?.Unit_Address}
+            
+          </Text>
 
-                <Text style={styles.head1234}>
-                  Plot NO 72, Phase || KIADB Industrial Area Jigani, Anekal
-                  Taluk Bangalore Pin:
-                  {dataBasedOnCust && dataBasedOnCust.length >= 0
-                    ? dataBasedOnCust[0]?.PIN_Code
-                    : ""}
-                  Karnataka
-                </Text>
-              </View>
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'5px'}}>
+          <Text > {unitData[0]?.PhonePrimary}</Text>
+          <Text > {unitData[0]?.PhoneSecondary}</Text>
+          <Text > {unitData[0]?.URL}</Text>
+          <Text > {unitData[0]?.Email}</Text>
+          </View>
+        </View>
+      </View>
+
+    
 
               {index === 0 && (
                 <>
                   <View style={styles.header}>
                     <Text
-                      style={[styles.headerText1, { marginBottom: "20px" }]}
+                      style={[styles.headerText1, { marginBottom: "10px" }]}
                     >
                       List of invoices Due for Payment As On:{currentDate}
                     </Text>
