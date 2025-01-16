@@ -7,9 +7,15 @@ import { useLocation } from "react-router-dom";
 import PdfReceipts from "./PdfReceipts";
 import { baseURL } from "../../../../../../../api/baseUrl";
 import { toast } from "react-toastify";
+import { useGlobalContext } from "../../../../../../../Context/Context";
 
 export default function PdfVoucherModal({ data, pdfVoucher, setPdfVoucher }) {
   console.log("pdf voucher1", data.receipt_data);
+
+   const { unitDetails, setunitDetails } = useGlobalContext();
+
+  
+   
 
   const handleClose = () => {
     setPdfVoucher(false);
@@ -49,35 +55,7 @@ export default function PdfVoucherModal({ data, pdfVoucher, setPdfVoucher }) {
   }
   const location = useLocation();
 
-  // const savePdfToServer = async () => {
-  //   try {
-  //     // Generate the Blob from PdfAdjustment
-  //     const blob = await pdf(<PdfReceipts data={data} />).toBlob();
-
-  //     // Convert Blob to File
-  //     const file = new File([blob], "GeneratedPDF.pdf", {
-  //       type: "application/pdf",
-  //     });
-
-  //     // Create a FormData object
-  //     const formData = new FormData();
-
-  //     const adjustment = "RV"; // Replace with the actual name you want to send
-  //     formData.append("file", file);
-  //     formData.append("adjustment", adjustment);
-
-  //     // Send the PDF to the backend
-  //     const response = await axios.post(baseURL + `/PDF/save-pdf`, formData, {
-  //       headers: { "Content-Type": "multipart/form-data" },
-  //     });
-
-  //     if (response.status === 200) {
-  //       toast.success("PDF saved successfully!");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error saving PDF to server:", error);
-  //   }
-  // };
+  
 
   const savePdfToServer = async () => {
     try {
@@ -85,7 +63,7 @@ export default function PdfVoucherModal({ data, pdfVoucher, setPdfVoucher }) {
 
       // Step 1: Call the API to set the adjustment name
       await axios.post(baseURL + `/PDF/set-adjustment-name`, { adjustment });
-      const blob = await pdf(<PdfReceipts data={data} />).toBlob();
+      const blob = await pdf(<PdfReceipts data={data}  unitDetails={unitDetails}/>).toBlob();
 
       const file = new File([blob], "GeneratedPDF.pdf", {
         type: "application/pdf",
@@ -136,7 +114,7 @@ export default function PdfVoucherModal({ data, pdfVoucher, setPdfVoucher }) {
         <Modal.Body>
           <Fragment>
             <PDFViewer width="1200" height="600">
-              <PdfReceipts data={data} />
+              <PdfReceipts data={data}  unitData={unitDetails}/>
             </PDFViewer>
           </Fragment>
         </Modal.Body>

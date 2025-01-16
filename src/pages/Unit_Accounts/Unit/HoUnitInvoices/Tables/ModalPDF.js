@@ -89,7 +89,7 @@ export default function ModalPDF({
       // Step 1: Call the API to set the adjustment name
       await axios.post(baseURL + `/PDF/set-adjustment-name`, { adjustment });
       const blob = await pdf(
-        <CustomerPDF dataBasedOnCust={filterData} />
+        <CustomerPDF dataBasedOnCust={filterData} unitData={unitData} />
       ).toBlob();
 
       const file = new File([blob], "GeneratedPDF.pdf", {
