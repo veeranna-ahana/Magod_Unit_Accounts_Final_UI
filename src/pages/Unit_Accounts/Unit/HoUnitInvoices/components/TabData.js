@@ -1,5 +1,5 @@
 import { Tab } from "bootstrap";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Tabs } from "react-bootstrap";
 import UnitOutStanding from "../Tables/UnitOutStanding";
@@ -13,8 +13,13 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import { baseURL } from "../../../../../api/baseUrl";
 import ModalPDF from "../Tables/ModalPDF";
 import { toast } from "react-toastify";
+import { useGlobalContext } from "../../../../../Context/Context";
 
 export default function TabData() {
+  const { unitDetails, setunitDetails } = useGlobalContext();
+
+  console.log("context data ", unitDetails);
+  
   let [selected, setSelected] = useState("");
   const contentRef = React.useRef();
   // const [selectedOption, setSelectedOption] = useState([{ Cust_name: 'MAGOD LASER MACHINING PVT LTD' }]);
@@ -40,7 +45,7 @@ export default function TabData() {
   const [selectedUnitName, setSelectedUnitName] = useState("");
   const [selectUnit, setSelectUnit] = useState([]);
 
-  const [unitData, setunitData] = useState([]);
+ 
   const [unit, setUnit] = useState([]);
 
   useEffect(() => {
@@ -60,27 +65,9 @@ export default function TabData() {
     setSelectedUnitName(selected);
   };
 
-  console.log(
-    "selected unit name in customer outstandibg",
-    selectedUnitName[0]?.UnitName
-  );
+  
 
-  const handleUnitName = () => {
-    axios
-      .get(baseURL + `/customerOutstanding/unitNames`)
-      .then((res) => {
-        console.log("firstTable", res.data);
-        setunitData(res.data.Result);
-      })
-      .catch((err) => {
-        console.log("err in table", err);
-      });
-  };
 
-  useEffect(() => {
-    handleUnitName();
-   
-  }, []);
 
   const getCustomerData = () => {
     axios
@@ -190,7 +177,7 @@ export default function TabData() {
           selectedDCType={selectedDCType}
           setFilterData={setFilterData}
           filterData={filterData}
-          unitData={unitData}
+          unitData={unitDetails}
         />
       )}
 

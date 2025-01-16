@@ -50,13 +50,12 @@ const styles = StyleSheet.create({
     height: "80px",
     paddingTop: "10px",
   },
-  // headerText: {
-  //   fontSize: 16,
-  //   fontWeight: "bold",
-  //   marginBottom: 5,
-  //   textAlign:'center'
-
-  // },
+  headerText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    // marginTop: "30px",
+    // marginLeft: "20px",
+  },
 
   headerText1: {
     textAlign: "center",
@@ -183,6 +182,7 @@ const styles = StyleSheet.create({
     fontSize: "10px",
   },
   logo: {
+    marginTop: "20px",
     width: "50px",
     height: "50px",
   },
@@ -204,11 +204,47 @@ const styles = StyleSheet.create({
     marginLeft: "20px",
     // borderBottom: 1,
   },
+
+  // header part css
+  pageHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginLeft: "10px",
+    marginRight: "10px",
+    marginBottom: "10px",
+    borderBottom: 1,
+  },
+  headerTextContainer: {
+    flex: 1, // Allow this view to take the remaining space
+    textAlign: "center", // Center text horizontally
+     marginTop:'20px'
+  },
+  addressText: {
+    fontSize: 10,
+    marginTop: 5,
+  },
+
+  paymentReceiptVoucher:{
+    textDecoration:'underline',
+    fontWeight:'1000',
+    marginBottom:'2px',
+    fontFamily: "Helvetica-Bold",
+  },
+  gstNo:{
+    fontWeight:'bold',
+    fontFamily: "Helvetica-Bold",
+  },
+  cinNo:{
+    fontWeight:'bold',
+    fontFamily: "Helvetica-Bold",
+  }
 });
 
-export default function PdfReceipts({ data }) {
-  console.log("pdf voucher", data.receipt_details);
-  console.log(">>>>>>>", data);
+
+export default function PdfReceipts({ data, unitData }) {
+  console.log("pdf voucher", unitData);
+  
 
   const [currentDate, setCurrentDate] = useState("");
   // const [totalReceiveNow, setTotalReceiveNow] = useState(0);
@@ -247,47 +283,67 @@ export default function PdfReceipts({ data }) {
   console.log("recept datetttttttttte, ", data.receipt_data.Recd_PV_Date);
 
   const Header = () => (
-    <View style={styles.row11}>
-      <Image style={styles.logo} src={MagodLOGO} />
-      <View>
-        <Text
-          style={{
-            marginLeft: "200px",
-            fontFamily: "Helvetica-Bold",
-            marginTop: "10px",
-            marginBottom: "2px",
-          }}
-        >
-          Magod Laser Machining Pvt Ltd
-        </Text>
-        <Text style={{ marginLeft: "210px", marginBottom: "5px" }}>
-          Payment Receipt Voucher
-        </Text>
+    <View style={styles.pageHeader}>
+        {/* Logo */}
+        <Image src={MagodLOGO} style={styles.logo} />
+
+        {/* Header details */}
+        <View style={styles.headerTextContainer}>
+          <Text style={styles.paymentReceiptVoucher}> PAYMENT RECEIPT VOUCHER</Text>
+          <Text style={[styles.headerText, {marginBottom:'3px'}]}>Magod Laser Private Limited</Text>
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'10px'}}>
+          <Text style={styles.gstNo}>GST: {unitData[0]?.GST_No}</Text>
+          <Text style={styles.cinNo}>CIN_No: {unitData[0]?.CIN_No}</Text>
+          </View>
+        
+          <Text style={[styles.addressText, {marginBottom:'3px'}]}>
+            {/* Plot NO 72, Phase || KIADB Industrial Area Jigani, Anekal Taluk
+            Bangalore Pin: Karnataka */}
+            {unitData[0]?.Unit_Address}
+            
+          </Text>
+
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'5px'}}>
+          <Text > {unitData[0]?.PhonePrimary}</Text>
+          <Text > {unitData[0]?.PhoneSecondary}</Text>
+          <Text > {unitData[0]?.URL}</Text>
+          <Text > {unitData[0]?.Email}</Text>
+          </View>
+        </View>
       </View>
-    </View>
   );
 
   const Header22 = () => (
     <Document>
       <Page size="A4" style={styles.page}>
-        <View style={styles.row11}>
-          <Image style={styles.logo} src={MagodLOGO} />
-          <View>
-            <Text
-              style={{
-                marginLeft: "200px",
-                fontFamily: "Helvetica-Bold",
-                marginTop: "10px",
-                marginBottom: "2px",
-              }}
-            >
-              Magod Laser Machining Pvt Ltd
-            </Text>
-            <Text style={{ marginLeft: "210px", marginBottom: "5px" }}>
-              Payment Receipt Voucher
-            </Text>
+      <View style={styles.pageHeader}>
+        {/* Logo */}
+        <Image src={MagodLOGO} style={styles.logo} />
+
+        {/* Header details */}
+        <View style={styles.headerTextContainer}>
+        <Text style={styles.paymentReceiptVoucher}> PAYMENT RECEIPT VOUCHER</Text>
+          <Text style={[styles.headerText, {marginBottom:'3px'}]}>Magod Laser Private Limited</Text>
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'10px'}}>
+          <Text style={styles.gstNo}>GST: {unitData[0]?.GST_No}</Text>
+          <Text style={styles.cinNo}>CIN_No: {unitData[0]?.CIN_No}</Text>
+          </View>
+        
+          <Text style={[styles.addressText, {marginBottom:'3px'}]}>
+            {/* Plot NO 72, Phase || KIADB Industrial Area Jigani, Anekal Taluk
+            Bangalore Pin: Karnataka */}
+            {unitData[0]?.Unit_Address}
+            
+          </Text>
+
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'5px'}}>
+          <Text > {unitData[0]?.PhonePrimary}</Text>
+          <Text > {unitData[0]?.PhoneSecondary}</Text>
+          <Text > {unitData[0]?.URL}</Text>
+          <Text > {unitData[0]?.Email}</Text>
           </View>
         </View>
+      </View>
 
         <View style={styles.mrgnbttm}>
           <View>

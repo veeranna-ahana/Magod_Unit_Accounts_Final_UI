@@ -221,6 +221,14 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 5,
   },
+  gstNo:{
+    fontWeight:'bold',
+    fontFamily: "Helvetica-Bold",
+  },
+  cinNo:{
+    fontWeight:'bold',
+    fontFamily: "Helvetica-Bold",
+  }
 });
 
 export default function CustomerPDF({ dataBasedOnCust,unitData }) {
@@ -270,8 +278,8 @@ export default function CustomerPDF({ dataBasedOnCust,unitData }) {
         <View style={styles.headerTextContainer}>
           <Text style={[styles.headerText, {marginBottom:'3px'}]}>Magod Laser Private Limited</Text>
           <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'10px'}}>
-          <Text style={{ fontWeight: 'bold' }}>GST: {unitData[0]?.GST_No}</Text>
-          <Text style={{ fontWeight: 'bold' }}>CIN_No: {unitData[0]?.CIN_No}</Text>
+             <Text style={styles.gstNo}>GST: {unitData[0]?.GST_No}</Text>
+                   <Text style={styles.cinNo}>CIN_No: {unitData[0]?.CIN_No}</Text>
           </View>
         
           <Text style={[styles.addressText, {marginBottom:'3px'}]}>
@@ -414,13 +422,12 @@ export default function CustomerPDF({ dataBasedOnCust,unitData }) {
         <View style={styles.headerTextContainer}>
           <Text style={[styles.headerText, {marginBottom:'3px'}]}>Magod Laser Private Limited</Text>
           <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'10px'}}>
-          <Text style={{ fontWeight: 'bold' }}>GST: {unitData[0]?.GST_No}</Text>
-          <Text style={{ fontWeight: 'bold' }}>CIN_No: {unitData[0]?.CIN_No}</Text>
+          <Text style={styles.gstNo}>GST: {unitData[0]?.GST_No}</Text>
+                   <Text style={styles.cinNo}>CIN_No: {unitData[0]?.CIN_No}</Text>
           </View>
         
           <Text style={[styles.addressText, {marginBottom:'3px'}]}>
-            {/* Plot NO 72, Phase || KIADB Industrial Area Jigani, Anekal Taluk
-            Bangalore Pin: Karnataka */}
+           
             {unitData[0]?.Unit_Address}
             
           </Text>
