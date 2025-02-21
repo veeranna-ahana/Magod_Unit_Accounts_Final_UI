@@ -168,12 +168,40 @@ export default function FromHoSync() {
   };
 
   const arrayToXML = (data) => {
-    const unitVendorDataSyncInfo = (data.vendorSyncData && data.vendorSyncData[0].responseVendorData) || [];
-    const unitpurchaseinvoicelistSyncInfo = (data.purchaseInvSyncData && data.purchaseInvSyncData[0].purchaseInvData) || [];
-    const unitpurchaseinvtaxesSyncInfo = (data.purchaseInvSyncData && data.purchaseInvSyncData[1].purchaseInvTax) || [];
-    const canceledvoucherslistsyncInfo = data.cancelledVrSyncData || [];
-    const hopaymentrvregisterSyncInfo = (data.paymentRVSyncData && data.paymentRVSyncData[0].paymentRvRegister) || [];
-    const hopaymentrvdetailsSyncInfo = (data.paymentRVSyncData && data.paymentRVSyncData[1].paymentRvDetails) || [];
+    // const unitVendorDataSyncInfo =
+    //   (data.vendorSyncData && data.vendorSyncData[0].responseVendorData) || [];
+
+    const unitVendorDataSyncInfo =
+      data?.vendorSyncData[0]?.responseVendorData || [];
+
+    // const unitpurchaseinvoicelistSyncInfo =
+    //   (data.purchaseInvSyncData &&
+    //     data.purchaseInvSyncData[0].purchaseInvData) ||
+    //   [];
+
+    const unitpurchaseinvoicelistSyncInfo =
+      data?.purchaseInvSyncData[0]?.purchaseInvData || [];
+
+    // const unitpurchaseinvtaxesSyncInfo =
+    //   (data.purchaseInvSyncData &&
+    //     data.purchaseInvSyncData[1].purchaseInvTax) ||
+    //   [];
+
+    const unitpurchaseinvtaxesSyncInfo =
+      data?.purchaseInvSyncData[1]?.purchaseInvTax || [];
+
+    const canceledvoucherslistsyncInfo = data?.cancelledVrSyncData || [];
+    // const hopaymentrvregisterSyncInfo =
+    //   (data?.paymentRVSyncData && data.paymentRVSyncData[0].paymentRvRegister) ||
+    //   [];
+    const hopaymentrvregisterSyncInfo =
+      data?.paymentRVSyncData?.[0]?.paymentRvRegister || [];
+    const hopaymentrvdetailsSyncInfo =
+      data?.paymentRVSyncData?.[1]?.paymentRvDetails || [];
+
+    // const hopaymentrvdetailsSyncInfo =
+    //   (data.paymentRVSyncData && data.paymentRVSyncData[1].paymentRvDetails) ||
+    //   [];
     const options = {
       compact: true,
       ignoreComment: true,
@@ -234,6 +262,14 @@ export default function FromHoSync() {
   };
 
   const handleDownload = async () => {
+    console.log(
+      "PPPPPPPPPPP",
+      vendorSyncData,
+      purchaseInvSyncData,
+      paymentRVSyncData,
+      cancelledVrSyncData
+    );
+
     try {
       // Generate XML string
       const xmlString = arrayToXML({
