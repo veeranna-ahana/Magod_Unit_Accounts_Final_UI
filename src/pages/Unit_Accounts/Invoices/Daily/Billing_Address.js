@@ -45,33 +45,7 @@ export default function Billing_Address() {
         </div>
       </div>
 
-      {/* <div className="row  mb-4 ">
-        <div className="col-md-4 col-sm-6  row  mt-3">
-          <label
-            className="form-label col-md-4  mt-1"
-            style={{ whiteSpace: "nowrap" }}
-          >
-            Select Date
-          </label>
-          <input
-            className="in-field mt-1 col-md-5"
-            type="date"
-            name="date"
-            onChange={handleChange}
-            value={selectedDate}
-          />
-        </div>
-        <button
-          className="button-style mt-4 group-button"
-          type="button"
-          style={{ width: "70px", marginLeft: "640px" }}
-          onClick={(e) => navigate("/UnitAccounts")}
-        >
-          Close
-        </button>
-
-        <div></div>
-      </div> */}
+     
 
       <TabsTwo selectedDate={selectedDate} />
     </>

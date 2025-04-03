@@ -475,6 +475,7 @@ export default function BodyForm() {
                     name="Amount"
                     id="amount"
                     value={postData.Amount}
+                      autoComplete="off"
                   />
                 </div>
 

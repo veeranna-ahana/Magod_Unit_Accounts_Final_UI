@@ -144,6 +144,21 @@ export default function UnitDetails() {
     return dataCopy;
   };
 
+  const handleKeyDown = (event) => {
+    if (selectRow === null) return; // Don't move if no row is selected
+
+    if (event.key === "ArrowUp" && selectRow.index > 0) {
+      setSelectRow({ ...sortedData()[selectRow.index - 1], index: selectRow.index - 1 });
+    } else if (event.key === "ArrowDown" && selectRow.index < sortedData().length - 1) {
+      setSelectRow({ ...sortedData()[selectRow.index + 1], index: selectRow.index + 1 });
+    }
+  };
+
+  // Add event listener for keyboard navigation
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectRow]);
   return (
     <>
       <div className="row">

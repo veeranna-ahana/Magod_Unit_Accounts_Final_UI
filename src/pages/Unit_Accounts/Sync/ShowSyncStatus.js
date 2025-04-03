@@ -274,6 +274,7 @@ export default function ShowSyncStatus() {
   //Unit paymentVr
   const selectedPaymentVr = [];
   for (const paymentVr of invPaymentVrList) {
+ 
     if (paymentVr.dc_inv_no == selectRow.DC_Inv_No) {
       selectedPaymentVr.push(paymentVr);
     }
@@ -1124,7 +1125,7 @@ export default function ShowSyncStatus() {
                       <tbody className="tablebody">
                         {/* Check if there is any data */}
                         {selectedPaymentVr && selectedPaymentVr.length > 0 ? (
-                          // Render rows for selectedPaymentVr
+                        
                           selectedPaymentVr.map((item, key) => (
                             <tr style={{ whiteSpace: "nowrap" }} key={key}>
                               <td>{item.VoucherNo}</td>
