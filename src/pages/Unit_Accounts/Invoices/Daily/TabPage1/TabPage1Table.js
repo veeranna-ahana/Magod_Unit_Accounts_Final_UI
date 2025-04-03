@@ -8,21 +8,43 @@ export default function TabPage1Table({ selectedDate }) {
   //console.log("dateeeee tab", formattedDay);
   const [tabPage1Data, setTabPage1Data] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(
-        baseURL + "/billingDetails/getTabPageData",
-        {
-          params: {
-            date: selectedDate,
-          },
-        } // Pass selectedDate as a query parameter
-      )
-      .then((res) => {
-        setTabPage1Data(res.data.Result);
-        console.log("table", res.data.Result);
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       baseURL + "/billingDetails/getTabPageData",
+  //       {
+  //         params: {
+  //           date: selectedDate,
+  //         },
+  //       } // Pass selectedDate as a query parameter
+  //     )
+  //     .then((res) => {
+  //       setTabPage1Data(res.data.Result);
+  //       console.log("2 tab table", res.data.Result);
+  //     });
+  // }, [selectedDate]);
+
+
+useEffect(() => {
+  if (!selectedDate) return; // Ensure selectedDate is not empty before making the request
+
+  const fetchTabPageData = async () => {
+    try {
+      const response = await axios.get(`${baseURL}/billingDetails/getTabPageData`, {
+        params: { date: selectedDate },
       });
-  }, [selectedDate]);
+
+      
+      setTabPage1Data(response.data.Result);
+     
+    } catch (error) {
+      console.error("Error fetching tab page data:", error);
+    }
+  };
+
+  fetchTabPageData();
+}, [selectedDate]);
+
 
   const [selectRow, setSelectRow] = useState("");
   const selectedRowFun = (item, index) => {
@@ -91,7 +113,8 @@ export default function TabPage1Table({ selectedDate }) {
           </thead>
 
           <tbody className="tablebody">
-            {sortedData().map((item, key) => {
+            
+            {/* {sortedData().map((item, key) => {
               return (
                 <>
                   <tr
@@ -102,18 +125,44 @@ export default function TabPage1Table({ selectedDate }) {
                   >
                     <td>{key + 1}</td>
                     <td>{item.Sync_HOId}</td>
-                    {/* <td></td>
-                      <td></td> */}
+                    
                     <td>{item.UnitName}</td>
                     <td>{item.DC_Inv_No}</td>
                     <td>{item.ScheduleId}</td>
-                    <td>{item.Formatted_DC_inv_Date}</td>
+                    
+                    <td>{new Date(item.Dc_inv_Date).toLocaleDateString("en-GB")}</td>
                     <td>{item.DC_InvType}</td>
                     <td>{item.InvoiceFor}</td>
                   </tr>
                 </>
               );
-            })}
+            })} */}
+
+{
+  tabPage1Data.length > 0 ? (
+    sortedData().map((item, key) => (
+      <tr
+        key={key} // 
+        onClick={() => selectedRowFun(item, key)}
+        className={key === selectRow?.index ? "selcted-row-clr" : ""}
+      >
+        <td>{key + 1}</td>
+        <td>{item.Sync_HOId}</td>
+        <td>{item.UnitName}</td>
+        <td>{item.DC_Inv_No}</td>
+        <td>{item.ScheduleId}</td>
+        <td>{new Date(item.Dc_inv_Date).toLocaleDateString("en-GB")}</td>
+        <td>{item.DC_InvType}</td>
+        <td>{item.InvoiceFor}</td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="8" style={{ textAlign: "center" }}>NO data at this specific Date</td>
+    </tr>
+  )
+}
+
           </tbody>
         </Table>
       </div>

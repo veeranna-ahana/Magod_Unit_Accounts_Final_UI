@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
 });
 
 export default function CustomerPDF({ dataBasedOnCust,unitData }) {
-   console.log("pdf data", unitData[0]?.URL);
+   console.log("pdf data", unitData);
   const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {

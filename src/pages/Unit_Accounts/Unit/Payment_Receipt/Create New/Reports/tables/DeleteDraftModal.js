@@ -39,7 +39,7 @@ export default function DeleteDraftModal({
             Yes
           </Button>
           <Button
-            variant="secondary"
+            variant="primary"
             onClick={handleClose}
             style={{ fontSize: "12px" }}
           >

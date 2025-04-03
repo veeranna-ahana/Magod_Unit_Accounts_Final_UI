@@ -140,6 +140,36 @@ function Create_New() {
   }, []);
 
   const handleSave = async (e) => {
+
+
+    // -------------------------------------------------------------------
+
+    if (rvData.data.receipt_details.length > 0) {
+      const isReceiveNowValid = rvData.data.receipt_details.every((row) => {
+        const receiveNow = parseFloat(row.Receive_Now) || 0;
+        const amtReceived = parseFloat(row.Amt_received) || 0;
+        const invAmount = parseFloat(row.Inv_Amount) || 0;
+    
+        if (receiveNow < 0) {
+          toast.error("Receive Now cannot be negative");
+          return false;
+        }
+    
+        if (amtReceived + receiveNow > invAmount) {
+          toast.error("Cannot Receive More than Invoice Amount");
+          return false;
+        } 
+    
+        return true;
+      });
+    
+      if (!isReceiveNowValid) {
+        return; // Stop execution if any validation fails
+      }
+    }
+    
+
+    // ------------------------------------------------------------------
     console.log("postData  ,,,,,,,,,", rvData.postData);
     const isAnyEmptyReceiveNow = rvData.firstTableArray.some(
       (row) => row.Receive_Now === ""
@@ -165,7 +195,7 @@ function Create_New() {
           rvData.postData
         );
 
-        console.log("RESPONSE ID", response.data.result.id);
+        console.log("RESPONSE ID", response.data);
 
         if (response.data.ReceiptStatus === "fail") {
           toast.error(
@@ -173,8 +203,8 @@ function Create_New() {
           );
         } else if (response.data.ReceiptStatus === "query") {
           toast.error("SQL error");
-        } else {
-          toast.success("Saved Successfully");
+        } else if (response.data.Status === "Success"){
+           toast.success("Saved Successfully11");
           let receipt_id = "";
 
           if (response.data.result.id) {
@@ -560,6 +590,7 @@ function Create_New() {
         On_account: receipt_data.data.Result[0].On_account,
         Description: receipt_data.data.Result[0].Description,
       };
+      
 
       setRvData((prevRvData) => ({
         ...prevRvData, // Copy the existing state
@@ -578,7 +609,6 @@ function Create_New() {
 
         setRvData((prevRvData) => ({
           ...prevRvData,
-
           data: {
             ...prevRvData.data,
             receipt_details: response.data.Result,
@@ -1324,6 +1354,7 @@ function Create_New() {
                 e.preventDefault();
               }
             }}
+            autoComplete="off"
           />
         </div>
 
@@ -1658,6 +1689,7 @@ function Create_New() {
                       style={{
                         backgroundColor: row.isSelected ? "#3498db" : "inherit",
                         whiteSpace: "nowrap",
+                        textAlign:'center'
                       }}
                       // onDoubleClick={addToVoucher}
                       onDoubleClick={() => {

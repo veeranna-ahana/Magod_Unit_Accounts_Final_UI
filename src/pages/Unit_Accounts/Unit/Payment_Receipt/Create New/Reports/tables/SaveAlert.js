@@ -18,16 +18,16 @@ export default function SaveAlert({open, setOpen,onYesClick}) {
     <>
       <Modal show={open}>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Magod Unit Accounts</Modal.Title>
+          <Modal.Title  style={{ fontSize: "14px" }}>Magod Unit Accounts</Modal.Title>
         </Modal.Header>
-        <Modal.Body>   
+        <Modal.Body  style={{ fontSize: "12px" }}>   
             <p>Confirm : Do you wish to Post the voucher</p>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="primary" type='submit'  onClick={handleYes}>
+        <Button variant="primary" type='submit'  onClick={handleYes}  style={{ fontSize: "12px" }}>
             Yes
           </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleClose}  style={{ fontSize: "12px" }}>
             No
           </Button>
         </Modal.Footer>

@@ -30,6 +30,7 @@ const AuthProvider = ({ children }) => {
     handleUnitName();
   },[])
 
+console.log("unit details in context", unitDetails);
 
   return (
     <AppContext.Provider
