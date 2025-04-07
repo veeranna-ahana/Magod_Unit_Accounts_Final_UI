@@ -79,6 +79,9 @@ export default function UnitDetails() {
     }
   };
 
+  console.log("unit accounts 3-04-2025");
+  
+
   // useEffect(() => {
   //   UnitGetDta();
   //   getStateList();

@@ -170,20 +170,20 @@ export default function Export({ data }) {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button
-              variant="primary"
+            <button
+              className="button-style  group-button"
               onClick={yesmailSubmit}
               style={{ fontSize: "12px" }}
             >
               Yes
-            </Button>
-            <Button
-              variant="secondary"
+            </button>
+            <button
+           className="button-style  group-button"
               onClick={handleClose}
               style={{ fontSize: "12px" }}
             >
               No
-            </Button>
+            </button>
           </Modal.Footer>
         </Modal>
         <div className="mb-2">

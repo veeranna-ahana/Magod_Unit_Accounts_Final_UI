@@ -22,10 +22,10 @@ export default function ThreadErrorModal({threadModal, setThreadModal,unitDetail
          </Modal.Body> 
 
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}
+          <button className="button-style  group-button" onClick={handleClose}
         >
            Ok
-          </Button>
+          </button>
          
         </Modal.Footer>
       </Modal>

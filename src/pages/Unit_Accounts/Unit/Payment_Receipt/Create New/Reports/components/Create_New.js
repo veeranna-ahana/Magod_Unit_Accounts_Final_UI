@@ -204,7 +204,7 @@ function Create_New() {
         } else if (response.data.ReceiptStatus === "query") {
           toast.error("SQL error");
         } else if (response.data.Status === "Success"){
-           toast.success("Saved Successfully11");
+           toast.success("Saved Successfully");
           let receipt_id = "";
 
           if (response.data.result.id) {

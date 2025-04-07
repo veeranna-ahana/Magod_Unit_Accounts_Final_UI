@@ -24,12 +24,12 @@ export default function SaveAlert({open, setOpen,onYesClick}) {
             <p>Confirm : Do you wish to Post the voucher</p>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="primary" type='submit'  onClick={handleYes}  style={{ fontSize: "12px" }}>
+        <button className='button-style  group-button' type='submit'  onClick={handleYes}  style={{ fontSize: "12px" }}>
             Yes
-          </Button>
-          <Button variant="primary" onClick={handleClose}  style={{ fontSize: "12px" }}>
+          </button>
+          <button className='button-style  group-button' onClick={handleClose}  style={{ fontSize: "12px" }}>
             No
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </>
