@@ -37,14 +37,14 @@ function AlertModal(props) {
           {props.firstbuttontext}
         </Button>
         {props.secondbuttontext ? (
-          <Button
-            variant="secondary"
+          <button
+            className="button-style  group-button"
             onClick={() => {
               props.secondbutton();
             }}
           >
             {props.secondbuttontext}
-          </Button>
+          </button>
         ) : (
           ""
         )}

@@ -472,12 +472,12 @@ export default function AccountSyncXMLFile() {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="primary" onClick={yesmailSubmit}>
+          <button className="button-style  group-button" onClick={yesmailSubmit}>
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          </button>
+          <button className="button-style  group-button" onClick={handleClose}>
             No
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
       <div className="row">
