@@ -149,6 +149,8 @@ export default function DailyReportsForm() {
     setDate(e.target.value);
   };
 
+  console.log("dateeeeeeeeee",date);
+  
   const handleGetData = () => {
     axios
       .post(baseURL + `/dailyReport/reportSummary`, { date: date })

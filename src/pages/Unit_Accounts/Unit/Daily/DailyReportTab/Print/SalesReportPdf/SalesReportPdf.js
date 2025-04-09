@@ -37,6 +37,8 @@ const SalesReportPdf = React.forwardRef((props, ref) => {
   const values = props.groupedArray;
   const date = props.date;
   const taxValues = props.getValuesTax;
+  const unitDetails=props.unitDetails;
+  console.log("unit detailss PDF PrintButton3", unitDetails);
 
   function formatAmount(amount) {
     // Assuming amount is a number

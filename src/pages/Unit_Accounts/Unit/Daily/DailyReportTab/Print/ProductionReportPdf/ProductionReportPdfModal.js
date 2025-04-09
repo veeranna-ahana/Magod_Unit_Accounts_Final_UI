@@ -55,9 +55,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   logo: {
-    width: "50%",
-    marginLeft: "20%",
-    marginBottom: "1%",
+    width: 50,
+    height: 50,
   },
   textContainer: {
     flexDirection: "column",
@@ -103,6 +102,44 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 12,
   },
+  ///my pdf styles
+
+
+  headerTextContainer: {
+    flex: 1, // Allow this view to take the remaining space
+    textAlign: "center", // Center text horizontally
+  },
+  
+  addressText: {
+    fontSize: 10,
+    marginTop: 5,
+  },
+  gstNo:{
+    fontWeight:'bold',
+    fontFamily: "Helvetica-Bold",
+  },
+  cinNo:{
+    fontWeight:'bold',
+    fontFamily: "Helvetica-Bold",
+  }
+  , pageHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginLeft: "10px",
+    marginRight: "10px",
+    marginBottom: "5px",
+   
+  },
+  headerText: {
+    fontSize: 16,
+    
+    fontFamily: "Helvetica-Bold",
+  
+    // marginTop: "30px",
+    // marginLeft: "20px",
+  },
+  ///my pdf styles
 });
 
 // Format amount function for React-PDF
@@ -113,7 +150,7 @@ const formatAmount = (amount) =>
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     : "0.00";
 
-const ProductionReportPdfModal = ({ getValuesPrdSum, date }) => {
+const ProductionReportPdfModal = ({ getValuesPrdSum, date, unitData }) => {
   const proData = getValuesPrdSum;
 
   const formatDate = (dateString) => {
@@ -224,7 +261,7 @@ const ProductionReportPdfModal = ({ getValuesPrdSum, date }) => {
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.container}>
-        <View style={styles.logoContainer}>
+        {/* <View style={styles.logoContainer}>
           <View style={{ width: "10%" }}>
             <Image src={MagodLogo} style={styles.logo} />
           </View>
@@ -238,7 +275,47 @@ const ProductionReportPdfModal = ({ getValuesPrdSum, date }) => {
               </Text>
             </View>
           </View>
-        </View>
+        </View> */}
+
+
+          {/* -------- /////////// */}
+
+
+
+       <View style={styles.pageHeader}>
+     
+       <Image src={MagodLogo} style={styles.logo} />
+
+    
+     <View style={styles.headerTextContainer}>
+     <View style={styles.title}>
+              <Text style={[styles.headerText,{  borderBottom:'1px'}]}>
+                Production and Clearance Summary
+              </Text>
+            </View>
+       <Text style={[styles.headerText, {marginBottom:'3px'}]}>Magod Laser Private Limited</Text>
+       <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'10px'}}>
+          <Text style={styles.gstNo}>GST: {unitData[0]?.GST_No}</Text>
+                <Text style={styles.cinNo}>CIN_No: {unitData[0]?.CIN_No}</Text>
+       </View>
+     
+       <Text style={[styles.addressText, {marginBottom:'3px'}]}>
+      
+         {unitData[0]?.Unit_Address}
+         
+       </Text>
+
+       <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'5px'}}>
+       <Text > {unitData[0]?.PhonePrimary || "+91-80-42291005"}</Text>
+       <Text > {unitData[0]?.PhoneSecondary || "+91-8110-414313"}</Text>
+       <Text > {unitData[0]?.URL || 'info@magodlaser.in'}</Text>
+       <Text > {unitData[0]?.Email ||  'http://www.magodlaser.in'}</Text>
+       </View>
+     </View>
+   </View>
+
+
+    {/* ------- ////// */}
 
         {/* Line Divider */}
         <View style={styles.line} />

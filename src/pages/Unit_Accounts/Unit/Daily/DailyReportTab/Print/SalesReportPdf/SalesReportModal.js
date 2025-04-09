@@ -12,6 +12,7 @@ export default function SalesReportModal({
   groupedArray,
   date,
   getValuesTax,
+  unitDetails
 }) {
   const styles = StyleSheet.create({
     page: {
@@ -53,6 +54,7 @@ export default function SalesReportModal({
           date={date}
           groupedArray={groupedArray}
           getValuesTax={getValuesTax}
+          unitData={unitDetails}
         />
       ).toBlob();
 
@@ -76,6 +78,10 @@ export default function SalesReportModal({
     }
   };
 
+  console.log("in modal ",unitDetails
+  );
+  
+
   return (
     <div>
       <Modal show={pdfOpen} fullscreen>
@@ -96,6 +102,7 @@ export default function SalesReportModal({
                 date={date}
                 groupedArray={groupedArray}
                 getValuesTax={getValuesTax}
+                unitData={unitDetails}
               />
             </PDFViewer>
           </Fragment>

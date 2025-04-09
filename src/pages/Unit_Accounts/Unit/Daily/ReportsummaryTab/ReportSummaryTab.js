@@ -24,6 +24,9 @@ export default function ReportSummaryTab({
     ascending: true,
   });
 
+  
+  
+
   const selectedRowFun = (item, index) => {
     let list = { ...item, index: index };
     setSelectRow(list);
@@ -63,7 +66,7 @@ export default function ReportSummaryTab({
   };
 
   const totalSum = getValuesReport
-    .reduce((acc, item) => acc + parseFloat(item.Total), 0)
+    .reduce((acc, item) => acc + parseFloat(item.Total4), 0)
     .toFixed(2)
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -71,6 +74,7 @@ export default function ReportSummaryTab({
     .reduce((acc, item) => acc + parseFloat(item.Total), 0)
     .toFixed(2)
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    console.log("getValuesReport",getValuesReport);
 
   useEffect(() => {
     // Update data and sort by Total (Report)
@@ -143,7 +147,7 @@ export default function ReportSummaryTab({
                     </td>
                     <td style={{ textAlign: "right" }}>{item.invCount}</td>
                     <td style={{ textAlign: "right" }}>
-                      {formatAmount(item.Total)}
+                      {formatAmount(item.Total4)}
                     </td>
                   </tr>
                 );

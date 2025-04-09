@@ -10,6 +10,7 @@ import SalesReportModal from "./Print/SalesReportPdf/SalesReportModal";
 import jsPDF from "jspdf";
 import ProductionReportModal from "./Print/ProductionReportPdf/ProductionReportModal";
 import ReceiptReportModal from "./Print/ReceiptReportPdf/ReceiptReportModal";
+import { useGlobalContext } from "../../../../../Context/Context";
 
 export default function Dailyreport({
   date,
@@ -25,6 +26,10 @@ export default function Dailyreport({
   const [pdfOpen, setPdfOpen] = useState(false);
   const [productionPdfOpen, setProductionPdfOpen] = useState(false);
   const [receiptPdfOpen, setReceiptPdfOpen] = useState(false);
+
+   const { unitDetails } = useGlobalContext();
+   console.log("unir details in Daily Report, date ", date);
+   
 
   // Sales Report Pdf
   const pdfSalesReport = () => {
@@ -134,87 +139,7 @@ export default function Dailyreport({
   return (
     <>
       <div className="row col-md-12">
-        {/* <div className="col-md-2">
-          <div>
-            <button
-              className="button-style mt-2 group-button"
-              onClick={() => {
-                handlePrintButtonClick();
-                handleDownloadPdf();
-              }}
-              style={{ width: "120px" }}
-            >
-              Sales Report
-            </button>
-            <ReactToPrint
-              trigger={() => (
-                <div style={{ display: "none" }}>
-                  <SalesReportPdf
-                    ref={contentRef}
-                    date={date}
-                    groupedArray={groupedArray}
-                    getValuesTax={getValuesTax}
-                  />
-                </div>
-              )}
-              content={() => contentRef.current}
-              ref={printRef} 
-              documentTitle="Sales Report"
-            />
-          </div>
-          <div className="" style={{ marginTop: "20px" }}>
-            <button
-              className="button-style mt-2 group-button"
-              style={{ width: "120px" }}
-              onClick={handleProductionPrintClick}
-            >
-              Production Report
-            </button>
-            <ReactToPrint
-              trigger={() => (
-                <div style={{ display: "none" }}>
-                  <ProductionReportPdf
-                    ref={contentReff}
-                    getValuesPrdSum={getValuesPrdSum}
-                    date={date}
-                  />
-                </div>
-              )}
-              content={() => contentReff.current}
-              ref={printReff}
-              documentTitle="Production Report"
-            />
-          </div>
-
-          <div className="" style={{ marginTop: "20px" }}>
-            <button
-              className="button-style mt-15 group-button"
-              style={{ width: "120px" }}
-              onClick={handleReceiptPrintButtonClick}
-            >
-              Receipts Report
-            </button>
-
-            <ReactToPrint
-              trigger={() => (
-                <div style={{ display: "none" }}>
-                  <ReceiptReportPdf
-                    ref={contentRefff}
-                    getPdfTaxValuess={getPdfTaxValuess}
-                    date={date}
-                    groupedCustTaxArray={groupedCustTaxArray}
-                    getCustTax={getCustTax}
-                    overallOnAccountTotal={overallOnAccountTotal}
-                    overallTotal={overallTotal}
-                  />
-                </div>
-              )}
-              content={() => contentRefff.current}
-              ref={printRefff} 
-              documentTitle="Receipt Report"
-            />
-          </div>
-        </div> */}
+        
         
         <div className="col-md-2">
           <div>
@@ -232,6 +157,7 @@ export default function Dailyreport({
                 date={date}
                 groupedArray={groupedArray}
                 getValuesTax={getValuesTax}
+                unitDetails={unitDetails}
               />
             )}
           </div>
@@ -240,6 +166,7 @@ export default function Dailyreport({
               className="button-style mt-2 group-button"
               style={{ width: "120px" }}
               onClick={pdfProductionReport}
+
             >
               Production Report
             </button>
@@ -249,6 +176,7 @@ export default function Dailyreport({
                 setProductionPdfOpen={setProductionPdfOpen}
                 getValuesPrdSum={getValuesPrdSum}
                 date={date}
+                unitDetails={unitDetails}
               />
             )}
           </div>
@@ -270,6 +198,7 @@ export default function Dailyreport({
                 overallTotal={overallTotal}
                 receiptPdfOpen={receiptPdfOpen}
                 setReceiptPdfOpen={setReceiptPdfOpen}
+                unitDetails={unitDetails}
               />
             )}
           </div>
