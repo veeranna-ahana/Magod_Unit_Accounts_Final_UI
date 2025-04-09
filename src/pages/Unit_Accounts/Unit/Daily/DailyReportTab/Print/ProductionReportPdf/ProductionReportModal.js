@@ -11,6 +11,7 @@ export default function ProductionReportModal({
   setProductionPdfOpen,
   getValuesPrdSum,
   date,
+  unitDetails
 }) {
   const handleClose = () => {
     setProductionPdfOpen(false);
@@ -28,6 +29,7 @@ export default function ProductionReportModal({
         <ProductionReportPdfModal
           date={date}
           getValuesPrdSum={getValuesPrdSum}
+          unitData={unitDetails}
         />
       ).toBlob();
 
@@ -70,6 +72,7 @@ export default function ProductionReportModal({
               <ProductionReportPdfModal
                 date={date}
                 getValuesPrdSum={getValuesPrdSum}
+                unitData={unitDetails}
               />
             </PDFViewer>
           </Fragment>

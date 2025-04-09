@@ -69,9 +69,49 @@ const styles = StyleSheet.create({
     width: "40%", // Occupies the other 50% of the container
     // alignItems: "flex-end", // Align content to the right (optional)
   },
+
+  ///my pdf styles
+
+
+  headerTextContainer: {
+    flex: 1, // Allow this view to take the remaining space
+    textAlign: "center", // Center text horizontally
+  },
+  
+  addressText: {
+    fontSize: 10,
+    marginTop: 5,
+  },
+  gstNo:{
+    fontWeight:'bold',
+    fontFamily: "Helvetica-Bold",
+  },
+  cinNo:{
+    fontWeight:'bold',
+    fontFamily: "Helvetica-Bold",
+  }
+  , pageHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginLeft: "10px",
+    marginRight: "10px",
+    marginBottom: "5px",
+   
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    // marginTop: "30px",
+    // marginLeft: "20px",
+  },
+  ///my pdf styles
 });
 
-const SalesReportPdfModal = ({ groupedArray, date, getValuesTax }) => {
+const SalesReportPdfModal = ({ groupedArray, date, getValuesTax, unitData }) => {
+
+  console.log("unitdetails in pdf ", unitData);
+  
   const formatAmount = (amount) =>
     new Intl.NumberFormat("en-IN", {
       minimumFractionDigits: 2,
@@ -193,10 +233,46 @@ const SalesReportPdfModal = ({ groupedArray, date, getValuesTax }) => {
     <Document>
       <Page style={styles.page}>
         {/* Header */}
-        <View style={styles.header}>
+        {/* <View style={styles.header}>
           <Image style={styles.logo} src={MagodLogo} />
           <Text style={styles.heading}>Magod Laser Machining Pvt Ltd</Text>
+        </View> */}
+
+
+
+       {/* -------- /////////// */}
+
+
+
+       <View style={styles.pageHeader}>
+     
+        <Image style={styles.logo} src={MagodLogo} />
+
+       
+        <View style={styles.headerTextContainer}>
+          <Text style={[styles.headerText, {marginBottom:'3px'}]}>Magod Laser Private Limited</Text>
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'10px'}}>
+             <Text style={styles.gstNo}>GST: {unitData[0]?.GST_No}</Text>
+                   <Text style={styles.cinNo}>CIN_No: {unitData[0]?.CIN_No}</Text>
+          </View>
+        
+          <Text style={[styles.addressText, {marginBottom:'3px'}]}>
+         
+            {unitData[0]?.Unit_Address}
+            
+          </Text>
+
+          <View style={{ display: 'flex', flexDirection: 'row',  alignItems: 'center', justifyContent:'center' , gap:'5px'}}>
+          <Text > {unitData[0]?.PhonePrimary || "+91-80-42291005"}</Text>
+          <Text > {unitData[0]?.PhoneSecondary || "+91-8110-414313"}</Text>
+          <Text > {unitData[0]?.URL || 'info@magodlaser.in'}</Text>
+          <Text > {unitData[0]?.Email ||  'http://www.magodlaser.in'}</Text>
+          </View>
         </View>
+      </View>
+
+
+       {/* ------- ////// */}
 
         <View style={styles.line}></View>
 

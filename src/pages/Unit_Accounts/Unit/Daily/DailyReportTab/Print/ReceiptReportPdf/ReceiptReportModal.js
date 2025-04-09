@@ -15,6 +15,7 @@ export default function ReceiptReportModal({
   groupedCustTaxArray,
   date,
   getPdfTaxValuess,
+  unitDetails
 }) {
   const handleClose = () => {
     setReceiptPdfOpen(false);
@@ -36,6 +37,7 @@ export default function ReceiptReportModal({
           groupedCustTaxArray={groupedCustTaxArray}
           date={date}
           getPdfTaxValuess={getPdfTaxValuess}
+          unitDetails={unitDetails}
         />
       ).toBlob();
 
@@ -82,6 +84,7 @@ export default function ReceiptReportModal({
                 groupedCustTaxArray={groupedCustTaxArray}
                 date={date}
                 getPdfTaxValuess={getPdfTaxValuess}
+                unitData={unitDetails}
               />
             </PDFViewer>
           </Fragment>
