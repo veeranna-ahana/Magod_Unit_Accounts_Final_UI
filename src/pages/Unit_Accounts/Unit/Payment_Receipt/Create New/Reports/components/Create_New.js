@@ -141,6 +141,7 @@ function Create_New() {
 
   const handleSave = async (e) => {
 
+console.log("post data 00000000000", rvData.postData);
 
     // -------------------------------------------------------------------
 
@@ -513,26 +514,28 @@ function Create_New() {
   console.log("row data from oaccount list ", rowData);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (rowData !== "") {
-        try {
-          //fetch Form data
-          const response = await axios.get(
-            baseURL + `/Payment_Receipts/getreceipt?receipt_id=${rowData}`
-          );
-          console.log("res", response.data.Result[0]);
-          getReceipts(
-            response.data.Result[0].Cust_code,
-            response.data.Result[0]
-          );
-        } catch (error) {
-          console.error("Error making API call:", error);
-        }
-      }
-    };
-
+   
     fetchData();
   }, [rowData]);
+
+ 
+  const fetchData = async () => {
+    if (rowData !== "") {
+      try {
+        //fetch Form data
+        const response = await axios.get(
+          baseURL + `/Payment_Receipts/getreceipt?receipt_id=${rowData}`
+        );
+        console.log("res", response.data.Result[0]);
+        getReceipts(
+          response.data.Result[0].Cust_code,
+          response.data.Result[0]
+        );
+      } catch (error) {
+        console.error("Error making API call:", error);
+      }
+    }
+  };
 
   const handleTypeaheadChange = (selectedOptions) => {
     if (selectedOptions && selectedOptions.length > 0) {
@@ -783,6 +786,7 @@ function Create_New() {
     }
   };
 
+  //add to Voucher Button
   const addToVoucher = async () => {
     const isAnyEmptyReceiveNow = rvData.firstTableArray.some(
       (row) => row.Receive_Now === ""
@@ -993,62 +997,7 @@ function Create_New() {
     }
   };
 
-  const onBlurr = async () => {
-    const res = axios.put(
-      baseURL +
-        "/Payment_Receipts/saveVoucherReceipt/" +
-        rvData.data.receipt_id,
-      rvData.data.receipt_details
-    );
-
-    console.log("rvData.data.receipt_details", rvData.data.receipt_details);
-    if (rvData.data.receipt_details.length > 0) {
-      const isReceiveNowValid = rvData.data.receipt_details.every((row) => {
-        const receiveNow = parseFloat(row.Receive_Now) || 0;
-        const amtReceived = parseFloat(row.Amt_received) || 0;
-        const invAmount = parseFloat(row.Inv_Amount) || 0;
-
-        if (receiveNow === "") {
-          toast.error("Receive_Now can not be empty");
-          return false;
-        } else if (receiveNow <= 0) {
-          toast.error("Enter Valid  Amount");
-          return false;
-        } else if (amtReceived + receiveNow > invAmount) {
-          toast.error("Cannot Receive More than Invoice Amount");
-          return false;
-        } else {
-          setRvData((prevRvData) => {
-            // Calculate and update On_account here
-
-            const newOnAccount = prevRvData.data.receipt_details.reduce(
-              (total, row) => total + parseFloat(row.Receive_Now || 0),
-              0
-            );
-            //console.log("total", total);
-            console.log("save new onaccount", newOnAccount);
-
-            console.log("ACCCOUNT", rvData.postData.Amount);
-
-            const TA = parseFloat(rvData.postData.Amount);
-
-            const finalOnAccount = TA - newOnAccount;
-
-            return {
-              ...prevRvData,
-              postData: {
-                ...prevRvData.postData,
-                On_account: finalOnAccount,
-              },
-            };
-          });
-        }
-
-        return true;
-      });
-    }
-  };
-
+  
   useEffect(() => {
     const saveData = async () => {
       if (rvData.postData.RecdPVID) {
@@ -1594,7 +1543,7 @@ function Create_New() {
                           <td>
                             <input
                               //type="number"
-                              // onBlur={onBlurr}
+                             
                               name="Receive_Now"
                               value={data.Receive_Now}
                               onChange={(e) =>
