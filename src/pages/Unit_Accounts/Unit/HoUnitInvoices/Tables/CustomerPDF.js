@@ -348,6 +348,7 @@ export default function CustomerPDF({ dataBasedOnCust,unitData }) {
 
   const poBalanceSum = {};
 
+//PO no calculation for PDF
   dataBasedOnCust.forEach((item) => {
     const poNo = item.PO_No;
     poBalanceSum[poNo] = (poBalanceSum[poNo] || 0) + parseFloat(item.Balance);
