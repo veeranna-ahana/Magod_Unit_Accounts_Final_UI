@@ -234,6 +234,7 @@ export default function CustomerRVList() {
             style={{ marginTop: "5px" }}
             onChange={handleSearch}
             value={searchInput}
+            placeholder="ReceiptVoucherNo/Txn_type"
           />
         </div>
         <div className="col-md-3">

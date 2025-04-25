@@ -172,7 +172,7 @@ export default function All() {
           <label className="form-label">Search</label>
           <input
             className="in-field mt-1"
-            placeholder="RV_NO/Status/Txn_Type"
+            placeholder="ReceiptVoucher_NO/Txn_Type"
             type="text"
             onChange={handleSearch}
             value={searchInput}
